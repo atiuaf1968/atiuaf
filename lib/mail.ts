@@ -118,9 +118,9 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
 
   const referenceHtml = referenceId
     ? `
-      <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px 18px; margin: 18px 0; text-align: center;">
+      <div class="email-ref-box" style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px 18px; margin: 18px 0; text-align: center;">
         <span style="font-size: 11px; color: #166534; text-transform: uppercase; font-weight: 700; letter-spacing: 0.8px;">Registration Tracking ID</span>
-        <div style="font-size: 20px; font-weight: 800; color: #15803d; letter-spacing: 1px; margin-top: 4px;">${referenceId}</div>
+        <div class="email-ref-id" style="font-size: 20px; font-weight: 800; color: #15803d; letter-spacing: 1px; margin-top: 4px;">${referenceId}</div>
       </div>
     `
     : '';
@@ -128,14 +128,14 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
   const detailsHtml =
     details.length > 0
       ? `
-        <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin: 18px 0; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+        <table class="email-details-table" role="presentation" style="width: 100%; border-collapse: collapse; font-size: 13px; margin: 18px 0; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
           <tbody>
             ${details
               .map(
                 (row, idx) => `
-                  <tr style="border-bottom: ${idx === details.length - 1 ? 'none' : '1px solid #f3f4f6'}; background-color: ${idx % 2 === 0 ? '#ffffff' : '#fafafa'};">
-                    <td style="padding: 10px 14px; font-weight: 700; color: #4b5563; width: 140px; vertical-align: top;">${row.label}:</td>
-                    <td style="padding: 10px 14px; color: #111827; word-break: break-word;">${row.value}</td>
+                  <tr class="email-details-row" style="border-bottom: ${idx === details.length - 1 ? 'none' : '1px solid #f3f4f6'}; background-color: ${idx % 2 === 0 ? '#ffffff' : '#fafafa'};">
+                    <td class="email-details-label" style="padding: 10px 14px; font-weight: 700; color: #4b5563; width: 140px; vertical-align: top;">${row.label}:</td>
+                    <td class="email-details-value" style="padding: 10px 14px; color: #111827; word-break: break-word;">${row.value}</td>
                   </tr>
                 `
               )
@@ -147,7 +147,7 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
 
   const calloutHtml = callout
     ? `
-      <div style="background-color: #f9fafb; border-left: 4px solid #087A43; border-top: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; border-radius: 0 8px 8px 0; padding: 16px; margin: 18px 0;">
+      <div class="email-callout" style="background-color: #f9fafb; border-left: 4px solid #087A43; border-top: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; border-radius: 0 8px 8px 0; padding: 16px; margin: 18px 0;">
         <div style="font-size: 13px; font-weight: 700; color: #087A43; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">${callout.title}</div>
         <div style="font-size: 14px; line-height: 1.6; color: #1f2937; white-space: pre-wrap;">${callout.content}</div>
       </div>
@@ -163,15 +163,102 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
   <title>${heading}</title>
+  <style>
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }
+    @media only screen and (max-width: 600px) {
+      .email-wrapper {
+        padding: 8px 4px !important;
+      }
+      .email-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 12px !important;
+      }
+      .email-header-pad {
+        padding: 18px 16px 14px 16px !important;
+      }
+      .email-body-pad {
+        padding: 18px 16px !important;
+      }
+      .email-motto-pad {
+        padding: 12px 14px !important;
+      }
+      .email-footer-pad {
+        padding: 18px 16px !important;
+      }
+      .email-logo-img {
+        width: 48px !important;
+        height: 48px !important;
+      }
+      .email-logo-td {
+        width: 52px !important;
+        padding-right: 12px !important;
+      }
+      .email-org-title {
+        font-size: 16px !important;
+        line-height: 1.2 !important;
+      }
+      .email-org-sub {
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+      }
+      .email-org-badge {
+        font-size: 9px !important;
+      }
+      .email-heading {
+        font-size: 18px !important;
+        line-height: 1.3 !important;
+      }
+      .email-details-table {
+        display: block !important;
+        width: 100% !important;
+      }
+      .email-details-row {
+        display: block !important;
+        width: 100% !important;
+        padding: 8px 10px !important;
+        box-sizing: border-box !important;
+      }
+      .email-details-label {
+        display: block !important;
+        width: 100% !important;
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        color: #6b7280 !important;
+        padding: 0 0 2px 0 !important;
+      }
+      .email-details-value {
+        display: block !important;
+        width: 100% !important;
+        font-size: 13px !important;
+        color: #111827 !important;
+        padding: 0 !important;
+      }
+      .email-callout {
+        padding: 12px 14px !important;
+      }
+      .email-ref-box {
+        padding: 12px 14px !important;
+      }
+      .email-ref-id {
+        font-size: 18px !important;
+      }
+    }
+  </style>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
-  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f3f4f6; padding: 32px 12px;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="email-wrapper" style="background-color: #f3f4f6; padding: 24px 8px;">
     <tr>
       <td align="center">
         <!-- Main Card Container -->
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="email-card" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
           
           <!-- Top Accent Ribbon (ATI Brand Green & Red) -->
           <tr>
@@ -180,22 +267,22 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
 
           <!-- Header with Logo -->
           <tr>
-            <td style="padding: 28px 32px 20px 32px; border-bottom: 1px solid #f3f4f6;">
+            <td class="email-header-pad" style="padding: 24px 28px 18px 28px; border-bottom: 1px solid #f3f4f6;">
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
                   <!-- Official Logo (Embedded via CID) -->
-                  <td width="64" valign="middle" style="padding-right: 16px;">
-                    <img src="cid:atilogocid" alt="ATI UAF Official Logo" width="60" height="60" style="display: block; width: 60px; height: 60px; border-radius: 50%; object-fit: contain; background-color: #f9fafb; border: 1px solid #e5e7eb;" />
+                  <td width="64" valign="middle" class="email-logo-td" style="padding-right: 16px;">
+                    <img src="cid:atilogocid" alt="ATI UAF Official Logo" width="56" height="56" class="email-logo-img" style="display: block; width: 56px; height: 56px; border-radius: 50%; object-fit: contain; background-color: #f9fafb; border: 1px solid #e5e7eb;" />
                   </td>
                   <!-- Organization Branding -->
                   <td valign="middle">
-                    <div style="font-size: 18px; font-weight: 800; color: #087A43; line-height: 1.2; letter-spacing: 0.5px;">
+                    <div class="email-org-title" style="font-size: 18px; font-weight: 800; color: #087A43; line-height: 1.2; letter-spacing: 0.5px;">
                       ANJUMAN TALABA-E-ISLAM
                     </div>
-                    <div style="font-size: 12px; font-weight: 600; color: #4b5563; margin-top: 2px;">
+                    <div class="email-org-sub" style="font-size: 12px; font-weight: 600; color: #4b5563; margin-top: 2px;">
                       University of Agriculture, Faisalabad (UAF Chapter)
                     </div>
-                    <div style="font-size: 10px; font-weight: 700; color: #C62828; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 3px;">
+                    <div class="email-org-badge" style="font-size: 10px; font-weight: 700; color: #C62828; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 3px;">
                       Non-Political Student Association • Est. 1968
                     </div>
                   </td>
@@ -206,12 +293,12 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
 
           <!-- Body Content -->
           <tr>
-            <td style="padding: 28px 32px;">
+            <td class="email-body-pad" style="padding: 24px 28px;">
               ${badgeHtml}
-              <h1 style="font-size: 20px; font-weight: 800; color: #111827; margin: 0 0 6px 0; line-height: 1.3;">
+              <h1 class="email-heading" style="font-size: 20px; font-weight: 800; color: #111827; margin: 0 0 6px 0; line-height: 1.3;">
                 ${heading}
               </h1>
-              ${subheading ? `<p style="font-size: 14px; color: #6b7280; margin: 0 0 18px 0;">${subheading}</p>` : '<div style="height: 12px;"></div>'}
+              ${subheading ? `<p style="font-size: 13px; color: #6b7280; margin: 0 0 16px 0;">${subheading}</p>` : '<div style="height: 10px;"></div>'}
               ${greetingHtml}
               ${paragraphsHtml}
               ${referenceHtml}
@@ -223,7 +310,7 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
 
           <!-- Prophetic Love Motto Banner -->
           <tr>
-            <td style="background-color: #f0fdf4; padding: 18px 32px; border-top: 1px solid #dcfce7; border-bottom: 1px solid #dcfce7;">
+            <td class="email-motto-pad" style="background-color: #f0fdf4; padding: 14px 24px; border-top: 1px solid #dcfce7; border-bottom: 1px solid #dcfce7;">
               <p style="font-size: 12px; font-style: italic; color: #166534; margin: 0; line-height: 1.5; text-align: center;">
                 "${OFFICIAL_MOTTO}"
               </p>
@@ -232,17 +319,17 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
 
           <!-- Footer Information -->
           <tr>
-            <td style="background-color: #fafafa; padding: 24px 32px; text-align: center;">
+            <td class="email-footer-pad" style="background-color: #fafafa; padding: 20px 24px; text-align: center;">
               <div style="font-size: 12px; font-weight: 700; color: #1f2937; margin-bottom: 4px;">
                 Central Secretariat — ATI UAF Chapter
               </div>
               <div style="font-size: 11px; color: #6b7280; line-height: 1.6;">
-                Jinnah Hall, University of Agriculture, Jail Road, Faisalabad, Pakistan<br />
-                Helpline: +92 317 2011968 / 0314 8015678 • Email: atiuafpak@gmail.com<br />
-                Official Portal: <a href="https://atiuaf.com" style="color: #087A43; text-decoration: underline;">https://atiuaf.com</a>
+                Jinnah Hall, University of Agriculture, Jail Road, Faisalabad<br />
+                Helpline: <a href="tel:+923172011968" style="color: #4b5563; text-decoration: none; font-weight: 600;">+92 317 2011968</a> • <a href="tel:03148015678" style="color: #4b5563; text-decoration: none;">0314 8015678</a><br />
+                Email: <a href="mailto:atiuafpak@gmail.com" style="color: #087A43; text-decoration: underline;">atiuafpak@gmail.com</a> • Portal: <a href="https://atiuaf.com" style="color: #087A43; text-decoration: underline;">https://atiuaf.com</a>
               </div>
-              <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid #e5e7eb; font-size: 10px; color: #9ca3af;">
-                Automated Transactional Message • Delivery logs monitored via <a href="https://mailtrap.io/sending/email_logs" style="color: #9ca3af; text-decoration: underline;">Mailtrap</a>
+              <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid #e5e7eb; font-size: 10px; color: #9ca3af;">
+                Automated Transactional Message • Monitored via <a href="https://mailtrap.io/sending/email_logs" style="color: #9ca3af; text-decoration: underline;">Mailtrap</a>
               </div>
             </td>
           </tr>

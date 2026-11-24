@@ -56,11 +56,11 @@ export default function AboutPage() {
       {/* =========================================================================
           HERO BANNER
          ========================================================================= */}
-      <section className="relative bg-white pt-16 pb-20 border-b border-gray-100 overflow-hidden">
+      <section className="relative bg-white pt-10 sm:pt-14 pb-12 sm:pb-16 border-b border-gray-100 overflow-hidden">
         <IslamicPattern opacity={0.05} variant="dual" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green-50 border border-brand-green-200 text-xs font-bold uppercase tracking-wider text-brand-green-800 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green-50 border border-brand-green-200 text-xs font-bold uppercase tracking-wider text-brand-green-800 mb-5">
             <span className="w-2 h-2 rounded-full bg-brand-green-600 animate-pulse" />
             <span>Organizational Heritage & Philosophy</span>
           </div>
@@ -70,11 +70,11 @@ export default function AboutPage() {
             <span className="text-brand-red-600">Our Heritage</span>
           </h1>
 
-          <p className="mt-5 text-base sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-4 sm:mt-5 text-base sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Rooted in the venerable tradition of Anjuman Talaba-e-Islam since 1968, Student Power at the University of Agriculture, Faisalabad (UAF) is the campus voice of educated, principled youth committed to academic distinction, student welfare, and Islamic values.
           </p>
 
-          <div className="mt-8 flex items-center justify-center gap-2">
+          <div className="mt-6 sm:mt-8 flex items-center justify-center gap-2">
             <span className="w-12 h-1 bg-brand-green-600 rounded-full" />
             <span className="w-4 h-1 bg-brand-red-600 rounded-full" />
             <span className="w-12 h-1 bg-brand-green-600 rounded-full" />
@@ -85,11 +85,11 @@ export default function AboutPage() {
       {/* =========================================================================
           ORGANIZATIONAL BACKGROUND & HISTORY
          ========================================================================= */}
-      <section id="history" className="py-20 bg-white relative overflow-hidden">
+      <section id="history" className="py-10 sm:py-14 bg-white relative overflow-hidden">
         <IslamicPattern opacity={0.03} variant="green" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-brand-red-50 text-brand-red-700 border border-brand-red-200">
@@ -162,7 +162,7 @@ export default function AboutPage() {
       {/* =========================================================================
           MOTTO, VISION & MISSION
          ========================================================================= */}
-      <section id="vision" className="py-20 bg-white relative overflow-hidden border-t border-gray-100">
+      <section id="vision" className="py-10 sm:py-14 bg-white relative overflow-hidden border-t border-gray-100">
         <IslamicPattern opacity={0.04} variant="dual" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -174,7 +174,7 @@ export default function AboutPage() {
           />
 
           {/* Prominent Motto Showcase Card */}
-          <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-green-50 via-white to-brand-red-50 border-2 border-brand-green-300 shadow-md relative overflow-hidden">
+          <div className="mt-6 sm:mt-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-green-50 via-white to-brand-red-50 border-2 border-brand-green-300 shadow-md relative overflow-hidden">
             <IslamicPattern opacity={0.03} variant="dual" />
             <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-start sm:items-center gap-4">
@@ -193,9 +193,9 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 mt-6 sm:mt-8">
             {/* Vision Card */}
-            <div className="lg:col-span-5 relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-brand-green-50/80 via-white to-brand-green-50/40 border-2 border-brand-green-200/90 shadow-md flex flex-col justify-between">
+            <div className="lg:col-span-5 relative p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-brand-green-50/80 via-white to-brand-green-50/40 border-2 border-brand-green-200/90 shadow-md flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-brand-green-600 text-white flex items-center justify-center shadow-md flex-shrink-0">
@@ -275,7 +275,7 @@ export default function AboutPage() {
       {/* =========================================================================
           CENTRAL LEADERSHIP & ADVISORY
          ========================================================================= */}
-      <section id="leadership" className="py-20 bg-brand-surface relative overflow-hidden border-t border-gray-100">
+      <section id="leadership" className="py-10 sm:py-14 bg-brand-surface relative overflow-hidden border-t border-gray-100">
         <IslamicPattern opacity={0.04} variant="dual" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -288,7 +288,7 @@ export default function AboutPage() {
             subtitle="The dedicated student leaders steering Anjuman Talaba-e-Islam across all faculties, institutes, and hostel halls at the University of Agriculture, Faisalabad."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-6 sm:mt-8">
             {LEADERSHIP_TEAM.map((leader) => (
               <div
                 key={leader.id}
@@ -338,7 +338,7 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <p className="text-center text-xs text-gray-500 mt-10">
+          <p className="text-center text-xs text-gray-500 mt-6 sm:mt-8">
             Official appointed executive cabinet of Anjuman Talaba-e-Islam (ATI) University of Agriculture, Faisalabad (UAF) Chapter and Central Leadership.
           </p>
         </div>
@@ -347,7 +347,7 @@ export default function AboutPage() {
       {/* =========================================================================
           CALL TO ACTION
          ========================================================================= */}
-      <section className="py-16 bg-white border-t border-gray-100 text-center">
+      <section className="py-10 sm:py-14 bg-white border-t border-gray-100 text-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-black text-brand-black">
             Ready to Stand With Us?

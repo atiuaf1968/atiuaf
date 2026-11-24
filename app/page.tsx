@@ -522,31 +522,31 @@ export default async function HomePage() {
       {/* =========================================================================
           6. MEMBERSHIP / PARTICIPATION CALL-TO-ACTION BANNER
          ========================================================================= */}
-      <section className="py-12 sm:py-16 relative bg-brand-black text-white overflow-hidden border-t-4 border-brand-green-600">
-        <IslamicPattern opacity={0.06} variant="dual" />
+      <section className="py-10 sm:py-14 relative bg-white text-brand-black overflow-hidden border-t border-gray-100">
+        <IslamicPattern opacity={0.04} variant="dual" />
 
         {/* Ambient Glows */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-red-600/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-brand-green-600/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-red-100/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-brand-green-100/30 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-bold tracking-wider uppercase text-brand-green-400 mb-6">
-            <Sparkles className="w-3.5 h-3.5 text-brand-red-400" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green-50 border border-brand-green-200 text-xs font-bold tracking-wider uppercase text-brand-green-800 mb-5">
+            <Sparkles className="w-3.5 h-3.5 text-brand-red-600" />
             <span>Join the Student Movement</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-brand-black tracking-tight leading-tight">
             Be Part of Something Greater Than Yourself.
           </h2>
 
-          <p className="mt-5 text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 sm:mt-5 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Stand for faith, knowledge, and student welfare. Whether you wish to lead on your campus, volunteer in disaster relief, or participate in leadership circles — Student Power is your platform.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/careers"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-extrabold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-500 shadow-xl transition-all duration-200 hover:-translate-y-0.5"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 rounded-xl text-sm font-extrabold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 shadow-lg shadow-brand-green-600/20 transition-all duration-200 hover:-translate-y-0.5"
             >
               <Users className="w-4 h-4" />
               <span>Apply for Membership</span>
@@ -554,14 +554,14 @@ export default async function HomePage() {
 
             <Link
               href="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-extrabold uppercase tracking-wider text-white bg-brand-red-600 hover:bg-brand-red-500 shadow-xl transition-all duration-200 hover:-translate-y-0.5"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 rounded-xl text-sm font-extrabold uppercase tracking-wider text-brand-red-700 bg-brand-red-50 hover:bg-brand-red-100 border-2 border-brand-red-200 shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5"
             >
-              <Heart className="w-4 h-4 text-white" />
+              <Heart className="w-4 h-4 text-brand-red-600" />
               <span>Contact Central Secretariat</span>
             </Link>
           </div>
 
-          <p className="mt-6 text-xs text-gray-400">
+          <p className="mt-5 sm:mt-6 text-xs text-gray-500 font-medium">
             Open to all enrolled college and university students across Pakistan. Non-profit, merit-driven.
           </p>
         </div>

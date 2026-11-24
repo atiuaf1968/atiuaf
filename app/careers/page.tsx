@@ -153,7 +153,7 @@ export default function VoluntaryJoinPage() {
       {/* =========================================================================
           HERO BANNER
          ========================================================================= */}
-      <section className="relative bg-white pt-14 pb-16 border-b border-gray-100 overflow-hidden">
+      <section className="relative bg-white pt-10 sm:pt-12 pb-10 sm:pb-12 border-b border-gray-100 overflow-hidden">
         <IslamicPattern opacity={0.05} variant="dual" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -182,7 +182,7 @@ export default function VoluntaryJoinPage() {
       {/* =========================================================================
           FOUR PILLARS OF VOLUNTARY MEMBERSHIP
          ========================================================================= */}
-      <section className="py-12 bg-white border-b border-gray-100">
+      <section className="py-8 sm:py-10 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="p-6 rounded-2xl bg-brand-surface border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
@@ -239,7 +239,7 @@ export default function VoluntaryJoinPage() {
       {/* =========================================================================
           SINGLE VOLUNTARY JOIN BOX / FORM
          ========================================================================= */}
-      <section id="join-box" className="py-16 sm:py-20 relative overflow-hidden">
+      <section id="join-box" className="py-10 sm:py-14 relative overflow-hidden">
         <IslamicPattern opacity={0.03} variant="dual" />
 
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative">

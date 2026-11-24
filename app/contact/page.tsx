@@ -108,7 +108,7 @@ export default function ContactPage() {
       {/* =========================================================================
           CAMPUS CONTACT INFO CARDS
          ========================================================================= */}
-      <section className="py-16 bg-white border-b border-gray-100">
+      <section className="py-8 sm:py-12 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Card 1: Campus Office */}
@@ -181,14 +181,14 @@ export default function ContactPage() {
       {/* =========================================================================
           INTERACTIVE CONTACT FORM & UAF CAMPUS DESK
          ========================================================================= */}
-      <section className="py-20 bg-brand-surface relative overflow-hidden">
+      <section className="py-10 sm:py-14 bg-brand-surface relative overflow-hidden">
         <IslamicPattern opacity={0.03} variant="dual" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             {/* Contact Form Column */}
             <div className="lg:col-span-7">
-              <div className="bg-white p-8 sm:p-10 rounded-3xl border border-gray-200/80 shadow-md">
+              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200/80 shadow-md">
                 <div className="mb-6">
                   <span className="text-xs font-bold uppercase tracking-wider text-brand-green-700">UAF Student Desk</span>
                   <h3 className="text-2xl font-black text-brand-black mt-1">Send a Message to UAF Chapter</h3>
@@ -396,20 +396,18 @@ export default function ContactPage() {
       {/* =========================================================================
           FAQ ACCORDION SECTION
          ========================================================================= */}
-      <section id="faq" className="py-20 bg-white relative overflow-hidden border-t border-gray-100">
+      <section id="faq" className="py-10 sm:py-14 bg-white relative overflow-hidden border-t border-gray-100">
         <IslamicPattern opacity={0.04} variant="dual" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeading
-            badge="Frequently Asked Questions"
-            badgeColor="green"
             title="Questions &"
             highlightText="Clarifications"
             highlightColor="red"
             subtitle="Common questions from UAF students regarding our UAF Desk Chapter, activities, and membership."
           />
 
-          <div className="mt-12 space-y-4">
+          <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4">
             {FAQS.map((faq, index) => {
               const isOpen = openFaqIndex === index;
               return (

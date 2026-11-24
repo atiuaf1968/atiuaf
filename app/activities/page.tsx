@@ -47,9 +47,9 @@ export default function CampusActivitiesPage() {
   return (
     <div className="flex flex-col w-full bg-brand-surface min-h-screen">
       {/* Clean Header */}
-      <section className="bg-white py-12 border-b border-gray-100">
+      <section className="bg-white py-8 sm:py-10 border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <span className="inline-block px-3.5 py-1 rounded-full bg-brand-green-50 text-brand-green-800 text-xs font-bold uppercase tracking-wider mb-3">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-brand-green-50 text-brand-green-800 text-xs font-bold uppercase tracking-wider mb-2.5">
             Anjuman Talaba-e-Islam • UAF
           </span>
           <h1 className="text-3xl sm:text-4xl font-black text-brand-black tracking-tight">
@@ -62,7 +62,7 @@ export default function CampusActivitiesPage() {
       </section>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full">
         {isLoading ? (
           <div className="py-24 flex flex-col items-center justify-center gap-3">
             <RefreshCw className="w-7 h-7 text-brand-green-600 animate-spin" />

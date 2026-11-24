@@ -25,39 +25,6 @@ export const metadata = {
 };
 
 export default function AboutPage() {
-  const milestones = [
-    {
-      year: '1968',
-      title: 'Historical Foundation in Karachi',
-      description: 'Founded on 20th January 1968 (20th Shawwal 1387 A.H.) by Jameel Ahmed Naeemi, Haji Hanif Tayyab, and dedicated student companions to foster prophetic love (Ishq-e-Rasool) and defend students rights.',
-    },
-    {
-      year: '1974',
-      title: 'Nationwide Campus Expansion',
-      description: 'Chapters established in Lahore, Rawalpindi, Multan, and Peshawar, championing peaceful campus governance and moral activism.',
-    },
-    {
-      year: '1985',
-      title: 'Establishment of Bait-ul-Ilm Book Banks',
-      description: 'Pioneered free curriculum book exchanges and subsidized academic notes across medical colleges and polytechnic institutes.',
-    },
-    {
-      year: '2005',
-      title: 'Khoon-e-Hayat National Blood Society',
-      description: 'Mobilized tens of thousands of student donors during the 2005 Kashmir earthquake, establishing an institutional voluntary blood donation network.',
-    },
-    {
-      year: '2020',
-      title: 'Digital Literacy & Mustaqbil Hub',
-      description: 'Launched technical mentorship bootcamps, freelance training, and entry test preparation portals for intermediate and university entrants.',
-    },
-    {
-      year: 'Present',
-      title: 'Modern Student Power Movement',
-      description: 'Operating in 120+ colleges and universities, uniting tens of thousands of students under modern intellectual and moral leadership.',
-    },
-  ];
-
   return (
     <div className="flex flex-col w-full bg-brand-surface">
       {/* =========================================================================
@@ -277,46 +244,6 @@ export default function AboutPage() {
                 </span>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          HISTORICAL MILESTONES (TIMELINE)
-         ========================================================================= */}
-      <section className="py-20 bg-white relative overflow-hidden border-t border-gray-100">
-        <IslamicPattern opacity={0.03} variant="red" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <SectionHeading
-            badge="Chronology"
-            badgeColor="red"
-            title="Historic Milestones of"
-            highlightText="The Movement"
-            highlightColor="green"
-            subtitle="Over five decades of consistent advocacy, student leadership, and social development across Pakistan."
-          />
-
-          <div className="mt-12 relative border-l-2 border-brand-green-600/30 ml-4 md:ml-32 space-y-10">
-            {milestones.map((m, idx) => (
-              <div key={idx} className="relative pl-8 sm:pl-10 group">
-                {/* Timeline Node */}
-                <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white border-4 border-brand-green-600 group-hover:border-brand-red-600 transition-colors" />
-
-                <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 mb-1">
-                  <span className="text-lg font-black text-brand-red-600 tracking-wider">
-                    {m.year}
-                  </span>
-                  <h3 className="text-xl font-bold text-brand-black">
-                    {m.title}
-                  </h3>
-                </div>
-
-                <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">
-                  {m.description}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

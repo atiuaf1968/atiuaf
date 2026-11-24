@@ -163,26 +163,6 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-
-          {/* Quick Impact Metrics Bar */}
-          <div className="mt-16 pt-10 border-t border-gray-100 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="p-4 rounded-xl bg-gray-50/70 border border-gray-100">
-              <p className="text-3xl sm:text-4xl font-black text-brand-green-700">25+</p>
-              <p className="text-xs font-semibold text-gray-600 mt-1 uppercase tracking-wider">UAF Faculties & Hostels</p>
-            </div>
-            <div className="p-4 rounded-xl bg-gray-50/70 border border-gray-100">
-              <p className="text-3xl sm:text-4xl font-black text-brand-red-600">₨ 3.2M+</p>
-              <p className="text-xs font-semibold text-gray-600 mt-1 uppercase tracking-wider">UAF Student Welfare Grants</p>
-            </div>
-            <div className="p-4 rounded-xl bg-gray-50/70 border border-gray-100">
-              <p className="text-3xl sm:text-4xl font-black text-brand-green-700">3,800+</p>
-              <p className="text-xs font-semibold text-gray-600 mt-1 uppercase tracking-wider">Faisalabad Blood Pints</p>
-            </div>
-            <div className="p-4 rounded-xl bg-gray-50/70 border border-gray-100">
-              <p className="text-3xl sm:text-4xl font-black text-brand-red-600">1,800+</p>
-              <p className="text-xs font-semibold text-gray-600 mt-1 uppercase tracking-wider">Tech & Skills Certified</p>
-            </div>
-          </div>
         </div>
       </section>
 

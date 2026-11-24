@@ -73,13 +73,15 @@ export async function initDb(): Promise<void> {
     );
 
     if (adminCheck.rows.length === 0) {
-      const defaultPass = process.env.ADMIN_PASSWORD || 'atiuaf1968';
-      const hashedPassword = bcrypt.hashSync(defaultPass, 10);
-      await p.query(
-        'INSERT INTO admin_users (email, password) VALUES ($1, $2)',
-        [process.env.ADMIN_EMAIL || 'admin@atiuaf.com', hashedPassword]
-      );
-      console.log('Seeded default admin with bcrypt hashed password into PostgreSQL.');
+      const defaultPass = process.env.ADMIN_PASSWORD;
+      if (defaultPass) {
+        const hashedPassword = bcrypt.hashSync(defaultPass, 10);
+        await p.query(
+          'INSERT INTO admin_users (email, password) VALUES ($1, $2)',
+          [process.env.ADMIN_EMAIL || 'admin@atiuaf.com', hashedPassword]
+        );
+        console.log('Seeded default admin with bcrypt hashed password into PostgreSQL.');
+      }
     } else {
       // Check if existing password is plain text; if so, upgrade to bcrypt hash
       const existingPass = adminCheck.rows[0].password;
@@ -285,10 +287,13 @@ export async function verifyAdminCredentials(email: string, pass: string): Promi
     );
 
     if (res.rows.length === 0) {
-      // Fallback check against env or default
-      return (
-        email.toLowerCase() === 'admin@atiuaf.com' &&
-        (pass === 'atiuaf1968' || pass === 'AtiUaf@1968')
+      // Fallback check against env if no users in DB yet
+      const envAdminEmail = process.env.ADMIN_EMAIL || 'admin@atiuaf.com';
+      const envAdminPass = process.env.ADMIN_PASSWORD;
+      return Boolean(
+        envAdminPass &&
+        email.toLowerCase() === envAdminEmail.toLowerCase() &&
+        pass === envAdminPass
       );
     }
 
@@ -300,11 +305,8 @@ export async function verifyAdminCredentials(email: string, pass: string): Promi
     }
 
     // If legacy plain text matches, automatically upgrade to bcrypt hash
-    if (
-      pass === storedPass ||
-      pass === 'atiuaf1968' ||
-      pass === 'AtiUaf@1968'
-    ) {
+    const envAdminPass = process.env.ADMIN_PASSWORD;
+    if (pass === storedPass || (envAdminPass && pass === envAdminPass)) {
       const newHash = bcrypt.hashSync(pass, 10);
       await p.query('UPDATE admin_users SET password = $1 WHERE id = $2', [newHash, res.rows[0].id]);
       return true;
@@ -312,10 +314,13 @@ export async function verifyAdminCredentials(email: string, pass: string): Promi
 
     return false;
   } catch (err) {
-    console.error('DB Admin verify error, using fallback:', err);
-    return (
-      email.toLowerCase() === 'admin@atiuaf.com' &&
-      (pass === 'atiuaf1968' || pass === 'AtiUaf@1968')
+    console.error('DB Admin verify error, using env fallback:', err);
+    const envAdminEmail = process.env.ADMIN_EMAIL || 'admin@atiuaf.com';
+    const envAdminPass = process.env.ADMIN_PASSWORD;
+    return Boolean(
+      envAdminPass &&
+      email.toLowerCase() === envAdminEmail.toLowerCase() &&
+      pass === envAdminPass
     );
   }
 }

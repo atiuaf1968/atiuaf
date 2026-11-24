@@ -162,7 +162,7 @@ export const Footer: React.FC = () => {
                 <Link href="/about#leadership" className="hover:text-white transition-colors">Central Leadership</Link>
               </li>
               <li>
-                <Link href="/about#values" className="hover:text-white transition-colors">Core Values & Ethics</Link>
+                <Link href="/about#vision" className="hover:text-white transition-colors">Vision & Mission</Link>
               </li>
               <li>
                 <Link href="/careers" className="hover:text-white transition-colors">Join Movement / Volunteer</Link>
@@ -180,7 +180,7 @@ export const Footer: React.FC = () => {
                 <Link href="/about#history" className="hover:text-white transition-colors">Historical Movements</Link>
               </li>
               <li>
-                <Link href="/about#values" className="hover:text-white transition-colors">Prophetic Model & Ethics</Link>
+                <Link href="/about#vision" className="hover:text-white transition-colors">Prophetic Model & Vision</Link>
               </li>
               <li>
                 <Link href="/#activities" className="hover:text-white transition-colors">Campus Activities</Link>

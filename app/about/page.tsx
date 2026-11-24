@@ -11,13 +11,9 @@ import {
   HeartHandshake,
   Heart,
   Sparkles,
-  Scale,
   Calendar,
   CheckCircle2,
-  ArrowRight,
-  Flame,
-  Globe2,
-  Bookmark
+  ArrowRight
 } from 'lucide-react';
 import { SectionHeading } from '@/components/SectionHeading';
 import { IslamicPattern } from '@/components/IslamicPattern';
@@ -29,45 +25,6 @@ export const metadata = {
 };
 
 export default function AboutPage() {
-  const coreValues = [
-    {
-      title: 'Imaan (Faith & Spiritual Purity)',
-      arabic: 'إِيـمَان',
-      description: 'Unwavering devotion to Allah Almighty and profound reverence for the Holy Prophet Muhammad (PBUH) as the supreme guide for personal ethics and societal harmony.',
-      color: 'green',
-    },
-    {
-      title: 'Ilm (Knowledge & Critical Thought)',
-      arabic: 'عِلْـم',
-      description: 'Pursuing academic mastery across modern sciences, technology, humanities, and Islamic jurisprudence without ideological compromise.',
-      color: 'red',
-    },
-    {
-      title: 'Akhlaq (Exemplary Moral Character)',
-      arabic: 'أَخْـلَاق',
-      description: 'Upholding honesty, humility, trustworthiness, and discipline on university campuses, in professional life, and in interpersonal conduct.',
-      color: 'green',
-    },
-    {
-      title: 'Ittehad (Brotherhood & Unity)',
-      arabic: 'اِتِّـحَاد',
-      description: 'Transcending linguistic, ethnic, and provincial fault lines to forge a cohesive, purposeful student fraternity across all territories.',
-      color: 'red',
-    },
-    {
-      title: 'Khidmat (Compassionate Service)',
-      arabic: 'خِـدْمَة',
-      description: 'Devoting student energy and collective resources to disaster relief, blood donation, tutoring underprivileged children, and community empowerment.',
-      color: 'green',
-    },
-    {
-      title: 'Adl (Justice & Student Rights)',
-      arabic: 'عَـدْل',
-      description: 'Courageously demanding transparent merit, equitable tuition structures, safe educational campuses, and constitutional student representation.',
-      color: 'red',
-    },
-  ];
-
   const milestones = [
     {
       year: '1968',
@@ -212,7 +169,7 @@ export default function AboutPage() {
       {/* =========================================================================
           MOTTO, VISION & MISSION
          ========================================================================= */}
-      <section className="py-20 bg-white relative overflow-hidden border-t border-gray-100">
+      <section id="vision" className="py-20 bg-white relative overflow-hidden border-t border-gray-100">
         <IslamicPattern opacity={0.04} variant="dual" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -320,61 +277,6 @@ export default function AboutPage() {
                 </span>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          CORE VALUES (6 PILLARS)
-         ========================================================================= */}
-      <section id="values" className="py-20 bg-brand-surface relative overflow-hidden border-t border-gray-100">
-        <IslamicPattern opacity={0.04} variant="dual" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <SectionHeading
-            badge="Ethical Framework"
-            badgeColor="green"
-            title="Six Foundational"
-            highlightText="Core Values"
-            highlightColor="red"
-            subtitle="The moral compass guiding our members, campus councils, and community programs."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {coreValues.map((val, idx) => {
-              const isGreen = val.color === 'green';
-              return (
-                <div
-                  key={idx}
-                  className="bg-white p-7 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-black text-gray-800 font-serif">
-                        {val.arabic}
-                      </span>
-                      <span
-                        className={`w-3 h-3 rounded-full ${
-                          isGreen ? 'bg-brand-green-500' : 'bg-brand-red-500'
-                        }`}
-                      />
-                    </div>
-                    <h3 className="text-lg font-bold text-brand-black mb-2">
-                      {val.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {val.description}
-                    </p>
-                  </div>
-
-                  <div
-                    className={`mt-6 h-1 w-10 rounded-full ${
-                      isGreen ? 'bg-brand-green-600' : 'bg-brand-red-600'
-                    }`}
-                  />
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>

@@ -30,7 +30,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
     highlightColor === 'red' ? 'text-brand-red-600' : 'text-brand-green-600';
 
   return (
-    <div className={`mb-12 ${centered ? 'text-center mx-auto max-w-3xl' : 'max-w-2xl'} ${className}`}>
+    <div className={`mb-6 sm:mb-8 ${centered ? 'text-center mx-auto max-w-3xl' : 'max-w-2xl'} ${className}`}>
       {/* Badge */}
       {badge && (
         <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border shadow-sm ${badgeClasses}`}>
@@ -40,7 +40,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
       )}
 
       {/* Main Title */}
-      <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight leading-tight">
+      <h2 className={`${badge ? 'mt-3 sm:mt-4' : 'mt-0 sm:mt-1'} text-2xl sm:text-4xl font-extrabold text-brand-black tracking-tight leading-tight`}>
         {title}{' '}
         {highlightText && (
           <span className={`relative inline-block ${highlightClass}`}>
@@ -60,13 +60,13 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
 
       {/* Subtitle */}
       {subtitle && (
-        <p className="mt-4 text-base sm:text-lg text-gray-600 leading-relaxed font-normal">
+        <p className="mt-2.5 sm:mt-3 text-sm sm:text-base text-gray-600 leading-relaxed font-normal">
           {subtitle}
         </p>
       )}
 
       {/* Balanced Red & Green Accent Divider */}
-      <div className={`mt-5 flex items-center gap-2 ${centered ? 'justify-center' : 'justify-start'}`}>
+      <div className={`mt-3.5 sm:mt-4 flex items-center gap-2 ${centered ? 'justify-center' : 'justify-start'}`}>
         <span className="w-10 h-1 bg-brand-green-600 rounded-full" />
         <span className="w-3 h-1 bg-brand-red-600 rounded-full" />
         <span className="w-10 h-1 bg-brand-green-600 rounded-full" />

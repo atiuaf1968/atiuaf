@@ -67,7 +67,7 @@ export default async function HomePage() {
       {/* =========================================================================
           1. HERO SECTION
          ========================================================================= */}
-      <section className="relative bg-white pt-4 pb-16 sm:pt-6 sm:pb-20 lg:pt-8 lg:pb-24 overflow-hidden border-b border-gray-100">
+      <section className="relative bg-white pt-4 pb-10 sm:pt-6 sm:pb-12 lg:pt-8 lg:pb-14 overflow-hidden border-b border-gray-100">
         {/* Subtle dual-color Islamic geometric lattice */}
         <IslamicPattern opacity={0.05} variant="dual" />
 
@@ -197,13 +197,11 @@ export default async function HomePage() {
       {/* =========================================================================
           2. WELCOME TO ANJUMAN TALABA-E-ISLAM (ATI) UAF
          ========================================================================= */}
-      <section className="py-20 bg-brand-surface relative overflow-hidden">
+      <section className="py-10 sm:py-14 bg-brand-surface relative overflow-hidden">
         <IslamicPattern opacity={0.04} variant="dual" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeading
-            badge="Non-Political Student Association • Est. 1968"
-            badgeColor="green"
             title="Welcome to"
             highlightText="Anjuman Talaba-e-Islam UAF"
             highlightColor="red"
@@ -211,7 +209,7 @@ export default async function HomePage() {
           />
 
           {/* Heroic Welcome Narrative Box */}
-          <div className="mt-12 bg-white rounded-3xl border border-gray-100 shadow-sm p-8 sm:p-12 relative overflow-hidden">
+          <div className="mt-6 sm:mt-8 bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-10 relative overflow-hidden">
             <IslamicPattern opacity={0.02} variant="green" />
 
             <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -292,7 +290,7 @@ export default async function HomePage() {
       {/* =========================================================================
           3. VISION AND MISSION (DUAL PILLARS)
          ========================================================================= */}
-      <section className="py-20 bg-white relative overflow-hidden border-y border-gray-100">
+      <section className="py-10 sm:py-14 bg-white relative overflow-hidden border-y border-gray-100">
         <IslamicPattern opacity={0.04} variant="dual" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -304,7 +302,7 @@ export default async function HomePage() {
           />
 
           {/* Prominent Motto Showcase Card */}
-          <div className="mt-8 sm:mt-10 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-green-50 via-white to-brand-red-50 border-2 border-brand-green-300 shadow-md relative overflow-hidden">
+          <div className="mt-6 sm:mt-8 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-green-50 via-white to-brand-red-50 border-2 border-brand-green-300 shadow-md relative overflow-hidden">
             <IslamicPattern opacity={0.03} variant="dual" />
             <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-start sm:items-center gap-4">
@@ -323,7 +321,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6 sm:mt-8">
             {/* Vision Card - Green Accent (5 Cols) */}
             <div className="lg:col-span-5 relative p-6 sm:p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-brand-green-50/80 via-white to-brand-green-50/40 border-2 border-brand-green-200/90 shadow-md flex flex-col justify-between">
               <div>
@@ -408,7 +406,7 @@ export default async function HomePage() {
       {/* =========================================================================
           4. STUDENT ACTIVITIES & COMMUNITY ENGAGEMENT
          ========================================================================= */}
-      <section id="activities" className="py-20 bg-brand-surface relative overflow-hidden border-t border-gray-100">
+      <section id="activities" className="py-10 sm:py-14 bg-brand-surface relative overflow-hidden border-t border-gray-100">
         <IslamicPattern opacity={0.04} variant="green" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -420,7 +418,7 @@ export default async function HomePage() {
           />
 
           {latestActivities.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 sm:mt-8">
               {latestActivities.map((act) => (
                 <div
                   key={act.id}
@@ -496,7 +494,7 @@ export default async function HomePage() {
             </div>
           )}
 
-          <div className="mt-12 text-center">
+          <div className="mt-8 sm:mt-10 text-center">
             <Link
               href="/activities"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 shadow-md transition-all group"
@@ -511,7 +509,7 @@ export default async function HomePage() {
       {/* =========================================================================
           6. MEMBERSHIP / PARTICIPATION CALL-TO-ACTION BANNER
          ========================================================================= */}
-      <section className="py-20 relative bg-brand-black text-white overflow-hidden border-t-4 border-brand-green-600">
+      <section className="py-12 sm:py-16 relative bg-brand-black text-white overflow-hidden border-t-4 border-brand-green-600">
         <IslamicPattern opacity={0.06} variant="dual" />
 
         {/* Ambient Glows */}

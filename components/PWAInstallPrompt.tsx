@@ -17,10 +17,27 @@ export const PWAInstallPrompt: React.FC = () => {
   const [isIOS, setIsIOS] = useState(false);
   const [showIOSGuide, setShowIOSGuide] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true); // Default to true so it NEVER flashes or appears on admin panel
   const pathname = usePathname();
 
   useEffect(() => {
-    // 1. Register Service Worker
+    // Check if current context is the admin portal
+    if (typeof window !== 'undefined') {
+      const isCurrentAdmin =
+        window.location.hostname.startsWith('admin.') ||
+        window.location.hostname.includes('admin.atiuaf.com') ||
+        window.location.pathname.startsWith('/admin') ||
+        window.location.pathname.includes('/admin') ||
+        window.location.search.includes('admin');
+
+      if (isCurrentAdmin) {
+        setIsAdmin(true);
+        return; // Strict early return: never register or show PWA on admin
+      }
+      setIsAdmin(false);
+    }
+
+    // 1. Register Service Worker on main public site only
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker
@@ -112,7 +129,9 @@ export const PWAInstallPrompt: React.FC = () => {
 
   // Do not render on admin panel, or if already installed or dismissed
   if (
+    isAdmin ||
     pathname?.startsWith('/admin') ||
+    pathname?.includes('/admin') ||
     isInstalled ||
     isDismissed ||
     !isInstallable

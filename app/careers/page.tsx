@@ -473,7 +473,7 @@ export default function VoluntaryJoinPage() {
 
                 <div className="text-center pt-2">
                   <p className="text-xs text-gray-500">
-                    Questions or queries? Visit our chapter desk at Jinnah Hall or call <span className="font-bold text-brand-black">+92 317 2011968</span>.
+                    Questions or queries? Visit our UAF Desk Chapter (Jinnah Hall) or call <span className="font-bold text-brand-black">+92 317 2011968</span>.
                   </p>
                 </div>
               </form>

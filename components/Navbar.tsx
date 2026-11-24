@@ -195,14 +195,14 @@ export const Navbar: React.FC = () => {
                   onClick={() => setIsOpen(false)}
                   className="w-full text-center py-2.5 px-4 text-sm font-bold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 rounded-lg shadow-sm"
                 >
-                  Join Student Power
+                  Join ATI UAF (Volunteer)
                 </Link>
                 <Link
                   href="/contact"
                   onClick={() => setIsOpen(false)}
                   className="w-full text-center py-2.5 px-4 text-sm font-bold uppercase tracking-wider text-brand-red-700 bg-brand-red-50 hover:bg-brand-red-100 border border-brand-red-200 rounded-lg"
                 >
-                  Contact Secretariat
+                  Contact UAF Desk Chapter
                 </Link>
               </div>
             </div>

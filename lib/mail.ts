@@ -586,7 +586,7 @@ export async function sendCareerApplicationEmails(data: {
       content:
         'Our Chapter Executive Cabinet and your respective hostel hall representatives will contact you soon regarding your membership card, upcoming halaqas, and student rights activities.',
     },
-    note: 'If you have any questions, visit our campus desk at Jinnah Hall or reach out to atiuafpak@gmail.com.',
+    note: 'If you have any questions, visit our UAF Desk Chapter (Jinnah Hall) or reach out to atiuafpak@gmail.com.',
   });
 
   const autoReplyPromise = sendMail({

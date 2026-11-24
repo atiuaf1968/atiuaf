@@ -411,7 +411,7 @@ export default function ContactPage() {
             title="Questions &"
             highlightText="Clarifications"
             highlightColor="red"
-            subtitle="Common questions from UAF students regarding our Jinnah Hall desk, activities, and membership."
+            subtitle="Common questions from UAF students regarding our UAF Desk Chapter, activities, and membership."
           />
 
           <div className="mt-12 space-y-4">

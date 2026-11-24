@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -20,10 +21,31 @@ import {
 } from 'lucide-react';
 import { SectionHeading } from '@/components/SectionHeading';
 import { IslamicPattern } from '@/components/IslamicPattern';
-import {
-  SITE_METADATA,
-  CORE_OBJECTIVES
-} from '@/lib/data';
+import { SITE_METADATA } from '@/lib/data';
+
+export const metadata: Metadata = {
+  title: 'ATI UAF — Anjuman Talaba-e-Islam | University of Agriculture Faisalabad',
+  description: 'Official platform of Anjuman Talaba-e-Islam (ATI) UAF Chapter. Student rights advocacy, free book banks, interest-free student welfare aid, and Islamic character building at UAF since 1968.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_PK',
+    url: 'https://atiuaf.com',
+    title: 'ATI UAF — Anjuman Talaba-e-Islam | University of Agriculture Faisalabad',
+    description: 'Official platform of Anjuman Talaba-e-Islam (ATI) UAF Chapter. Student rights advocacy, free book banks, and student aid at UAF.',
+    siteName: 'ATI UAF',
+    images: [
+      {
+        url: '/images/student-power-logo.png',
+        width: 666,
+        height: 666,
+        alt: 'ATI UAF Official Emblem',
+      },
+    ],
+  },
+};
 
 export default function HomePage() {
   return (
@@ -51,7 +73,7 @@ export default function HomePage() {
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-brand-black tracking-tight leading-[1.12]">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-brand-black tracking-tight leading-[1.12]">
                 ANJUMAN TALABA-E-ISLAM <br className="hidden sm:inline" />
                 <span className="text-brand-green-700">ATI </span>
                 <span className="text-brand-red-600">UAF</span>
@@ -81,7 +103,7 @@ export default function HomePage() {
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <Link
                   href="/careers"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-sm font-extrabold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 shadow-lg shadow-brand-green-600/20 hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 sm:px-7 sm:py-4 rounded-xl text-sm font-extrabold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 shadow-lg shadow-brand-green-600/20 hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5"
                 >
                   <Users className="w-4 h-4" />
                   <span>Become a Member</span>
@@ -90,7 +112,7 @@ export default function HomePage() {
 
                 <Link
                   href="#activities"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-sm font-extrabold uppercase tracking-wider text-brand-red-700 bg-brand-red-50 hover:bg-brand-red-100 border-2 border-brand-red-300 shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 sm:px-7 sm:py-4 rounded-xl text-sm font-extrabold uppercase tracking-wider text-brand-red-700 bg-brand-red-50 hover:bg-brand-red-100 border-2 border-brand-red-300 shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5"
                 >
                   <Sparkles className="w-4 h-4 text-brand-red-600" />
                   <span>Campus Activities</span>
@@ -98,10 +120,10 @@ export default function HomePage() {
               </div>
 
               {/* Institutional Trust Highlights */}
-              <div className="pt-6 border-t border-gray-100 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs font-semibold text-gray-500">
+              <div className="pt-6 border-t border-gray-100 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs font-semibold text-gray-500">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-brand-green-600 flex-shrink-0" />
-                  <span>Jinnah Hall Chapter Desk</span>
+                  <span>UAF Desk Chapter</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-brand-red-600 flex-shrink-0" />
@@ -115,18 +137,18 @@ export default function HomePage() {
             </div>
 
             {/* Right Emblem Showcase Column */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="relative group">
+            <div className="lg:col-span-5 flex justify-center mt-4 lg:mt-0">
+              <div className="relative group max-w-full">
                 {/* Decorative Circular Halo */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-brand-green-500/20 via-brand-red-500/20 to-brand-green-500/20 blur-2xl transform group-hover:scale-105 transition-transform duration-500" />
 
                 {/* Rotating Geometric Border Ring */}
-                <div className="relative w-72 h-72 sm:w-88 sm:h-88 md:w-96 md:h-96 rounded-full p-2 bg-gradient-to-tr from-brand-green-600 via-white to-brand-red-600 shadow-2xl flex items-center justify-center">
-                  <div className="w-full h-full rounded-full bg-white p-4 flex items-center justify-center relative overflow-hidden">
+                <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full p-2 bg-gradient-to-tr from-brand-green-600 via-white to-brand-red-600 shadow-2xl flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-white p-3 sm:p-4 flex items-center justify-center relative overflow-hidden">
                     <IslamicPattern opacity={0.08} variant="dual" />
                     
                     {/* Official Brand Logo Emblem */}
-                    <div className="relative w-64 h-64 sm:w-76 sm:h-76 flex items-center justify-center transform transition-transform duration-300 group-hover:scale-105">
+                    <div className="relative w-52 h-52 sm:w-68 sm:h-68 md:w-76 md:h-76 flex items-center justify-center transform transition-transform duration-300 group-hover:scale-105">
                       <Image
                         src="/images/student-power-logo.png"
                         alt="Student Power Official Logo Emblem"
@@ -140,24 +162,24 @@ export default function HomePage() {
                 </div>
 
                 {/* Floating Badge 1: Green */}
-                <div className="absolute -bottom-4 -left-4 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-brand-green-200 shadow-lg flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-brand-green-100 flex items-center justify-center text-brand-green-700">
-                    <GraduationCap className="w-4 h-4" />
+                <div className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 bg-white/95 backdrop-blur-md px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-brand-green-200 shadow-lg flex items-center gap-2 sm:gap-2.5">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-brand-green-100 flex items-center justify-center text-brand-green-700 flex-shrink-0">
+                    <GraduationCap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                   <div className="text-left">
-                    <p className="text-xs font-bold text-brand-black">15,000+ Students</p>
-                    <p className="text-[10px] text-gray-500">Mentored Annually</p>
+                    <p className="text-[11px] sm:text-xs font-bold text-brand-black">15,000+ Students</p>
+                    <p className="text-[9px] sm:text-[10px] text-gray-500">Mentored Annually</p>
                   </div>
                 </div>
 
                 {/* Floating Badge 2: Red */}
-                <div className="absolute -top-3 -right-3 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-brand-red-200 shadow-lg flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-brand-red-100 flex items-center justify-center text-brand-red-700">
-                    <Award className="w-4 h-4" />
+                <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 bg-white/95 backdrop-blur-md px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-brand-red-200 shadow-lg flex items-center gap-2 sm:gap-2.5">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-brand-red-100 flex items-center justify-center text-brand-red-700 flex-shrink-0">
+                    <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                   <div className="text-left">
-                    <p className="text-xs font-bold text-brand-black">58+ Years Heritage</p>
-                    <p className="text-[10px] text-gray-500">Founded 1968</p>
+                    <p className="text-[11px] sm:text-xs font-bold text-brand-black">58+ Years Heritage</p>
+                    <p className="text-[9px] sm:text-[10px] text-gray-500">Founded 1968</p>
                   </div>
                 </div>
               </div>
@@ -317,8 +339,6 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeading
-            badge="Strategic Foundation"
-            badgeColor="red"
             title="Our Vision &"
             highlightText="Mission"
             highlightColor="green"
@@ -326,18 +346,18 @@ export default function HomePage() {
           />
 
           {/* Prominent Motto Showcase Card */}
-          <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-green-50 via-white to-brand-red-50 border-2 border-brand-green-300 shadow-md relative overflow-hidden">
+          <div className="mt-8 sm:mt-10 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-green-50 via-white to-brand-red-50 border-2 border-brand-green-300 shadow-md relative overflow-hidden">
             <IslamicPattern opacity={0.03} variant="dual" />
             <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-start sm:items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-brand-green-600 text-white flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <Heart className="w-7 h-7" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand-green-600 text-white flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <Heart className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <div>
                   <span className="inline-block text-xs font-black uppercase tracking-widest text-brand-green-800 bg-brand-green-100/80 px-3 py-1 rounded-full border border-brand-green-200 mb-1.5">
                     Our Official Motto
                   </span>
-                  <h3 className="text-lg sm:text-2xl font-black text-brand-black italic leading-relaxed">
+                  <h3 className="text-base sm:text-xl lg:text-2xl font-black text-brand-black italic leading-relaxed">
                     &ldquo;Awakening the true Islamic spirit among students is impossible without lighting the candle of Ishq-e-Mustafa ﷺ in their hearts.&rdquo;
                   </h3>
                 </div>
@@ -347,7 +367,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
             {/* Vision Card - Green Accent (5 Cols) */}
-            <div className="lg:col-span-5 relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-brand-green-50/80 via-white to-brand-green-50/40 border-2 border-brand-green-200/90 shadow-md flex flex-col justify-between">
+            <div className="lg:col-span-5 relative p-6 sm:p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-brand-green-50/80 via-white to-brand-green-50/40 border-2 border-brand-green-200/90 shadow-md flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-brand-green-600 text-white flex items-center justify-center shadow-md flex-shrink-0">
@@ -383,7 +403,7 @@ export default function HomePage() {
             </div>
 
             {/* Mission Card - Red Accent (7 Cols) */}
-            <div className="lg:col-span-7 relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-brand-red-50/80 via-white to-brand-red-50/40 border-2 border-brand-red-200/90 shadow-md flex flex-col justify-between">
+            <div className="lg:col-span-7 relative p-6 sm:p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-brand-red-50/80 via-white to-brand-red-50/40 border-2 border-brand-red-200/90 shadow-md flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-brand-red-600 text-white flex items-center justify-center shadow-md flex-shrink-0">
@@ -428,76 +448,13 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          4. CORE OBJECTIVES (6 PILLARS)
-         ========================================================================= */}
-      <section className="py-20 bg-brand-surface relative overflow-hidden">
-        <IslamicPattern opacity={0.03} variant="dual" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <SectionHeading
-            badge="Institutional Pillars"
-            badgeColor="green"
-            title="Six Guiding Objectives of"
-            highlightText="Student Power"
-            highlightColor="red"
-            subtitle="Every program, campaign, and chapter initiative aligns with these foundational commitments."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {CORE_OBJECTIVES.map((obj) => {
-              const isGreen = obj.accent === 'green';
-              return (
-                <div
-                  key={obj.number}
-                  className="bg-white p-7 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between"
-                >
-                  {/* Top Number & Tag */}
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span
-                        className={`text-2xl font-black ${
-                          isGreen ? 'text-brand-green-600' : 'text-brand-red-600'
-                        }`}
-                      >
-                        {obj.number}
-                      </span>
-                      <span
-                        className={`w-3 h-3 rounded-full ${
-                          isGreen ? 'bg-brand-green-500' : 'bg-brand-red-500'
-                        }`}
-                      />
-                    </div>
-                    <h3 className="text-xl font-bold text-brand-black mb-3">
-                      {obj.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {obj.description}
-                    </p>
-                  </div>
-
-                  {/* Bottom Accent Bar */}
-                  <div
-                    className={`mt-6 h-1 w-12 rounded-full ${
-                      isGreen ? 'bg-brand-green-600' : 'bg-brand-red-600'
-                    }`}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          5. STUDENT ACTIVITIES & COMMUNITY ENGAGEMENT
+          4. STUDENT ACTIVITIES & COMMUNITY ENGAGEMENT
          ========================================================================= */}
       <section id="activities" className="py-20 bg-brand-surface relative overflow-hidden border-t border-gray-100">
         <IslamicPattern opacity={0.04} variant="green" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeading
-            badge="Campus Life & Activism"
-            badgeColor="green"
             title="Student Activities &"
             highlightText="Community Action"
             highlightColor="red"

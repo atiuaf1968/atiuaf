@@ -216,10 +216,10 @@ export const NEWS_ANNOUNCEMENTS: NewsItem[] = [
   },
   {
     id: "news-2",
-    title: "Free Semester Book Bank Open at Jinnah Hall Desk",
+    title: "Free Semester Book Bank Open at UAF Desk Chapter",
     date: "November 20, 2026",
     category: "Academic",
-    summary: "Undergraduate and postgraduate students can collect reference books, notes, and laboratory practical manuals free of charge from the Jinnah Hall chapter office.",
+    summary: "Undergraduate and postgraduate students can collect reference books, notes, and laboratory practical manuals free of charge from the UAF Desk Chapter office (Jinnah Hall).",
     readTime: "2 min read",
     featured: true
   },
@@ -374,11 +374,11 @@ export const FAQS = [
   },
   {
     q: "Where is the Student Power office located at UAF?",
-    a: "Our chapter office is located at Jinnah Hall, University of Agriculture (UAF), Jail Road, Faisalabad. Students can visit our desk Monday to Friday from 8:00 AM to 6:00 PM (Saturday & Sunday Off)."
+    a: "Our chapter office is located at Jinnah Hall, University of Agriculture (UAF), Jail Road, Faisalabad. Students can visit our UAF Desk Chapter Monday to Friday from 8:00 AM to 6:00 PM (Saturday & Sunday Off)."
   },
   {
     q: "How can I become a member of Student Power UAF?",
-    a: "Any currently enrolled student at the University of Agriculture, Faisalabad (undergraduate or postgraduate, day scholar or hostel boarder) can apply online on our Careers & Join page or visit our desk at Jinnah Hall."
+    a: "Any currently enrolled student at the University of Agriculture, Faisalabad (undergraduate or postgraduate, day scholar or hostel boarder) can apply online on our Careers & Join page or visit our UAF Desk Chapter."
   },
   {
     q: "Does Student Power UAF charge any fee for book banks or welfare aid?",

@@ -14,8 +14,6 @@ import {
   Compass,
   CheckCircle2,
   Sparkles,
-  Calendar,
-  Clock,
   Target,
   ChevronRight,
   Share2
@@ -24,8 +22,7 @@ import { SectionHeading } from '@/components/SectionHeading';
 import { IslamicPattern } from '@/components/IslamicPattern';
 import {
   SITE_METADATA,
-  CORE_OBJECTIVES,
-  NEWS_ANNOUNCEMENTS
+  CORE_OBJECTIVES
 } from '@/lib/data';
 
 export default function HomePage() {
@@ -521,67 +518,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          7. LATEST ANNOUNCEMENTS & NEWS
-         ========================================================================= */}
-      <section className="py-20 bg-white relative overflow-hidden border-t border-gray-100">
-        <IslamicPattern opacity={0.04} variant="dual" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <SectionHeading
-            badge="Press & Dispatches"
-            badgeColor="red"
-            title="Latest Announcements &"
-            highlightText="Student News"
-            highlightColor="green"
-            subtitle="Stay informed with official statements, convention schedules, and campus policy developments."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-            {NEWS_ANNOUNCEMENTS.map((item) => (
-              <article
-                key={item.id}
-                className="p-7 rounded-2xl bg-brand-surface border border-gray-100 hover:border-brand-green-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
-                    <span className="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-brand-green-100 text-brand-green-800">
-                      {item.category}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-gray-400" />
-                      {item.date}
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-gray-400" />
-                      {item.readTime}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-brand-black mb-3 leading-snug hover:text-brand-green-700 transition-colors">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {item.summary}
-                  </p>
-                </div>
-
-                <div className="pt-5 mt-5 border-t border-gray-200/60 flex items-center justify-between text-xs font-bold text-brand-green-700">
-                  <Link href="/contact" className="hover:text-brand-green-900 flex items-center gap-1">
-                    <span>Read Full Statement</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <span className="text-gray-400 font-normal">Official Release</span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          8. MEMBERSHIP / PARTICIPATION CALL-TO-ACTION BANNER
+          6. MEMBERSHIP / PARTICIPATION CALL-TO-ACTION BANNER
          ========================================================================= */}
       <section className="py-20 relative bg-brand-black text-white overflow-hidden border-t-4 border-brand-green-600">
         <IslamicPattern opacity={0.06} variant="dual" />

@@ -15,13 +15,39 @@ import {
   CheckCircle2,
   ArrowRight
 } from 'lucide-react';
+import type { Metadata } from 'next';
 import { SectionHeading } from '@/components/SectionHeading';
 import { IslamicPattern } from '@/components/IslamicPattern';
 import { LEADERSHIP_TEAM, CORE_OBJECTIVES } from '@/lib/data';
 
-export const metadata = {
-  title: 'About Us — Student Power & Anjuman Talaba-e-Islam',
-  description: 'Discover the history, organizational philosophy, central leadership, and strategic vision of Student Power, rooted in Islamic ethics and academic distinction since 1968.',
+export const metadata: Metadata = {
+  title: 'About Us — Heritage, Vision & Leadership',
+  description: 'Discover the 58+ year history, organizational philosophy, central leadership, and strategic vision of Anjuman Talaba-e-Islam (ATI) at University of Agriculture Faisalabad.',
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_PK',
+    url: 'https://atiuaf.com/about',
+    title: 'About Us — Heritage, Vision & Leadership | ATI UAF',
+    description: 'Discover the history, leadership, and mission of Anjuman Talaba-e-Islam UAF since 1968.',
+    siteName: 'ATI UAF',
+    images: [
+      {
+        url: '/images/student-power-logo.png',
+        width: 666,
+        height: 666,
+        alt: 'About ATI UAF',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Us — Heritage, Vision & Leadership | ATI UAF',
+    description: 'Discover the history, leadership, and mission of Anjuman Talaba-e-Islam UAF since 1968.',
+    images: ['/images/student-power-logo.png'],
+  },
 };
 
 export default function AboutPage() {
@@ -141,8 +167,6 @@ export default function AboutPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeading
-            badge="Strategic Foundation"
-            badgeColor="red"
             title="Our Vision &"
             highlightText="Mission"
             highlightColor="green"

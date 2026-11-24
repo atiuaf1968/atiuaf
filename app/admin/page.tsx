@@ -664,9 +664,9 @@ export default function StandaloneAdminPortal() {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans">
       {/* Top Application Bar */}
-      <header className="bg-slate-950 border-b border-slate-800 sticky top-0 z-40 px-4 sm:px-8 py-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 relative flex-shrink-0 bg-white/10 p-1 rounded-xl">
+      <header className="bg-slate-950 border-b border-slate-800 sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 flex items-center justify-between">
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 relative flex-shrink-0 bg-white/10 p-1 rounded-xl">
             <Image
               src="/images/student-power-logo.png"
               alt="Logo"
@@ -675,23 +675,23 @@ export default function StandaloneAdminPortal() {
               className="w-full h-full object-contain"
             />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-black text-white tracking-wide">
-                ATI UAF <span className="text-emerald-400">Management Application</span>
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="text-xs sm:text-sm font-black text-white tracking-wide truncate">
+                ATI UAF <span className="text-emerald-400">Admin</span>
               </span>
-              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950 border border-emerald-700 text-emerald-300">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] font-bold bg-emerald-950 border border-emerald-700 text-emerald-300">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                PostgreSQL Live
+                Live
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 font-mono">
+            <p className="text-[10px] sm:text-[11px] text-slate-400 font-mono truncate hidden sm:block">
               admin@atiuaf.com • admin.atiuaf.com
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           <Link
             href="/"
             target="_blank"
@@ -703,18 +703,93 @@ export default function StandaloneAdminPortal() {
 
           <button
             onClick={handleLogout}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold text-red-300 hover:text-white bg-red-950/60 hover:bg-red-900 border border-red-800/80 transition-colors"
+            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold text-red-300 hover:text-white bg-red-950/60 hover:bg-red-900 border border-red-800/80 transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
-            <span>Sign Out</span>
+            <span className="hidden xs:inline">Sign Out</span>
           </button>
         </div>
       </header>
 
+      {/* Mobile Sticky Horizontal Tab Navigation (Mobile Only) */}
+      <div className="md:hidden bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-3 py-2 sticky top-[49px] z-30 overflow-x-auto no-scrollbar flex items-center gap-2 shadow-sm">
+        <button
+          onClick={() => setActiveTab('volunteers')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors flex-shrink-0 ${
+            activeTab === 'volunteers'
+              ? 'bg-emerald-600 text-white shadow'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
+          }`}
+        >
+          <UserCheck className="w-3.5 h-3.5" />
+          <span>Members ({volunteers.length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('contacts')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors flex-shrink-0 ${
+            activeTab === 'contacts'
+              ? 'bg-emerald-600 text-white shadow'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
+          }`}
+        >
+          <MessageSquare className="w-3.5 h-3.5" />
+          <span>Inquiries ({contacts.length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('activities')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors flex-shrink-0 ${
+            activeTab === 'activities'
+              ? 'bg-emerald-600 text-white shadow'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
+          }`}
+        >
+          <Calendar className="w-3.5 h-3.5" />
+          <span>Activities ({activities.length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('new-activity')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors flex-shrink-0 ${
+            activeTab === 'new-activity'
+              ? 'bg-emerald-600 text-white shadow'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
+          }`}
+        >
+          <Plus className="w-3.5 h-3.5" />
+          <span>+ New Event</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('subscribers')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors flex-shrink-0 ${
+            activeTab === 'subscribers'
+              ? 'bg-emerald-600 text-white shadow'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
+          }`}
+        >
+          <Users className="w-3.5 h-3.5" />
+          <span>Subscribers ({subscribers.length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('settings')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors flex-shrink-0 ${
+            activeTab === 'settings'
+              ? 'bg-emerald-600 text-white shadow'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
+          }`}
+        >
+          <Settings className="w-3.5 h-3.5" />
+          <span>Settings</span>
+        </button>
+      </div>
+
       {/* Main App Workspace */}
       <div className="flex-1 flex flex-col md:flex-row">
-        {/* Navigation Sidebar */}
-        <aside className="w-full md:w-64 bg-slate-950/60 border-r border-slate-800 p-4 space-y-1.5 flex-shrink-0">
+        {/* Navigation Sidebar (Desktop Only) */}
+        <aside className="hidden md:block w-64 bg-slate-950/60 border-r border-slate-800 p-4 space-y-1.5 flex-shrink-0">
           <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
             User Records & Management
           </div>
@@ -875,7 +950,7 @@ export default function StandaloneAdminPortal() {
                 </div>
               </div>
 
-              {/* Table */}
+              {/* Table & Cards */}
               {volunteers.length === 0 ? (
                 <div className="text-center py-16 bg-slate-800/40 rounded-2xl border border-slate-700/60 p-8">
                   <UserCheck className="w-10 h-10 text-slate-500 mx-auto mb-2" />
@@ -885,75 +960,158 @@ export default function StandaloneAdminPortal() {
                   </p>
                 </div>
               ) : (
-                <div className="bg-slate-800/40 rounded-2xl border border-slate-700/70 overflow-hidden shadow-xl">
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
-                      <thead>
-                        <tr className="bg-slate-950/60 border-b border-slate-700 text-slate-400 font-bold uppercase tracking-wider">
-                          <th className="py-3 px-4">Applicant</th>
-                          <th className="py-3 px-4">Contact Info</th>
-                          <th className="py-3 px-4">Academic & Hostel</th>
-                          <th className="py-3 px-4">CNIC / ID</th>
-                          <th className="py-3 px-4">Status</th>
-                          <th className="py-3 px-4">Date</th>
-                          <th className="py-3 px-4 text-right">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-700/60 font-medium">
-                        {filteredVolunteers.map((vol) => (
-                          <tr key={vol.id} className="hover:bg-slate-800/80 transition-colors">
-                            <td className="py-3.5 px-4">
-                              <p className="font-bold text-white text-sm">{vol.fullName}</p>
-                              <span className="text-[10px] font-mono text-slate-400">{vol.id}</span>
-                            </td>
-                            <td className="py-3.5 px-4 space-y-0.5">
-                              <p className="text-slate-200 font-mono">{vol.phone}</p>
-                              <p className="text-slate-400 text-[11px] font-mono">{vol.email}</p>
-                            </td>
-                            <td className="py-3.5 px-4 space-y-0.5">
-                              <p className="text-emerald-300 font-semibold">{vol.degree || 'Degree N/A'}</p>
-                              <p className="text-slate-400 text-[11px]">
-                                {vol.hostel} • {vol.semester}
-                              </p>
-                            </td>
-                            <td className="py-3.5 px-4 font-mono text-slate-300">{vol.cnic || 'N/A'}</td>
-                            <td className="py-3.5 px-4">
-                              <span
-                                className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                                  vol.status === 'Approved'
-                                    ? 'bg-emerald-950 text-emerald-300 border border-emerald-700'
-                                    : vol.status === 'Contacted'
-                                    ? 'bg-blue-950 text-blue-300 border border-blue-700'
-                                    : 'bg-amber-950 text-amber-300 border border-amber-700'
-                                }`}
-                              >
-                                {vol.status || 'Under Review'}
-                              </span>
-                            </td>
-                            <td className="py-3.5 px-4 text-slate-400 text-[11px]">
-                              {vol.createdAt ? new Date(vol.createdAt).toLocaleDateString() : 'Recent'}
-                            </td>
-                            <td className="py-3.5 px-4 text-right space-x-1.5 whitespace-nowrap">
-                              <button
-                                onClick={() => setEditingVolunteer({ ...vol })}
-                                className="px-2.5 py-1 rounded-lg bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 transition-colors inline-flex items-center gap-1 text-[11px] font-bold"
-                              >
-                                <Edit3 className="w-3 h-3" />
-                                <span>Edit User</span>
-                              </button>
-                              <button
-                                onClick={() => handleDeleteVolunteer(vol.id)}
-                                className="px-2 py-1 rounded-lg bg-red-950/40 hover:bg-red-600 text-red-300 hover:text-white border border-red-800 transition-colors inline-flex items-center text-[11px]"
-                              >
-                                <Trash2 className="w-3 h-3" />
-                              </button>
-                            </td>
+                <>
+                  {/* Desktop Table View */}
+                  <div className="hidden md:block bg-slate-800/40 rounded-2xl border border-slate-700/70 overflow-hidden shadow-xl">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-xs">
+                        <thead>
+                          <tr className="bg-slate-950/60 border-b border-slate-700 text-slate-400 font-bold uppercase tracking-wider">
+                            <th className="py-3 px-4">Applicant</th>
+                            <th className="py-3 px-4">Contact Info</th>
+                            <th className="py-3 px-4">Academic & Hostel</th>
+                            <th className="py-3 px-4">CNIC / ID</th>
+                            <th className="py-3 px-4">Status</th>
+                            <th className="py-3 px-4">Date</th>
+                            <th className="py-3 px-4 text-right">Actions</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody className="divide-y divide-slate-700/60 font-medium">
+                          {filteredVolunteers.map((vol) => (
+                            <tr key={vol.id} className="hover:bg-slate-800/80 transition-colors">
+                              <td className="py-3.5 px-4">
+                                <p className="font-bold text-white text-sm">{vol.fullName}</p>
+                                <span className="text-[10px] font-mono text-slate-400">{vol.id}</span>
+                              </td>
+                              <td className="py-3.5 px-4 space-y-0.5">
+                                <p className="text-slate-200 font-mono">{vol.phone}</p>
+                                <p className="text-slate-400 text-[11px] font-mono">{vol.email}</p>
+                              </td>
+                              <td className="py-3.5 px-4 space-y-0.5">
+                                <p className="text-emerald-300 font-semibold">{vol.degree || 'Degree N/A'}</p>
+                                <p className="text-slate-400 text-[11px]">
+                                  {vol.hostel} • {vol.semester}
+                                </p>
+                              </td>
+                              <td className="py-3.5 px-4 font-mono text-slate-300">{vol.cnic || 'N/A'}</td>
+                              <td className="py-3.5 px-4">
+                                <span
+                                  className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                                    vol.status === 'Approved'
+                                      ? 'bg-emerald-950 text-emerald-300 border border-emerald-700'
+                                      : vol.status === 'Contacted'
+                                      ? 'bg-blue-950 text-blue-300 border border-blue-700'
+                                      : 'bg-amber-950 text-amber-300 border border-amber-700'
+                                  }`}
+                                >
+                                  {vol.status || 'Under Review'}
+                                </span>
+                              </td>
+                              <td className="py-3.5 px-4 text-slate-400 text-[11px]">
+                                {vol.createdAt ? new Date(vol.createdAt).toLocaleDateString() : 'Recent'}
+                              </td>
+                              <td className="py-3.5 px-4 text-right space-x-1.5 whitespace-nowrap">
+                                <button
+                                  onClick={() => setEditingVolunteer({ ...vol })}
+                                  className="px-2.5 py-1 rounded-lg bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 transition-colors inline-flex items-center gap-1 text-[11px] font-bold"
+                                >
+                                  <Edit3 className="w-3 h-3" />
+                                  <span>Edit User</span>
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteVolunteer(vol.id)}
+                                  className="px-2 py-1 rounded-lg bg-red-950/40 hover:bg-red-600 text-red-300 hover:text-white border border-red-800 transition-colors inline-flex items-center text-[11px]"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                </div>
+
+                  {/* Mobile Cards View */}
+                  <div className="md:hidden space-y-3">
+                    {filteredVolunteers.map((vol) => (
+                      <div
+                        key={vol.id}
+                        className="bg-slate-800/70 border border-slate-700/80 rounded-2xl p-4 space-y-3 shadow-md"
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <h4 className="text-sm font-bold text-white truncate">{vol.fullName}</h4>
+                            <span className="text-[10px] font-mono text-slate-400">
+                              {vol.id} • {vol.createdAt ? new Date(vol.createdAt).toLocaleDateString() : 'Recent'}
+                            </span>
+                          </div>
+                          <span
+                            className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold flex-shrink-0 ${
+                              vol.status === 'Approved'
+                                ? 'bg-emerald-950 text-emerald-300 border border-emerald-700'
+                                : vol.status === 'Contacted'
+                                ? 'bg-blue-950 text-blue-300 border border-blue-700'
+                                : 'bg-amber-950 text-amber-300 border border-amber-700'
+                            }`}
+                          >
+                            {vol.status || 'Under Review'}
+                          </span>
+                        </div>
+
+                        <div className="p-2.5 bg-slate-900/60 rounded-xl text-xs space-y-1 border border-slate-800">
+                          <div className="text-emerald-300 font-semibold">{vol.degree || 'Degree N/A'}</div>
+                          <div className="text-slate-400 text-[11px] flex items-center gap-1.5 flex-wrap">
+                            <span>Hostel: {vol.hostel || 'Day Scholar'}</span>
+                            <span>•</span>
+                            <span>Sem: {vol.semester || 'N/A'}</span>
+                            {vol.cnic && (
+                              <>
+                                <span>•</span>
+                                <span className="font-mono">CNIC: {vol.cnic}</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-xs">
+                          {vol.phone && (
+                            <a
+                              href={`tel:${vol.phone}`}
+                              className="flex-1 py-1.5 px-2 bg-slate-900 border border-slate-700 hover:border-emerald-500 rounded-lg text-center font-mono text-slate-200 truncate"
+                            >
+                              📞 {vol.phone}
+                            </a>
+                          )}
+                          {vol.email && (
+                            <a
+                              href={`mailto:${vol.email}`}
+                              className="flex-1 py-1.5 px-2 bg-slate-900 border border-slate-700 hover:border-emerald-500 rounded-lg text-center font-mono text-slate-200 truncate text-[11px]"
+                            >
+                              ✉️ {vol.email}
+                            </a>
+                          )}
+                        </div>
+
+                        <div className="pt-2 border-t border-slate-700/60 flex items-center justify-between gap-2">
+                          <button
+                            onClick={() => setEditingVolunteer({ ...vol })}
+                            className="flex-1 py-2 rounded-xl bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                            <span>Edit User Data</span>
+                          </button>
+                          <button
+                            onClick={() => handleDeleteVolunteer(vol.id)}
+                            className="py-2 px-3 rounded-xl bg-red-950/40 hover:bg-red-600 text-red-300 hover:text-white border border-red-800 text-xs font-bold transition-colors"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
               )}
             </div>
           )}
@@ -994,69 +1152,147 @@ export default function StandaloneAdminPortal() {
                   <p className="text-xs text-slate-400 mt-1">Inquiries from atiuaf.com/contact will appear here.</p>
                 </div>
               ) : (
-                <div className="bg-slate-800/40 rounded-2xl border border-slate-700/70 overflow-hidden shadow-xl">
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
-                      <thead>
-                        <tr className="bg-slate-950/60 border-b border-slate-700 text-slate-400 font-bold uppercase tracking-wider">
-                          <th className="py-3 px-4">Inquirer</th>
-                          <th className="py-3 px-4">Subject & Message</th>
-                          <th className="py-3 px-4">Category</th>
-                          <th className="py-3 px-4">Status</th>
-                          <th className="py-3 px-4">Date</th>
-                          <th className="py-3 px-4 text-right">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-700/60 font-medium">
-                        {filteredContacts.map((c) => (
-                          <tr key={c.id} className="hover:bg-slate-800/80 transition-colors">
-                            <td className="py-3.5 px-4">
-                              <p className="font-bold text-white text-sm">{c.name}</p>
-                              <p className="text-slate-400 font-mono text-[11px]">{c.email}</p>
-                              {c.phone && <p className="text-slate-500 font-mono text-[10px]">{c.phone}</p>}
-                            </td>
-                            <td className="py-3.5 px-4 max-w-xs">
-                              <p className="font-semibold text-slate-200 line-clamp-1">{c.subject}</p>
-                              <p className="text-slate-400 text-[11px] line-clamp-2 mt-0.5">{c.message}</p>
-                            </td>
-                            <td className="py-3.5 px-4 text-slate-300">{c.category || 'General'}</td>
-                            <td className="py-3.5 px-4">
-                              <span
-                                className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                                  c.status === 'Resolved'
-                                    ? 'bg-emerald-950 text-emerald-300 border border-emerald-700'
-                                    : c.status === 'Contacted'
-                                    ? 'bg-blue-950 text-blue-300 border border-blue-700'
-                                    : 'bg-slate-700 text-slate-200'
-                                }`}
-                              >
-                                {c.status || 'Received'}
-                              </span>
-                            </td>
-                            <td className="py-3.5 px-4 text-slate-400 text-[11px]">
-                              {c.createdAt ? new Date(c.createdAt).toLocaleDateString() : 'Recent'}
-                            </td>
-                            <td className="py-3.5 px-4 text-right space-x-1.5 whitespace-nowrap">
-                              <button
-                                onClick={() => setEditingContact({ ...c })}
-                                className="px-2.5 py-1 rounded-lg bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white border border-blue-500/40 transition-colors inline-flex items-center gap-1 text-[11px] font-bold"
-                              >
-                                <Edit3 className="w-3 h-3" />
-                                <span>Edit</span>
-                              </button>
-                              <button
-                                onClick={() => handleDeleteContact(c.id)}
-                                className="px-2 py-1 rounded-lg bg-red-950/40 hover:bg-red-600 text-red-300 hover:text-white border border-red-800 transition-colors inline-flex items-center text-[11px]"
-                              >
-                                <Trash2 className="w-3 h-3" />
-                              </button>
-                            </td>
+                <>
+                  {/* Desktop Table View */}
+                  <div className="hidden md:block bg-slate-800/40 rounded-2xl border border-slate-700/70 overflow-hidden shadow-xl">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-xs">
+                        <thead>
+                          <tr className="bg-slate-950/60 border-b border-slate-700 text-slate-400 font-bold uppercase tracking-wider">
+                            <th className="py-3 px-4">Inquirer</th>
+                            <th className="py-3 px-4">Subject & Message</th>
+                            <th className="py-3 px-4">Category</th>
+                            <th className="py-3 px-4">Status</th>
+                            <th className="py-3 px-4">Date</th>
+                            <th className="py-3 px-4 text-right">Actions</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody className="divide-y divide-slate-700/60 font-medium">
+                          {filteredContacts.map((c) => (
+                            <tr key={c.id} className="hover:bg-slate-800/80 transition-colors">
+                              <td className="py-3.5 px-4">
+                                <p className="font-bold text-white text-sm">{c.name}</p>
+                                <p className="text-slate-400 font-mono text-[11px]">{c.email}</p>
+                                {c.phone && <p className="text-slate-500 font-mono text-[10px]">{c.phone}</p>}
+                              </td>
+                              <td className="py-3.5 px-4 max-w-xs">
+                                <p className="font-semibold text-slate-200 line-clamp-1">{c.subject}</p>
+                                <p className="text-slate-400 text-[11px] line-clamp-2 mt-0.5">{c.message}</p>
+                              </td>
+                              <td className="py-3.5 px-4 text-slate-300">{c.category || 'General'}</td>
+                              <td className="py-3.5 px-4">
+                                <span
+                                  className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                                    c.status === 'Resolved'
+                                      ? 'bg-emerald-950 text-emerald-300 border border-emerald-700'
+                                      : c.status === 'Contacted'
+                                      ? 'bg-blue-950 text-blue-300 border border-blue-700'
+                                      : 'bg-slate-700 text-slate-200'
+                                  }`}
+                                >
+                                  {c.status || 'Received'}
+                                </span>
+                              </td>
+                              <td className="py-3.5 px-4 text-slate-400 text-[11px]">
+                                {c.createdAt ? new Date(c.createdAt).toLocaleDateString() : 'Recent'}
+                              </td>
+                              <td className="py-3.5 px-4 text-right space-x-1.5 whitespace-nowrap">
+                                <button
+                                  onClick={() => setEditingContact({ ...c })}
+                                  className="px-2.5 py-1 rounded-lg bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white border border-blue-500/40 transition-colors inline-flex items-center gap-1 text-[11px] font-bold"
+                                >
+                                  <Edit3 className="w-3 h-3" />
+                                  <span>Edit</span>
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteContact(c.id)}
+                                  className="px-2 py-1 rounded-lg bg-red-950/40 hover:bg-red-600 text-red-300 hover:text-white border border-red-800 transition-colors inline-flex items-center text-[11px]"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                </div>
+
+                  {/* Mobile Cards View */}
+                  <div className="md:hidden space-y-3">
+                    {filteredContacts.map((c) => (
+                      <div
+                        key={c.id}
+                        className="bg-slate-800/70 border border-slate-700/80 rounded-2xl p-4 space-y-3 shadow-md"
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <h4 className="text-sm font-bold text-white truncate">{c.name}</h4>
+                            <span className="text-[10px] font-mono text-slate-400">
+                              {c.id} • {c.createdAt ? new Date(c.createdAt).toLocaleDateString() : 'Recent'}
+                            </span>
+                          </div>
+                          <span
+                            className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold flex-shrink-0 ${
+                              c.status === 'Resolved'
+                                ? 'bg-emerald-950 text-emerald-300 border border-emerald-700'
+                                : c.status === 'Contacted' || c.status === 'In Progress'
+                                ? 'bg-blue-950 text-blue-300 border border-blue-700'
+                                : 'bg-slate-700 text-slate-200'
+                            }`}
+                          >
+                            {c.status || 'Received'}
+                          </span>
+                        </div>
+
+                        <div className="p-2.5 bg-slate-900/60 rounded-xl text-xs space-y-1.5 border border-slate-800">
+                          <div className="text-white font-semibold">{c.subject}</div>
+                          <div className="text-slate-300 text-[11px] line-clamp-3 leading-relaxed">
+                            &quot;{c.message}&quot;
+                          </div>
+                          <div className="text-[10px] text-slate-400 pt-0.5">
+                            Category: <span className="text-slate-300">{c.category || 'General'}</span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-xs">
+                          {c.phone && (
+                            <a
+                              href={`tel:${c.phone}`}
+                              className="flex-1 py-1.5 px-2 bg-slate-900 border border-slate-700 hover:border-blue-500 rounded-lg text-center font-mono text-slate-200 truncate"
+                            >
+                              📞 {c.phone}
+                            </a>
+                          )}
+                          {c.email && (
+                            <a
+                              href={`mailto:${c.email}`}
+                              className="flex-1 py-1.5 px-2 bg-slate-900 border border-slate-700 hover:border-blue-500 rounded-lg text-center font-mono text-slate-200 truncate text-[11px]"
+                            >
+                              ✉️ {c.email}
+                            </a>
+                          )}
+                        </div>
+
+                        <div className="pt-2 border-t border-slate-700/60 flex items-center justify-between gap-2">
+                          <button
+                            onClick={() => setEditingContact({ ...c })}
+                            className="flex-1 py-2 rounded-xl bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white border border-blue-500/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                            <span>Edit Inquiry</span>
+                          </button>
+                          <button
+                            onClick={() => handleDeleteContact(c.id)}
+                            className="py-2 px-3 rounded-xl bg-red-950/40 hover:bg-red-600 text-red-300 hover:text-white border border-red-800 text-xs font-bold transition-colors"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
               )}
             </div>
           )}
@@ -1066,7 +1302,7 @@ export default function StandaloneAdminPortal() {
              ===================================================================== */}
           {activeTab === 'activities' && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between bg-slate-800/60 p-5 rounded-2xl border border-slate-700/80">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-800/60 p-5 rounded-2xl border border-slate-700/80">
                 <div>
                   <h2 className="text-xl font-black text-white">Campus Activities</h2>
                   <p className="text-xs text-slate-400 mt-0.5">
@@ -1076,7 +1312,7 @@ export default function StandaloneAdminPortal() {
 
                 <button
                   onClick={() => setActiveTab('new-activity')}
-                  className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-500 transition-colors flex items-center gap-1.5 shadow"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-500 transition-colors flex items-center justify-center gap-1.5 shadow"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Publish New Activity</span>
@@ -1373,34 +1609,57 @@ export default function StandaloneAdminPortal() {
                   <p className="text-xs text-slate-400">No subscribers registered yet.</p>
                 </div>
               ) : (
-                <div className="bg-slate-800/40 rounded-2xl border border-slate-700/70 overflow-hidden shadow-xl">
-                  <table className="w-full text-left text-xs">
-                    <thead>
-                      <tr className="bg-slate-950/60 border-b border-slate-700 text-slate-400 font-bold uppercase tracking-wider">
-                        <th className="py-3 px-4">#</th>
-                        <th className="py-3 px-4">Email</th>
-                        <th className="py-3 px-4">Subscribed Date</th>
-                        <th className="py-3 px-4">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-700/60">
-                      {subscribers.map((s, idx) => (
-                        <tr key={idx} className="hover:bg-slate-800/80">
-                          <td className="py-3 px-4 text-slate-500">{idx + 1}</td>
-                          <td className="py-3 px-4 font-mono font-bold text-white">{s.email}</td>
-                          <td className="py-3 px-4 text-slate-400">
-                            {new Date(s.subscribedAt).toLocaleDateString()}
-                          </td>
-                          <td className="py-3 px-4">
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">
-                              Active
-                            </span>
-                          </td>
+                <>
+                  {/* Desktop Table View */}
+                  <div className="hidden md:block bg-slate-800/40 rounded-2xl border border-slate-700/70 overflow-hidden shadow-xl">
+                    <table className="w-full text-left text-xs">
+                      <thead>
+                        <tr className="bg-slate-950/60 border-b border-slate-700 text-slate-400 font-bold uppercase tracking-wider">
+                          <th className="py-3 px-4">#</th>
+                          <th className="py-3 px-4">Email</th>
+                          <th className="py-3 px-4">Subscribed Date</th>
+                          <th className="py-3 px-4">Status</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                      </thead>
+                      <tbody className="divide-y divide-slate-700/60">
+                        {subscribers.map((s, idx) => (
+                          <tr key={idx} className="hover:bg-slate-800/80">
+                            <td className="py-3 px-4 text-slate-500">{idx + 1}</td>
+                            <td className="py-3 px-4 font-mono font-bold text-white">{s.email}</td>
+                            <td className="py-3 px-4 text-slate-400">
+                              {new Date(s.subscribedAt).toLocaleDateString()}
+                            </td>
+                            <td className="py-3 px-4">
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">
+                                Active
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Mobile Cards View */}
+                  <div className="md:hidden space-y-2.5">
+                    {subscribers.map((s, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-slate-800/70 border border-slate-700/80 rounded-xl p-3 flex items-center justify-between gap-3 text-xs"
+                      >
+                        <div className="min-w-0">
+                          <p className="font-mono font-bold text-white truncate">{s.email}</p>
+                          <p className="text-[11px] text-slate-400">
+                            Subscribed: {new Date(s.subscribedAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700 flex-shrink-0">
+                          Active
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </>
               )}
             </div>
           )}
@@ -1556,8 +1815,8 @@ export default function StandaloneAdminPortal() {
           EDIT VOLUNTEER USER DATA MODAL
          ======================================================================= */}
       {editingVolunteer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative">
             <button
               onClick={() => setEditingVolunteer(null)}
               className="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center"
@@ -1597,7 +1856,7 @@ export default function StandaloneAdminPortal() {
                   required
                   value={editingVolunteer.fullName}
                   onChange={(e) => setEditingVolunteer({ ...editingVolunteer, fullName: e.target.value })}
-                  className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
@@ -1609,7 +1868,7 @@ export default function StandaloneAdminPortal() {
                     required
                     value={editingVolunteer.phone}
                     onChange={(e) => setEditingVolunteer({ ...editingVolunteer, phone: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
                   />
                 </div>
 
@@ -1620,7 +1879,7 @@ export default function StandaloneAdminPortal() {
                     required
                     value={editingVolunteer.email}
                     onChange={(e) => setEditingVolunteer({ ...editingVolunteer, email: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               </div>
@@ -1632,7 +1891,7 @@ export default function StandaloneAdminPortal() {
                     type="text"
                     value={editingVolunteer.cnic || ''}
                     onChange={(e) => setEditingVolunteer({ ...editingVolunteer, cnic: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
                   />
                 </div>
 
@@ -1641,7 +1900,7 @@ export default function StandaloneAdminPortal() {
                   <select
                     value={editingVolunteer.status || 'Under Review'}
                     onChange={(e) => setEditingVolunteer({ ...editingVolunteer, status: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
                   >
                     <option value="Under Review">Under Review</option>
                     <option value="Approved">Approved</option>
@@ -1658,7 +1917,7 @@ export default function StandaloneAdminPortal() {
                     type="text"
                     value={editingVolunteer.degree || ''}
                     onChange={(e) => setEditingVolunteer({ ...editingVolunteer, degree: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
                   />
                 </div>
 
@@ -1668,7 +1927,7 @@ export default function StandaloneAdminPortal() {
                     type="text"
                     value={editingVolunteer.hostel || ''}
                     onChange={(e) => setEditingVolunteer({ ...editingVolunteer, hostel: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               </div>
@@ -1679,7 +1938,7 @@ export default function StandaloneAdminPortal() {
                   type="text"
                   value={editingVolunteer.address || ''}
                   onChange={(e) => setEditingVolunteer({ ...editingVolunteer, address: e.target.value })}
-                  className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
@@ -1694,18 +1953,18 @@ export default function StandaloneAdminPortal() {
                 />
               </div>
 
-              <div className="pt-2 flex items-center justify-end gap-2.5">
+              <div className="pt-2 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5">
                 <button
                   type="button"
                   onClick={() => setEditingVolunteer(null)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold uppercase tracking-wider text-[11px]"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold uppercase tracking-wider text-[11px] text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingVolunteer}
-                  className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase tracking-wider text-[11px] shadow flex items-center gap-1.5"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase tracking-wider text-[11px] shadow flex items-center justify-center gap-1.5"
                 >
                   {isSavingVolunteer ? (
                     <>
@@ -1729,8 +1988,8 @@ export default function StandaloneAdminPortal() {
           EDIT CONTACT INQUIRER DATA MODAL
          ======================================================================= */}
       {editingContact && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl relative">
             <button
               onClick={() => setEditingContact(null)}
               className="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center"
@@ -1771,7 +2030,7 @@ export default function StandaloneAdminPortal() {
                     required
                     value={editingContact.name}
                     onChange={(e) => setEditingContact({ ...editingContact, name: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -1782,7 +2041,7 @@ export default function StandaloneAdminPortal() {
                     required
                     value={editingContact.email}
                     onChange={(e) => setEditingContact({ ...editingContact, email: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -1794,7 +2053,7 @@ export default function StandaloneAdminPortal() {
                     type="text"
                     value={editingContact.phone || ''}
                     onChange={(e) => setEditingContact({ ...editingContact, phone: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -1803,7 +2062,7 @@ export default function StandaloneAdminPortal() {
                   <select
                     value={editingContact.status || 'Received'}
                     onChange={(e) => setEditingContact({ ...editingContact, status: e.target.value })}
-                    className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
                   >
                     <option value="Received">Received</option>
                     <option value="Contacted">Contacted</option>
@@ -1820,7 +2079,7 @@ export default function StandaloneAdminPortal() {
                   required
                   value={editingContact.subject}
                   onChange={(e) => setEditingContact({ ...editingContact, subject: e.target.value })}
-                  className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -1831,7 +2090,7 @@ export default function StandaloneAdminPortal() {
                   required
                   value={editingContact.message}
                   onChange={(e) => setEditingContact({ ...editingContact, message: e.target.value })}
-                  className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -1842,22 +2101,22 @@ export default function StandaloneAdminPortal() {
                   value={editingContact.notes || ''}
                   onChange={(e) => setEditingContact({ ...editingContact, notes: e.target.value })}
                   placeholder="e.g. Contacted applicant via WhatsApp and provided guidance..."
-                  className="w-full px-3.5 py-2 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-white font-medium focus:outline-none focus:border-blue-500"
                 />
               </div>
 
-              <div className="pt-2 flex items-center justify-end gap-2.5">
+              <div className="pt-2 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5">
                 <button
                   type="button"
                   onClick={() => setEditingContact(null)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold uppercase tracking-wider text-[11px]"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold uppercase tracking-wider text-[11px] text-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingContact}
-                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold uppercase tracking-wider text-[11px] shadow flex items-center gap-1.5"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold uppercase tracking-wider text-[11px] shadow flex items-center justify-center gap-1.5"
                 >
                   {isSavingContact ? (
                     <>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface SectionHeadingProps {
-  badge: string;
+  badge?: string;
   badgeColor?: 'green' | 'red';
   title: string;
   highlightText?: string;
@@ -32,10 +32,12 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   return (
     <div className={`mb-12 ${centered ? 'text-center mx-auto max-w-3xl' : 'max-w-2xl'} ${className}`}>
       {/* Badge */}
-      <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border shadow-sm ${badgeClasses}`}>
-        <span className={`w-2 h-2 rounded-full ${badgeColor === 'green' ? 'bg-brand-green-600' : 'bg-brand-red-600'} animate-pulse`} />
-        {badge}
-      </div>
+      {badge && (
+        <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border shadow-sm ${badgeClasses}`}>
+          <span className={`w-2 h-2 rounded-full ${badgeColor === 'green' ? 'bg-brand-green-600' : 'bg-brand-red-600'} animate-pulse`} />
+          {badge}
+        </div>
+      )}
 
       {/* Main Title */}
       <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight leading-tight">

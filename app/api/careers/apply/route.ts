@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { saveVolunteerApplication } from '@/lib/db';
 
 export async function POST(req: NextRequest) {
   try {
@@ -54,7 +55,7 @@ export async function POST(req: NextRequest) {
     const applicationId = `ATI-VOL-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 899 + 100)}`;
 
     const memberRecord = {
-      applicationId,
+      id: applicationId,
       fullName,
       email,
       phone,
@@ -63,34 +64,40 @@ export async function POST(req: NextRequest) {
       degree,
       semester,
       address,
-      membershipType: 'Voluntary Member',
-      status: 'Registered',
-      submittedAt: new Date().toISOString(),
+      status: 'Under Review',
+      notes: '',
     };
 
-    // Save record to persistent store
-    const storageDir = path.join(process.cwd(), '.data');
-    if (!fs.existsSync(storageDir)) {
-      fs.mkdirSync(storageDir, { recursive: true });
+    // 1. Save directly into PostgreSQL database
+    try {
+      await saveVolunteerApplication(memberRecord);
+      console.log(`[Voluntary Membership] Saved ${applicationId} to PostgreSQL: ${fullName}`);
+    } catch (dbErr) {
+      console.error('Failed to save voluntary membership to PostgreSQL:', dbErr);
     }
 
-    const logFile = path.join(storageDir, 'voluntary_memberships.json');
-    let existingMembers = [];
-    if (fs.existsSync(logFile)) {
-      try {
-        existingMembers = JSON.parse(fs.readFileSync(logFile, 'utf-8'));
-      } catch {
-        existingMembers = [];
+    // 2. Local fallback sync
+    try {
+      const storageDir = path.join(process.cwd(), '.data');
+      if (!fs.existsSync(storageDir)) {
+        fs.mkdirSync(storageDir, { recursive: true });
       }
+      const logFile = path.join(storageDir, 'voluntary_memberships.json');
+      let existingMembers = [];
+      if (fs.existsSync(logFile)) {
+        try {
+          existingMembers = JSON.parse(fs.readFileSync(logFile, 'utf-8'));
+        } catch {
+          existingMembers = [];
+        }
+      }
+      existingMembers.push({ ...memberRecord, submittedAt: new Date().toISOString() });
+      fs.writeFileSync(logFile, JSON.stringify(existingMembers, null, 2));
+    } catch (fsErr) {
+      console.error('Failed to sync voluntary membership locally:', fsErr);
     }
-    existingMembers.push(memberRecord);
-    fs.writeFileSync(logFile, JSON.stringify(existingMembers, null, 2));
 
-    console.log(`[Voluntary Membership] ID: ${applicationId} - ${fullName} (${degree}, ${hostel})`);
-
-    // Dispatch dual emails via Mailtrap SMTP:
-    // 1. Send all applicant details to our contact email (admin)
-    // 2. Send auto-reply confirmation back to the student
+    // 3. Dispatch dual emails via Mailtrap SMTP:
     try {
       const { sendCareerApplicationEmails } = await import('@/lib/mail');
       await sendCareerApplicationEmails({

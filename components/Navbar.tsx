@@ -28,6 +28,10 @@ export const Navbar: React.FC = () => {
     { name: 'Contact', href: '/contact' },
   ];
 
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <>
       {/* Top Institutional Notification Bar */}

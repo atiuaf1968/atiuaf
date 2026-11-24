@@ -3,11 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Mail, Phone, MapPin, Heart, ArrowUpRight, Send, CheckCircle2, AlertCircle, RefreshCw, Facebook, Instagram, Youtube, Lock } from 'lucide-react';
 import { SITE_METADATA } from '@/lib/data';
 import { IslamicPattern } from './IslamicPattern';
 
 export const Footer: React.FC = () => {
+  const pathname = usePathname();
   const [email, setEmail] = useState('');
   const [subscribing, setSubscribing] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -24,6 +26,10 @@ export const Footer: React.FC = () => {
       })
       .catch(() => {});
   }, []);
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   async function handleNewsletterSubmit(e: React.FormEvent) {
     e.preventDefault();

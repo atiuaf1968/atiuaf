@@ -49,3 +49,33 @@ export interface SubscriberItem {
   subscribedAt: string;
   active: boolean;
 }
+
+export interface ContactSubmission {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  category?: string;
+  message: string;
+  status: string;
+  notes?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface VolunteerApplication {
+  id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  cnic?: string;
+  hostel?: string;
+  degree?: string;
+  semester?: string;
+  address?: string;
+  status: string;
+  notes?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}

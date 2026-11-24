@@ -29,9 +29,14 @@ export async function POST(req: NextRequest) {
     }
 
     const uploadedUrls: string[] = [];
-    const blobToken =
-      process.env.BLOB_READ_WRITE_TOKEN ||
-      'vercel_blob_rw_bLQZ8JdjoobyoGY8_uohoT4Y8ciwaCiOpZTmoNu0RM4TS5t';
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
+
+    if (!blobToken) {
+      return NextResponse.json(
+        { success: false, error: 'BLOB_READ_WRITE_TOKEN environment variable is not configured.' },
+        { status: 500 }
+      );
+    }
 
     for (const file of files) {
       if (file.size > 10 * 1024 * 1024) {

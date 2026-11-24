@@ -14,11 +14,19 @@ export type { SocialLinks, ContactSubmission, VolunteerApplication };
 
 const connectionString =
   process.env.DATABASE_URL ||
-  'postgresql://postgres.nhmzxpfrsmsrkvmhmwmq:%2B8p%2FyVUfvuJww6e@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres';
+  (process.env.PGHOST
+    ? `postgresql://${encodeURIComponent(process.env.PGUSER || '')}:${encodeURIComponent(process.env.PGPASSWORD || '')}@${process.env.PGHOST}:${process.env.PGPORT || 5432}/${process.env.PGDATABASE || 'postgres'}`
+    : '');
 
 let pool: Pool | null = null;
 
 export function getDbPool(): Pool {
+  if (!connectionString) {
+    throw new Error(
+      'DATABASE_URL (or PGHOST, PGUSER, PGPASSWORD) environment variable is not defined. Please configure it in your environment settings.'
+    );
+  }
+
   if (!pool) {
     pool = new Pool({
       connectionString,
@@ -69,7 +77,7 @@ export async function initDb(): Promise<void> {
       const hashedPassword = bcrypt.hashSync(defaultPass, 10);
       await p.query(
         'INSERT INTO admin_users (email, password) VALUES ($1, $2)',
-        ['admin@atiuaf.com', hashedPassword]
+        [process.env.ADMIN_EMAIL || 'admin@atiuaf.com', hashedPassword]
       );
       console.log('Seeded default admin with bcrypt hashed password into PostgreSQL.');
     } else {

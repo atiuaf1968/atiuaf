@@ -622,9 +622,8 @@ export default function StandaloneAdminPortal() {
             </div>
 
             <div className="p-3 bg-slate-800/50 rounded-xl border border-slate-700/60 text-[11px] text-slate-400">
-              <span className="font-semibold text-slate-300">Default Access: </span>
-              <span className="font-mono text-emerald-400">admin@atiuaf.com</span> /{' '}
-              <span className="font-mono text-emerald-400">atiuaf1968</span>
+              <span className="font-semibold text-slate-300">Authorized Personnel: </span>
+              <span className="text-slate-400">Restricted portal for ATI UAF Chapter Executive Cabinet and Administrators.</span>
             </div>
 
             <button

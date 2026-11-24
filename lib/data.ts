@@ -357,22 +357,6 @@ export const LEADERSHIP_TEAM: LeadershipMember[] = [
     category: "UAF Executive Body",
     bio: "7th semester student at the University of Agriculture, Faisalabad, serving as the Finance Secretary in ATI. Hardworking, responsible, and actively participates in student activities. His dedication towards his studies and his role makes him stand out among his fellows.",
     imagePlaceholder: "N.U"
-  },
-  {
-    id: "lead-central-1",
-    name: "Faisal Qayyum Magray",
-    role: "Central President (Session 2025–2026)",
-    category: "Advisory Board",
-    bio: "Central President of Anjuman Talaba-e-Islam providing constitutional leadership, guidance, and ideological patronage to university chapters across Pakistan.",
-    imagePlaceholder: "F.Q.M"
-  },
-  {
-    id: "lead-central-2",
-    name: "Sardar Baidar Awan",
-    role: "Central Secretary General (2025–2026)",
-    category: "Advisory Board",
-    bio: "Central Secretary General of ATI overseeing organizational discipline, student rights policy memoranda, and nationwide chapter registrations.",
-    imagePlaceholder: "S.B.A"
   }
 ];
 

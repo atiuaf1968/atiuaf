@@ -329,12 +329,12 @@ export default function AboutPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeading
-            badge="Executive Council & Central Advisory"
+            badge="Executive Cabinet"
             badgeColor="green"
-            title="UAF Executive Cabinet &"
-            highlightText="Central Leadership"
+            title="UAF Chapter Executive Cabinet &"
+            highlightText="Student Leadership"
             highlightColor="red"
-            subtitle="The dedicated executive cabinet and central leadership guiding Anjuman Talaba-e-Islam at the University of Agriculture, Faisalabad."
+            subtitle="The dedicated student leaders steering Anjuman Talaba-e-Islam across all faculties, institutes, and hostel halls at the University of Agriculture, Faisalabad."
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">

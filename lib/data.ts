@@ -63,6 +63,23 @@ export const SITE_METADATA = {
   }
 };
 
+/**
+ * Mailtrap SMTP configuration following project's config pattern.
+ * Secrets are loaded from environment variables.
+ */
+export const MAILTRAP_CONFIG = {
+  host: process.env.MAILTRAP_SMTP_HOST || "live.smtp.mailtrap.io",
+  port: parseInt(process.env.MAILTRAP_SMTP_PORT || "587", 10),
+  auth: {
+    user: process.env.MAILTRAP_SMTP_USER || "api",
+    pass: process.env.MAILTRAP_SMTP_PASS || "",
+  },
+  defaults: {
+    from: process.env.MAIL_FROM || "Private Person <hello@atiuaf.com>",
+    to: process.env.MAIL_TO || "A Test User <atiuaf1968@gmail.com>",
+  },
+};
+
 export const OFFICIAL_MOTTO = "Awakening the true Islamic spirit among students is impossible without lighting the candle of Ishq-e-Mustafa ﷺ in their hearts.";
 
 export const OFFICIAL_VISION = "To prepare an awakened, conscious and well-mannered student on the foundation of the Love of Prophet Muhammad ﷺ, who plays a practical role for the glory of Islam, the development of Pakistan and the service of humanity.";

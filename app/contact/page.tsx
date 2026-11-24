@@ -85,15 +85,10 @@ export default function ContactPage() {
       {/* =========================================================================
           HERO BANNER
          ========================================================================= */}
-      <section className="relative bg-white pt-16 pb-20 border-b border-gray-100 overflow-hidden">
+      <section className="relative bg-white pt-10 sm:pt-14 pb-12 sm:pb-16 border-b border-gray-100 overflow-hidden">
         <IslamicPattern opacity={0.05} variant="dual" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green-50 border border-brand-green-200 text-xs font-bold uppercase tracking-wider text-brand-green-800 mb-6">
-            <span className="w-2 h-2 rounded-full bg-brand-green-600 animate-pulse" />
-            <span>University of Agriculture, Faisalabad (UAF) Chapter</span>
-          </div>
-
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-brand-black tracking-tight leading-tight max-w-4xl mx-auto">
             Contact <span className="text-brand-green-700">Student Power UAF</span>
           </h1>

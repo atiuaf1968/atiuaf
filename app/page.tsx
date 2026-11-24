@@ -73,9 +73,9 @@ export default async function HomePage() {
           <img
             src="/images/hero.jpg"
             alt="ATI UAF Hero Background"
-            className="w-full h-full object-cover object-center filter blur-[2px] sm:blur-[3px] scale-105 opacity-60 sm:opacity-70"
+            className="w-full h-full object-cover object-center filter blur-[2px] sm:blur-[3px] scale-105 opacity-35 sm:opacity-45"
           />
-          <div className="absolute inset-0 bg-white/50 backdrop-blur-[1px]" />
+          <div className="absolute inset-0 bg-white/40 backdrop-blur-[1px]" />
         </div>
 
         {/* Subtle dual-color Islamic geometric lattice */}

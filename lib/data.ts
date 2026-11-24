@@ -27,6 +27,7 @@ export interface LeadershipMember {
   category: "UAF Executive Body" | "Advisory Board" | "Academic Wing" | "Student Welfare";
   bio: string;
   imagePlaceholder: string;
+  image?: string;
 }
 
 export interface CareerOpportunity {
@@ -316,7 +317,8 @@ export const LEADERSHIP_TEAM: LeadershipMember[] = [
     role: "Nazim-e-Jamia (President), UAF Chapter",
     category: "UAF Executive Body",
     bio: "The most popular student leader in Punjab, Pakistan. He has previously served as Nazim-e-Jamia UAF and Nazim All Hostels. Since 2021, he has been working for Anjuman Talaba-e-Islam at the University of Agriculture Faisalabad with sincerity, hard work, and passion. His struggle for student rights, Islamic training, and service to humanity makes him extremely popular among students.",
-    imagePlaceholder: "F.R"
+    imagePlaceholder: "F.R",
+    image: "/images/leadership/faiz-rasool.jpeg"
   },
   {
     id: "lead-uaf-2",
@@ -324,7 +326,8 @@ export const LEADERSHIP_TEAM: LeadershipMember[] = [
     role: "General Secretary, UAF Chapter",
     category: "UAF Executive Body",
     bio: "General Secretary of Anjuman Talaba-e-Islam UAF and the most popular student leader of the University of Agriculture Faisalabad. Widely loved among students for his sincerity, hard work, and practical struggle for student rights. Under his leadership, ATI UAF is playing a prominent role in student service, Islamic training, and welfare work.",
-    imagePlaceholder: "M.A.R"
+    imagePlaceholder: "M.A.R",
+    image: "/images/leadership/abdullah-rizvi.jpeg"
   },
   {
     id: "lead-uaf-3",
@@ -332,7 +335,8 @@ export const LEADERSHIP_TEAM: LeadershipMember[] = [
     role: "Naib Nazim-e-Jamia (Vice President), UAF Chapter",
     category: "UAF Executive Body",
     bio: "Naib Nazim-e-Jamia Anjuman Talaba-e-Islam, a passionate and talented student leader working with sincerity for the training of students, organization, and promotion of Islamic thought. Under his leadership, the spirit of discipline, service to humanity, and love for Prophet Muhammad ﷺ is growing among young students.",
-    imagePlaceholder: "G.H"
+    imagePlaceholder: "G.H",
+    image: "/images/leadership/ghulam-hassan.jpeg"
   },
   {
     id: "lead-uaf-4",
@@ -340,7 +344,8 @@ export const LEADERSHIP_TEAM: LeadershipMember[] = [
     role: "Press Secretary, UAF Chapter",
     category: "UAF Executive Body",
     bio: "7th semester student at the University of Agriculture, Faisalabad, serving as the Press Secretary in ATI. Hardworking, responsible, and actively participates in student activities. His dedication towards his studies and his role makes him stand out among his fellows.",
-    imagePlaceholder: "G.A"
+    imagePlaceholder: "G.A",
+    image: "/images/leadership/ghulam-abbas.jpeg"
   },
   {
     id: "lead-uaf-5",
@@ -348,7 +353,8 @@ export const LEADERSHIP_TEAM: LeadershipMember[] = [
     role: "Joint Secretary, UAF Chapter",
     category: "UAF Executive Body",
     bio: "7th semester student at the University of Agriculture, Faisalabad. An active member of ATI serving as the Joint Secretary in ATI. Known for his leadership qualities, teamwork, and responsible attitude. His active participation in student activities makes him a prominent figure among his fellows.",
-    imagePlaceholder: "K.S"
+    imagePlaceholder: "K.S",
+    image: "/images/leadership/khurram-sher.jpeg"
   },
   {
     id: "lead-uaf-6",
@@ -356,7 +362,8 @@ export const LEADERSHIP_TEAM: LeadershipMember[] = [
     role: "Finance Secretary, UAF Chapter",
     category: "UAF Executive Body",
     bio: "7th semester student at the University of Agriculture, Faisalabad, serving as the Finance Secretary in ATI. Hardworking, responsible, and actively participates in student activities. His dedication towards his studies and his role makes him stand out among his fellows.",
-    imagePlaceholder: "N.U"
+    imagePlaceholder: "N.U",
+    image: "/images/leadership/nassar-ullah.jpeg"
   }
 ];
 

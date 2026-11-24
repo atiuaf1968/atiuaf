@@ -345,10 +345,22 @@ export default function AboutPage() {
               >
                 <div>
                   <div className="flex items-center gap-4 mb-4">
-                    {/* Placeholder Avatar with Initials */}
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-green-700 to-brand-green-900 text-white flex items-center justify-center font-black text-base tracking-wider shadow">
-                      {leader.imagePlaceholder}
-                    </div>
+                    {/* Leader Photo or Placeholder Avatar */}
+                    {leader.image ? (
+                      <div className="relative w-16 h-16 flex-shrink-0 rounded-2xl overflow-hidden border-2 border-brand-green-600/30 shadow-md">
+                        <Image
+                          src={leader.image}
+                          alt={leader.name}
+                          fill
+                          className="object-cover object-top hover:scale-105 transition-transform duration-300"
+                          sizes="64px"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-green-700 to-brand-green-900 text-white flex items-center justify-center font-black text-base tracking-wider shadow flex-shrink-0">
+                        {leader.imagePlaceholder}
+                      </div>
+                    )}
                     <div>
                       <h3 className="text-base font-bold text-brand-black leading-snug">
                         {leader.name}

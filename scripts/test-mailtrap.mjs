@@ -27,9 +27,9 @@ if (fs.existsSync(envPath)) {
 const host = process.env.MAILTRAP_SMTP_HOST || 'live.smtp.mailtrap.io';
 const port = parseInt(process.env.MAILTRAP_SMTP_PORT || '587', 10);
 const user = process.env.MAILTRAP_SMTP_USER || 'api';
-const pass = process.env.MAILTRAP_SMTP_PASS || '<YOUR_API_TOKEN>';
-const from = process.env.MAIL_FROM || 'Private Person <hello@atiuaf.com>';
-const to = process.env.MAIL_TO || 'A Test User <atiuaf1968@gmail.com>';
+const pass = process.env.MAILTRAP_SMTP_PASS || '';
+const from = process.env.MAIL_FROM || 'Anjuman Talaba-e-Islam <hello@atiuaf.com>';
+const to = process.env.MAIL_TO || 'atiuaf1968@gmail.com';
 
 console.log('--- Mailtrap SMTP Test ---');
 console.log(`Host: ${host}:${port}`);
@@ -37,30 +37,29 @@ console.log(`User: ${user}`);
 console.log(`From: ${from}`);
 console.log(`To:   ${to}`);
 
-if (pass === '<YOUR_API_TOKEN>' || !pass) {
-  console.error('\n⚠️  ERROR: MAILTRAP_SMTP_PASS is not set!');
-  console.error('Please edit .env.local and replace <YOUR_API_TOKEN> with your Mailtrap API token.');
-  console.error('Find your token at: https://mailtrap.io/api-smtp/sending-setup\n');
+if (!pass) {
+  console.error('\n⚠️  ERROR: MAILTRAP_SMTP_PASS is not set in .env.local!');
   process.exit(1);
 }
 
-var transport = nodemailer.createTransport({
-  host: host,
-  port: port,
+const transport = nodemailer.createTransport({
+  host,
+  port,
   auth: {
-    user: user,
-    pass: pass
+    user,
+    pass
   }
 });
 
 transport.sendMail({
-  from: from,
-  to: to,
-  subject: "Hello from Mailtrap",
+  from,
+  to,
+  subject: "Hello from Mailtrap - ATI UAF",
   text: "This is a test e-mail message."
 }, (error, info) => {
   if (error) {
-    return console.log(error);
+    console.error("❌ Send error:", error);
+    return;
   }
   console.log("Message sent: %s", info.messageId);
   console.log("\n✅ Sent successfully! Check your logs at: https://mailtrap.io/sending/email_logs");

@@ -109,16 +109,26 @@ export async function POST(req: NextRequest) {
 
     console.log(`[Career Application] ID: ${applicationId} for ${position} by ${fullName}`);
 
-    // Dispatch email notification via Mailtrap SMTP
+    // Dispatch dual emails via Mailtrap SMTP:
+    // 1. Send all applicant details (and attached resume) to our contact email (admin)
+    // 2. Send auto-reply confirmation back to the applicant
     try {
-      const { sendMail } = await import('@/lib/mail');
-      const { MAILTRAP_CONFIG } = await import('@/lib/data');
-      const recipient = process.env.CONTACT_RECEIVER_EMAIL || MAILTRAP_CONFIG.defaults.to;
-      await sendMail({
-        to: recipient,
-        replyTo: `${fullName} <${email}>`,
-        subject: `[ATI UAF Application] ${position} - ${fullName}`,
-        text: `New application received for position: ${position}\n\nApplicant: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nEducation: ${education}\nOpportunity Type: ${opportunityType}\nLinkedIn: ${linkedIn || 'N/A'}\nIntroduction: ${introduction}\nApplication ID: ${applicationId}`,
+      const { sendCareerApplicationEmails } = await import('@/lib/mail');
+      const resumeBuffer = resumeFile ? Buffer.from(await resumeFile.arrayBuffer()) : undefined;
+
+      await sendCareerApplicationEmails({
+        fullName,
+        email,
+        phone,
+        education,
+        position,
+        opportunityType: opportunityType || 'General Opportunity',
+        linkedIn,
+        introduction,
+        applicationId,
+        resumeName: resumeMeta?.name,
+        resumeBuffer,
+        resumeType: resumeMeta?.type,
       });
     } catch (mailError) {
       console.warn('Career application email dispatch warning:', mailError);

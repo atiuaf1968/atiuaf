@@ -4,22 +4,41 @@ import path from 'path';
 
 export async function POST(req: NextRequest) {
   try {
-    const formData = await req.formData();
+    let body: any = {};
+    const contentType = req.headers.get('content-type') || '';
 
-    const fullName = formData.get('fullName') as string;
-    const email = formData.get('email') as string;
-    const phone = formData.get('phone') as string;
-    const education = formData.get('education') as string;
-    const position = formData.get('position') as string;
-    const opportunityType = formData.get('opportunityType') as string;
-    const linkedIn = (formData.get('linkedIn') as string) || '';
-    const introduction = formData.get('introduction') as string;
-    const resumeFile = formData.get('resume') as File | null;
+    if (contentType.includes('application/json')) {
+      body = await req.json();
+    } else {
+      const formData = await req.formData();
+      body = {
+        name: formData.get('name') || formData.get('fullName'),
+        email: formData.get('email'),
+        phone: formData.get('phone') || formData.get('number'),
+        cnic: formData.get('cnic'),
+        hostel: formData.get('hostel'),
+        degree: formData.get('degree') || formData.get('education'),
+        semester: formData.get('semester'),
+        address: formData.get('address'),
+      };
+    }
 
-    // Field Validations
-    if (!fullName || !email || !phone || !education || !position || !introduction) {
+    const fullName = (body.name || body.fullName || '').toString().trim();
+    const email = (body.email || '').toString().trim();
+    const phone = (body.phone || body.number || '').toString().trim();
+    const cnic = (body.cnic || '').toString().trim();
+    const hostel = (body.hostel || '').toString().trim();
+    const degree = (body.degree || body.education || '').toString().trim();
+    const semester = (body.semester || '').toString().trim();
+    const address = (body.address || '').toString().trim();
+
+    // Required fields validation
+    if (!fullName || !email || !phone || !cnic || !hostel || !degree || !semester || !address) {
       return NextResponse.json(
-        { success: false, error: 'All primary application fields are mandatory.' },
+        {
+          success: false,
+          error: 'Please fill in all mandatory fields: Full Name, Email, WhatsApp Number, CNIC, Hostel, Degree, Semester, and Address.',
+        },
         { status: 400 }
       );
     }
@@ -27,66 +46,25 @@ export async function POST(req: NextRequest) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { success: false, error: 'Invalid email address provided.' },
+        { success: false, error: 'Please enter a valid email address.' },
         { status: 400 }
       );
     }
 
-    let resumeMeta = null;
-    if (resumeFile && resumeFile.size > 0) {
-      // Validate file size (max 5MB)
-      const maxSizeBytes = 5 * 1024 * 1024;
-      if (resumeFile.size > maxSizeBytes) {
-        return NextResponse.json(
-          { success: false, error: 'Resume file size must not exceed 5MB.' },
-          { status: 400 }
-        );
-      }
+    const applicationId = `ATI-VOL-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 899 + 100)}`;
 
-      // Validate file extension
-      const validExtensions = ['.pdf', '.doc', '.docx'];
-      const fileExt = path.extname(resumeFile.name).toLowerCase();
-      if (!validExtensions.includes(fileExt)) {
-        return NextResponse.json(
-          { success: false, error: 'Please upload a PDF or DOC/DOCX document.' },
-          { status: 400 }
-        );
-      }
-
-      resumeMeta = {
-        name: resumeFile.name,
-        size: resumeFile.size,
-        type: resumeFile.type,
-      };
-
-      // Save resume locally in persistent .data folder
-      try {
-        const uploadDir = path.join(process.cwd(), '.data', 'resumes');
-        if (!fs.existsSync(uploadDir)) {
-          fs.mkdirSync(uploadDir, { recursive: true });
-        }
-        const buffer = Buffer.from(await resumeFile.arrayBuffer());
-        const safeFileName = `${Date.now()}-${resumeFile.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-        fs.writeFileSync(path.join(uploadDir, safeFileName), buffer);
-      } catch (err) {
-        console.warn('Could not write physical resume file (expected in read-only serverless environment):', err);
-      }
-    }
-
-    const applicationId = `SP-APP-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 899 + 100)}`;
-
-    const applicationRecord = {
+    const memberRecord = {
       applicationId,
       fullName,
       email,
       phone,
-      education,
-      position,
-      opportunityType: opportunityType || 'General Opportunity',
-      linkedIn,
-      introduction,
-      resume: resumeMeta,
-      status: 'Pending Review',
+      cnic,
+      hostel,
+      degree,
+      semester,
+      address,
+      membershipType: 'Voluntary Member',
+      status: 'Registered',
       submittedAt: new Date().toISOString(),
     };
 
@@ -95,54 +73,50 @@ export async function POST(req: NextRequest) {
     if (!fs.existsSync(storageDir)) {
       fs.mkdirSync(storageDir, { recursive: true });
     }
-    const logFile = path.join(storageDir, 'career_applications.json');
-    let existingApps = [];
+
+    const logFile = path.join(storageDir, 'voluntary_memberships.json');
+    let existingMembers = [];
     if (fs.existsSync(logFile)) {
       try {
-        existingApps = JSON.parse(fs.readFileSync(logFile, 'utf-8'));
+        existingMembers = JSON.parse(fs.readFileSync(logFile, 'utf-8'));
       } catch {
-        existingApps = [];
+        existingMembers = [];
       }
     }
-    existingApps.push(applicationRecord);
-    fs.writeFileSync(logFile, JSON.stringify(existingApps, null, 2));
+    existingMembers.push(memberRecord);
+    fs.writeFileSync(logFile, JSON.stringify(existingMembers, null, 2));
 
-    console.log(`[Career Application] ID: ${applicationId} for ${position} by ${fullName}`);
+    console.log(`[Voluntary Membership] ID: ${applicationId} - ${fullName} (${degree}, ${hostel})`);
 
     // Dispatch dual emails via Mailtrap SMTP:
-    // 1. Send all applicant details (and attached resume) to our contact email (admin)
-    // 2. Send auto-reply confirmation back to the applicant
+    // 1. Send all applicant details to our contact email (admin)
+    // 2. Send auto-reply confirmation back to the student
     try {
       const { sendCareerApplicationEmails } = await import('@/lib/mail');
-      const resumeBuffer = resumeFile ? Buffer.from(await resumeFile.arrayBuffer()) : undefined;
-
       await sendCareerApplicationEmails({
         fullName,
         email,
         phone,
-        education,
-        position,
-        opportunityType: opportunityType || 'General Opportunity',
-        linkedIn,
-        introduction,
+        cnic,
+        hostel,
+        degree,
+        semester,
+        address,
         applicationId,
-        resumeName: resumeMeta?.name,
-        resumeBuffer,
-        resumeType: resumeMeta?.type,
       });
     } catch (mailError) {
-      console.warn('Career application email dispatch warning:', mailError);
+      console.warn('Volunteer email dispatch warning:', mailError);
     }
 
     return NextResponse.json({
       success: true,
-      message: 'Your application has been successfully submitted to Student Power Human Resources.',
+      message: 'Your voluntary membership registration has been received! Welcome to Anjuman Talaba-e-Islam UAF.',
       applicationId,
     });
   } catch (error) {
-    console.error('Careers Application API Error:', error);
+    console.error('Volunteer Registration API Error:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to process application. Please check your network and try again.' },
+      { success: false, error: 'Failed to process registration. Please check your connection and try again.' },
       { status: 500 }
     );
   }

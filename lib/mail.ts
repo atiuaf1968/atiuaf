@@ -119,7 +119,7 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
   const referenceHtml = referenceId
     ? `
       <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px 18px; margin: 18px 0; text-align: center;">
-        <span style="font-size: 11px; color: #166534; text-transform: uppercase; font-weight: 700; letter-spacing: 0.8px;">Tracking Reference ID</span>
+        <span style="font-size: 11px; color: #166534; text-transform: uppercase; font-weight: 700; letter-spacing: 0.8px;">Registration Tracking ID</span>
         <div style="font-size: 20px; font-weight: 800; color: #15803d; letter-spacing: 1px; margin-top: 4px;">${referenceId}</div>
       </div>
     `
@@ -412,107 +412,101 @@ export async function sendContactInquiryEmails(data: {
 }
 
 /**
- * Sends both the admin notification email (with attached resume) and the applicant's auto-reply confirmation.
+ * Sends both the admin notification email and the applicant's auto-reply confirmation for Voluntary Membership.
  */
 export async function sendCareerApplicationEmails(data: {
   fullName: string;
   email: string;
   phone: string;
-  education: string;
-  position: string;
-  opportunityType: string;
-  linkedIn?: string;
-  introduction: string;
+  cnic?: string;
+  hostel?: string;
+  degree?: string;
+  semester?: string;
+  address?: string;
+  education?: string;
+  position?: string;
+  opportunityType?: string;
   applicationId: string;
-  resumeName?: string;
-  resumeBuffer?: Buffer;
-  resumeType?: string;
 }) {
   const adminEmail = process.env.CONTACT_RECEIVER_EMAIL || MAILTRAP_CONFIG.defaults.to;
+  const degreeText = data.degree || data.education || 'UAF Student';
+  const hostelText = data.hostel || 'Hostel / Day Scholar';
+  const semesterText = data.semester || 'N/A';
+  const cnicText = data.cnic || 'N/A';
+  const addressText = data.address || 'N/A';
 
-  const attachments: MailAttachment[] = [];
-  if (data.resumeBuffer && data.resumeName) {
-    attachments.push({
-      filename: data.resumeName,
-      content: data.resumeBuffer,
-      contentType: data.resumeType || 'application/pdf',
-    });
-  }
-
-  // 1. Send filled application details to Chapter Secretariat
+  // 1. Send full voluntary registration details to Chapter Secretariat
   const adminHtml = renderBrandedEmailTemplate({
     badge: {
-      text: 'Candidate Application',
+      text: 'New Volunteer Member',
       bgColor: '#fee2e2',
       textColor: '#b91c1c',
     },
-    heading: `Application: ${data.position}`,
-    subheading: `Candidate: ${data.fullName} (${data.opportunityType})`,
-    recipientGreeting: 'Dear Executive Body & Selection Committee,',
+    heading: 'New Voluntary Member Registered',
+    subheading: `${data.fullName} • ${degreeText} (${hostelText})`,
+    recipientGreeting: 'Dear Central Secretariat & Executive Body,',
     paragraphs: [
-      `A new candidate application has been submitted for <strong>${data.position}</strong>.`,
+      `A new student has voluntarily joined <strong>Anjuman Talaba-e-Islam (ATI) UAF Chapter</strong>.`,
     ],
     referenceId: data.applicationId,
     details: [
-      { label: 'Position', value: `<strong>${data.position}</strong> (${data.opportunityType})` },
-      { label: 'Applicant Name', value: data.fullName },
-      { label: 'Email', value: `<a href="mailto:${data.email}">${data.email}</a>` },
-      { label: 'WhatsApp / Phone', value: data.phone },
-      { label: 'Degree / Faculty', value: data.education },
-      { label: 'LinkedIn', value: data.linkedIn ? `<a href="${data.linkedIn}" target="_blank">${data.linkedIn}</a>` : 'Not provided' },
-      { label: 'Resume File', value: data.resumeName ? `${data.resumeName} (Attached)` : 'No file attached' },
+      { label: 'Full Name', value: `<strong>${data.fullName}</strong>` },
+      { label: 'Email Address', value: `<a href="mailto:${data.email}">${data.email}</a>` },
+      { label: 'WhatsApp / Phone', value: `<strong>${data.phone}</strong>` },
+      { label: 'CNIC / B-Form', value: cnicText },
+      { label: 'Hostel / Residence', value: hostelText },
+      { label: 'Degree Program', value: degreeText },
+      { label: 'Current Semester', value: semesterText },
+      { label: 'Address', value: addressText },
+      { label: 'Registration Date', value: new Date().toLocaleString() },
     ],
-    callout: {
-      title: 'Statement of Interest & Experience',
-      content: data.introduction,
-    },
-    note: `Click "Reply" to contact ${data.fullName} directly. The applicant's resume is attached to this email.`,
+    note: `Click "Reply" to contact ${data.fullName} directly. Connect them with their respective hostel / faculty incharge.`,
   });
 
   const adminPromise = sendMail({
     to: adminEmail,
     replyTo: `${data.fullName} <${data.email}>`,
-    subject: `[New Application] ${data.position} — ${data.fullName} (${data.opportunityType})`,
-    text: `New student application received at ATI UAF:\n\nApplication ID: ${data.applicationId}\nPosition: ${data.position}\nType: ${data.opportunityType}\nApplicant: ${data.fullName}\nEmail: ${data.email}\nPhone: ${data.phone}\nDegree/Education: ${data.education}\nLinkedIn: ${data.linkedIn || 'N/A'}\nResume: ${data.resumeName || 'None'}\n\nIntroduction/SOP:\n${data.introduction}\n\nSubmitted on: ${new Date().toLocaleString()}`,
+    subject: `[New Volunteer Registration] ${data.fullName} — ${degreeText} (${hostelText})`,
+    text: `New voluntary member registration received at ATI UAF:\n\nRegistration ID: ${data.applicationId}\nName: ${data.fullName}\nEmail: ${data.email}\nPhone: ${data.phone}\nCNIC: ${cnicText}\nHostel/Residence: ${hostelText}\nDegree: ${degreeText}\nSemester: ${semesterText}\nAddress: ${addressText}\n\nSubmitted on: ${new Date().toLocaleString()}`,
     html: adminHtml,
-    attachments: attachments.length > 0 ? attachments : undefined,
   });
 
-  // 2. Send automated confirmation back to the applicant
+  // 2. Send automated confirmation back to the student
   const userHtml = renderBrandedEmailTemplate({
     badge: {
-      text: 'Application Received',
+      text: 'Welcome to ATI UAF',
       bgColor: '#dcfce7',
       textColor: '#15803d',
     },
-    heading: 'Your Application Has Been Received',
-    subheading: 'Anjuman Talaba-e-Islam — UAF Chapter',
+    heading: 'Welcome to Anjuman Talaba-e-Islam',
+    subheading: 'University of Agriculture, Faisalabad (UAF Chapter)',
     recipientGreeting: `Assalam-o-Alaikum ${data.fullName},`,
     paragraphs: [
-      `Thank you for applying to serve with <strong>Anjuman Talaba-e-Islam (ATI)</strong> at the University of Agriculture, Faisalabad.`,
-      `Your application for the position of <strong>${data.position}</strong> has been logged into our student registry.`,
+      `Thank you for voluntarily joining <strong>Anjuman Talaba-e-Islam (ATI)</strong> at the University of Agriculture, Faisalabad.`,
+      `Your voluntary membership registration has been received and logged under your official registration ID:`,
     ],
     referenceId: data.applicationId,
     details: [
-      { label: 'Role Applied', value: data.position },
-      { label: 'Engagement Type', value: data.opportunityType },
-      { label: 'Degree / Faculty', value: data.education },
-      { label: 'Contact Phone', value: data.phone },
-      { label: 'Current Status', value: 'Under Review by Selection Committee' },
+      { label: 'Member Name', value: data.fullName },
+      { label: 'CNIC / B-Form', value: cnicText },
+      { label: 'Hostel / Residence', value: hostelText },
+      { label: 'Degree Program', value: degreeText },
+      { label: 'Semester', value: semesterText },
+      { label: 'Registration Status', value: '<strong style="color: #15803d;">Active Volunteer Member</strong>' },
     ],
     callout: {
-      title: 'Next Steps & Selection Process',
+      title: 'Next Steps & Chapter Orientation',
       content:
-        'Our Executive Body and Chapter Selection Committee will review your qualifications and statement of interest. We will contact you soon regarding the interview and orientation schedule.',
+        'Our Chapter Executive Cabinet and your respective hostel hall representatives will contact you soon regarding your membership card, upcoming halaqas, and student rights activities.',
     },
-    note: 'If you have questions regarding your application status, please reach out to our campus desk at Jinnah Hall or email atiuaf1968@gmail.com.',
+    note: 'If you have any questions, visit our campus desk at Jinnah Hall or reach out to atiuaf1968@gmail.com.',
   });
 
   const autoReplyPromise = sendMail({
     to: `${data.fullName} <${data.email}>`,
     replyTo: adminEmail,
-    subject: `Application Received: ${data.position} [${data.applicationId}] — ATI UAF`,
-    text: `Assalam-o-Alaikum ${data.fullName},\n\nThank you for applying for the position of "${data.position}" (${data.opportunityType}) at Anjuman Talaba-e-Islam (ATI) - University of Agriculture, Faisalabad Chapter.\n\nYour application has been successfully received (Application ID: ${data.applicationId}).\n\nOur Executive Body and HR desk will review your qualifications, and we will contact you soon regarding next steps.\n\nJazakAllah Khair,\nAnjuman Talaba-e-Islam (ATI) UAF Chapter\nJinnah Hall, UAF, Faisalabad\nPhone: +92 317 2011968 / 0314 8015678\nEmail: atiuaf1968@gmail.com\nWebsite: https://atiuaf.com`,
+    subject: `Welcome to Anjuman Talaba-e-Islam [${data.applicationId}] — ATI UAF`,
+    text: `Assalam-o-Alaikum ${data.fullName},\n\nThank you for voluntarily joining Anjuman Talaba-e-Islam (ATI) - University of Agriculture, Faisalabad Chapter.\n\nYour membership registration has been received (Registration ID: ${data.applicationId}).\n\nOur Executive Cabinet and hostel representatives will contact you soon regarding your member registration card, upcoming halaqas, and student rights activities.\n\nJazakAllah Khair,\nAnjuman Talaba-e-Islam (ATI) UAF Chapter\nJinnah Hall, UAF, Faisalabad\nPhone: +92 317 2011968 / 0314 8015678\nEmail: atiuaf1968@gmail.com\nWebsite: https://atiuaf.com`,
     html: userHtml,
   });
 

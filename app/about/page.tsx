@@ -329,12 +329,12 @@ export default function AboutPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <SectionHeading
-            badge="Executive Council"
+            badge="Executive Council & Central Advisory"
             badgeColor="green"
-            title="Central Leadership &"
-            highlightText="Advisory Board"
+            title="UAF Executive Cabinet &"
+            highlightText="Central Leadership"
             highlightColor="red"
-            subtitle="Distinguished educationists, youth organizers, and academic mentors steering the organization's nationwide mandate."
+            subtitle="The dedicated executive cabinet and central leadership guiding Anjuman Talaba-e-Islam at the University of Agriculture, Faisalabad."
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
@@ -376,7 +376,7 @@ export default function AboutPage() {
           </div>
 
           <p className="text-center text-xs text-gray-500 mt-10">
-            Note: Leadership profiles represent official appointed roles of the Central Secretariat. Editable placeholders are retained for chapter-specific customization.
+            Official appointed executive cabinet of Anjuman Talaba-e-Islam (ATI) University of Agriculture, Faisalabad (UAF) Chapter and Central Leadership.
           </p>
         </div>
       </section>

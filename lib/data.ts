@@ -294,7 +294,55 @@ export const CAREER_OPPORTUNITIES: CareerOpportunity[] = [
 
 export const LEADERSHIP_TEAM: LeadershipMember[] = [
   {
-    id: "lead-1",
+    id: "lead-uaf-1",
+    name: "Muhammad Faiz Rasool",
+    role: "Nazim-e-Jamia (President), UAF Chapter",
+    category: "UAF Executive Body",
+    bio: "Nazim-e-Jamia leading Anjuman Talaba-e-Islam at the University of Agriculture, Faisalabad across all faculties, institutes, and hostel halls.",
+    imagePlaceholder: "M.F.R"
+  },
+  {
+    id: "lead-uaf-2",
+    name: "Muhammad Abdullah Rizvi",
+    role: "General Secretary, UAF Chapter",
+    category: "UAF Executive Body",
+    bio: "Directing the UAF Chapter secretariat, student rights advocacy, Jinnah Hall campus desk, and academic coordination.",
+    imagePlaceholder: "M.A.R"
+  },
+  {
+    id: "lead-uaf-3",
+    name: "Ghulam Hassan",
+    role: "Naib Nazim (Vice President), UAF Chapter",
+    category: "UAF Executive Body",
+    bio: "Assisting chapter leadership in student outreach, study halaqas, hostel student welfare, and faculty delegations.",
+    imagePlaceholder: "G.H"
+  },
+  {
+    id: "lead-uaf-4",
+    name: "Ghulam Abbas",
+    role: "Press Secretary, UAF Chapter",
+    category: "UAF Executive Body",
+    bio: "Managing media communications, official press dispatches, student notifications, and digital publications for UAF ATI.",
+    imagePlaceholder: "G.A"
+  },
+  {
+    id: "lead-uaf-5",
+    name: "Khurram Shair",
+    role: "Joint Secretary, UAF Chapter",
+    category: "UAF Executive Body",
+    bio: "Coordinating campus activities, student member inductions, and volunteer welfare programs across UAF.",
+    imagePlaceholder: "K.S"
+  },
+  {
+    id: "lead-uaf-6",
+    name: "Nassar-Ullah",
+    role: "Finance Secretary, UAF Chapter",
+    category: "UAF Executive Body",
+    bio: "Overseeing financial transparency, student welfare grants, Bait-ul-Ilm assistance disbursements, and chapter logistics.",
+    imagePlaceholder: "N.U"
+  },
+  {
+    id: "lead-central-1",
     name: "Faisal Qayyum Magray",
     role: "Central President (Session 2025–2026)",
     category: "Advisory Board",
@@ -302,44 +350,12 @@ export const LEADERSHIP_TEAM: LeadershipMember[] = [
     imagePlaceholder: "F.Q.M"
   },
   {
-    id: "lead-2",
+    id: "lead-central-2",
     name: "Sardar Baidar Awan",
     role: "Central Secretary General (2025–2026)",
     category: "Advisory Board",
     bio: "Central Secretary General of ATI overseeing organizational discipline, student rights policy memoranda, and nationwide chapter registrations.",
     imagePlaceholder: "S.B.A"
-  },
-  {
-    id: "lead-3",
-    name: "Nazim / President, UAF Chapter",
-    role: "President (UAF Executive Body)",
-    category: "UAF Executive Body",
-    bio: "Leading Student Power at the University of Agriculture Faisalabad across all faculties, research institutes, and student hostel halls.",
-    imagePlaceholder: "P.UAF"
-  },
-  {
-    id: "lead-4",
-    name: "Secretary General, UAF Chapter",
-    role: "General Secretary (UAF Executive)",
-    category: "UAF Executive Body",
-    bio: "Directing the Jinnah Hall campus desk, new student admissions orientations, and inter-departmental student welfare coordination.",
-    imagePlaceholder: "S.G"
-  },
-  {
-    id: "lead-5",
-    name: "Coordinator, Khoon-e-Hayat UAF",
-    role: "Head of Emergency Blood Registry",
-    category: "Student Welfare",
-    bio: "Managing the 24/7 student blood donor network connecting UAF students with Allied and DHQ hospital patients in Faisalabad.",
-    imagePlaceholder: "B.S"
-  },
-  {
-    id: "lead-6",
-    name: "Editor, Nawa-e-Anjuman (UAF Desk)",
-    role: "Head of Publications & Media",
-    category: "UAF Executive Body",
-    bio: "Curating literary dispatches, student writings, academic research summaries, and campus digital media.",
-    imagePlaceholder: "N.A"
   }
 ];
 

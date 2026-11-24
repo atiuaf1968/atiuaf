@@ -25,6 +25,7 @@ import { SectionHeading } from '@/components/SectionHeading';
 import { IslamicPattern } from '@/components/IslamicPattern';
 import { SITE_METADATA } from '@/lib/data';
 import { getActivitiesAsync } from '@/lib/activities';
+import { ActivityItem } from '@/lib/types';
 
 export const metadata: Metadata = {
   title: 'ATI UAF — Anjuman Talaba-e-Islam | University of Agriculture Faisalabad',
@@ -51,8 +52,16 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const activities = await getActivitiesAsync();
-  const latestActivities = activities.slice(0, 3);
+  let latestActivities: ActivityItem[] = [];
+  try {
+    const activities = await getActivitiesAsync();
+    if (Array.isArray(activities)) {
+      latestActivities = activities.slice(0, 3);
+    }
+  } catch (err) {
+    console.error('Error fetching homepage activities:', err);
+    latestActivities = [];
+  }
   return (
     <div className="flex flex-col w-full">
       {/* =========================================================================
@@ -428,11 +437,11 @@ export default async function HomePage() {
                   <div>
                     {act.images && act.images.length > 0 ? (
                       <div className="relative h-48 w-full bg-gray-100 overflow-hidden">
-                        <Image
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
                           src={act.images[0]}
                           alt={act.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute top-3 left-3 bg-brand-green-700/90 backdrop-blur-sm text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow">
                           {act.category || 'Campus Event'}

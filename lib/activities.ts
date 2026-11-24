@@ -13,11 +13,25 @@ import { ActivityItem, SubscriberItem } from './types';
 
 export type { ActivityItem, SubscriberItem };
 
-const dataDir = path.join(process.cwd(), '.data');
+const dataDir = (() => {
+  try {
+    const dir = path.join(process.cwd(), '.data');
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    return dir;
+  } catch {
+    return path.join('/tmp', '.data');
+  }
+})();
 
 function ensureDataDir() {
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
+  try {
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+  } catch {
+    // Gracefully ignore filesystem errors in read-only environments (e.g. Vercel)
   }
 }
 
@@ -116,13 +130,18 @@ function getLocalActivities(): ActivityItem[] {
 export async function getActivitiesAsync(): Promise<ActivityItem[]> {
   try {
     const dbActs = await getDbActivities();
-    if (dbActs && dbActs.length > 0) {
+    if (Array.isArray(dbActs) && dbActs.length > 0) {
       return dbActs;
     }
   } catch (err) {
     console.error('Failed to get activities from DB:', err);
   }
-  return getLocalActivities();
+
+  try {
+    return getLocalActivities();
+  } catch {
+    return [];
+  }
 }
 
 export function getActivities(): ActivityItem[] {

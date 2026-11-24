@@ -70,15 +70,12 @@ export default async function HomePage() {
       <section className="relative bg-white pt-4 pb-10 sm:pt-6 sm:pb-12 lg:pt-8 lg:pb-14 overflow-hidden border-b border-gray-100">
         {/* Blurred Hero Background Image */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          <Image
-            src="/images/hero.jpeg"
+          <img
+            src="/images/hero.jpg"
             alt="ATI UAF Hero Background"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center filter blur-[4px] sm:blur-[6px] scale-105 opacity-45 sm:opacity-55"
+            className="w-full h-full object-cover object-center filter blur-[2px] sm:blur-[3px] scale-105 opacity-60 sm:opacity-70"
           />
-          <div className="absolute inset-0 bg-white/60 sm:bg-white/55 backdrop-blur-[1px]" />
+          <div className="absolute inset-0 bg-white/50 backdrop-blur-[1px]" />
         </div>
 
         {/* Subtle dual-color Islamic geometric lattice */}

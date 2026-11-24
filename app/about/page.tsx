@@ -60,11 +60,6 @@ export default function AboutPage() {
         <IslamicPattern opacity={0.05} variant="dual" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green-50 border border-brand-green-200 text-xs font-bold uppercase tracking-wider text-brand-green-800 mb-5">
-            <span className="w-2 h-2 rounded-full bg-brand-green-600 animate-pulse" />
-            <span>Organizational Heritage & Philosophy</span>
-          </div>
-
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-brand-black tracking-tight leading-tight max-w-4xl mx-auto">
             About <span className="text-brand-green-700">Student Power UAF</span> &{' '}
             <span className="text-brand-red-600">Our Heritage</span>

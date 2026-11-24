@@ -77,7 +77,7 @@ export const Footer: React.FC = () => {
   }
 
   return (
-    <footer className="relative bg-brand-black text-gray-300 pt-16 pb-8 border-t-4 border-t-brand-green-600 overflow-hidden">
+    <footer className="relative bg-brand-black text-gray-300 pt-8 sm:pt-10 pb-5 sm:pb-6 border-t-4 border-t-brand-green-600 overflow-hidden">
       {/* Background subtle Islamic pattern */}
       <IslamicPattern opacity={0.04} variant="dual" />
 
@@ -87,21 +87,21 @@ export const Footer: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Section: 2 Columns (Brand & UAF Chapter Office with Compact Subscribe) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 border-b border-gray-800">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 pb-6 sm:pb-8 border-b border-gray-800">
           {/* Brand Info (Left - 7 cols) */}
-          <div className="lg:col-span-7 space-y-4">
+          <div className="lg:col-span-7 space-y-3">
             <div className="flex items-center gap-3">
-              <div className="w-14 h-14 relative flex-shrink-0">
+              <div className="w-12 h-12 relative flex-shrink-0">
                 <Image
                   src="/images/student-power-logo.png"
                   alt="Student Power Emblem"
-                  width={56}
-                  height={56}
+                  width={48}
+                  height={48}
                   className="w-full h-full object-contain"
                 />
               </div>
               <div>
-                <h3 className="text-xl font-black text-white tracking-wide">
+                <h3 className="text-lg font-black text-white tracking-wide">
                   STUDENT <span className="text-brand-red-500">POWER</span>
                 </h3>
                 <p className="text-xs font-semibold text-brand-green-400 tracking-wider uppercase">
@@ -110,29 +110,18 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-sm text-gray-400 leading-relaxed max-w-xl">
+            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-xl">
               Student Power is the student empowerment and welfare movement of Anjuman Talaba-e-Islam at the University of Agriculture, Faisalabad (UAF). Fostering Islamic character, academic excellence, leadership development, and campus welfare across all faculties and hostels.
             </p>
-
-            <div className="flex items-center gap-3 pt-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-green-950/80 text-brand-green-400 border border-brand-green-800">
-                <span className="w-2 h-2 rounded-full bg-brand-green-500" />
-                Faith & Character
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-red-950/80 text-brand-red-400 border border-brand-red-800">
-                <span className="w-2 h-2 rounded-full bg-brand-red-500" />
-                Student Rights
-              </span>
-            </div>
           </div>
 
           {/* UAF Chapter Office & Small Subscribe Box (Right - 5 cols) */}
-          <div className="lg:col-span-5 bg-gray-900/40 p-6 rounded-2xl border border-gray-800/80 space-y-4">
+          <div className="lg:col-span-5 bg-gray-900/40 p-4 sm:p-5 rounded-2xl border border-gray-800/80 space-y-3">
             <div>
-              <h5 className="text-white font-bold text-xs uppercase tracking-wider border-l-2 border-brand-red-500 pl-2.5 mb-3">
+              <h5 className="text-white font-bold text-xs uppercase tracking-wider border-l-2 border-brand-red-500 pl-2.5 mb-2.5">
                 UAF Chapter Office
               </h5>
-              <ul className="space-y-2.5 text-gray-300 text-xs">
+              <ul className="space-y-1.5 sm:space-y-2 text-gray-300 text-xs">
                 <li className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 text-brand-red-400 flex-shrink-0 mt-0.5" />
                   <span>Jinnah Hall, UAF, Jail Road, Faisalabad</span>
@@ -155,7 +144,7 @@ export const Footer: React.FC = () => {
                     atiuafpak@gmail.com
                   </a>
                 </li>
-                <li className="flex items-center gap-2 text-[11px] text-gray-400 pt-1">
+                <li className="flex items-center gap-2 text-[11px] text-gray-400 pt-0.5">
                   <Clock className="w-3.5 h-3.5 text-brand-green-400 flex-shrink-0" />
                   <span>Mon – Fri: 8:00 AM – 6:00 PM</span>
                   <span className="text-gray-600">•</span>
@@ -165,8 +154,8 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Small Email Subscribe Box */}
-            <div className="pt-3 border-t border-gray-800">
-              <div className="flex items-center justify-between mb-2">
+            <div className="pt-2.5 border-t border-gray-800">
+              <div className="flex items-center justify-between mb-1.5">
                 <span className="text-xs font-semibold text-white flex items-center gap-1.5">
                   <Send className="w-3.5 h-3.5 text-brand-green-400" />
                   Subscribe for Updates
@@ -217,7 +206,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar: Copyright & Single Social Icons */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+        <div className="pt-4 sm:pt-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
           <p>
             © {new Date().getFullYear()} {SITE_METADATA.name} — Anjuman Talaba-e-Islam. All Rights Reserved.
           </p>

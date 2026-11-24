@@ -71,7 +71,7 @@ export default function RootLayout({
               url: 'https://studentpower.org.pk',
               logo: 'https://studentpower.org.pk/images/student-power-logo.png',
               description: SITE_METADATA.description,
-              email: 'atiuaf1968@gmail.com',
+              email: 'atiuafpak@gmail.com',
               telephone: '+923172011968',
               address: {
                 '@type': 'PostalAddress',

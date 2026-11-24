@@ -1,13 +1,62 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, Phone, MapPin, Heart, ArrowUpRight, Send, CheckCircle2, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Mail, Phone, MapPin, Heart, ArrowUpRight, Send, CheckCircle2, AlertCircle, RefreshCw, Facebook, Instagram, Youtube, Lock } from 'lucide-react';
 import { SITE_METADATA } from '@/lib/data';
 import { IslamicPattern } from './IslamicPattern';
 
 export const Footer: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [subscribing, setSubscribing] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
+  const [socials, setSocials] = useState(SITE_METADATA.socials);
+
+  useEffect(() => {
+    fetch('/api/settings')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.socialLinks) {
+          setSocials(data.socialLinks);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  async function handleNewsletterSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email) return;
+
+    setSubscribing(true);
+    setStatus('idle');
+    setStatusMessage('');
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setStatus('success');
+        setStatusMessage(data.message || 'Subscribed successfully! Confirmation email sent.');
+        setEmail('');
+      } else {
+        setStatus('error');
+        setStatusMessage(data.error || 'Failed to subscribe. Please try again.');
+      }
+    } catch {
+      setStatus('error');
+      setStatusMessage('Network error. Please try again.');
+    } finally {
+      setSubscribing(false);
+    }
+  }
+
   return (
     <footer className="relative bg-brand-black text-gray-300 pt-16 pb-8 border-t-4 border-t-brand-green-600 overflow-hidden">
       {/* Background subtle Islamic pattern */}
@@ -66,7 +115,7 @@ export const Footer: React.FC = () => {
               </p>
               <div className="flex items-center gap-2">
                 <a
-                  href={SITE_METADATA.socials.facebook}
+                  href={socials.facebook}
                   target="_blank"
                   rel="noreferrer"
                   title="Facebook Page"
@@ -76,7 +125,7 @@ export const Footer: React.FC = () => {
                   <Facebook className="w-4 h-4" />
                 </a>
                 <a
-                  href={SITE_METADATA.socials.twitter}
+                  href={socials.twitter}
                   target="_blank"
                   rel="noreferrer"
                   title="Twitter / X"
@@ -88,7 +137,7 @@ export const Footer: React.FC = () => {
                   </svg>
                 </a>
                 <a
-                  href={SITE_METADATA.socials.instagram}
+                  href={socials.instagram}
                   target="_blank"
                   rel="noreferrer"
                   title="Instagram"
@@ -98,7 +147,7 @@ export const Footer: React.FC = () => {
                   <Instagram className="w-4 h-4" />
                 </a>
                 <a
-                  href={SITE_METADATA.socials.youtube}
+                  href={socials.youtube}
                   target="_blank"
                   rel="noreferrer"
                   title="YouTube"
@@ -118,29 +167,53 @@ export const Footer: React.FC = () => {
               Subscribe to Student Power Dispatch
             </h4>
             <p className="text-xs text-gray-400 mt-1">
-              Receive notifications about student conventions, merit scholarships, campus welfare updates, and leadership seminars.
+              Receive notifications about student conventions, merit scholarships, campus welfare updates, and new campus activities.
             </p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert('Thank you for subscribing to Student Power updates!');
-              }}
-              className="mt-4 flex flex-col sm:flex-row gap-2.5"
-            >
-              <input
-                type="email"
-                required
-                placeholder="Enter your student or university email"
-                className="flex-1 bg-black/60 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-green-500 transition-colors"
-              />
-              <button
-                type="submit"
-                className="px-6 py-2.5 bg-brand-green-600 hover:bg-brand-green-700 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm"
+
+            {status === 'success' ? (
+              <div className="mt-4 p-3.5 rounded-xl bg-emerald-950/80 border border-emerald-700 text-emerald-200 text-xs flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                <span>{statusMessage}</span>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleNewsletterSubmit}
+                className="mt-4 flex flex-col sm:flex-row gap-2.5"
               >
-                <span>Subscribe</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </button>
-            </form>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your student or university email"
+                  className="flex-1 bg-black/60 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-green-500 transition-colors"
+                />
+                <button
+                  type="submit"
+                  disabled={subscribing}
+                  className="px-6 py-2.5 bg-brand-green-600 hover:bg-brand-green-700 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm disabled:opacity-60"
+                >
+                  {subscribing ? (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      <span>Subscribing...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Subscribe</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+
+            {status === 'error' && (
+              <p className="text-xs text-red-400 mt-2 flex items-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5" />
+                <span>{statusMessage}</span>
+              </p>
+            )}
           </div>
         </div>
 
@@ -162,10 +235,13 @@ export const Footer: React.FC = () => {
                 <Link href="/about#leadership" className="hover:text-white transition-colors">Central Leadership</Link>
               </li>
               <li>
-                <Link href="/about#vision" className="hover:text-white transition-colors">Vision & Mission</Link>
+                <Link href="/careers" className="hover:text-white transition-colors">Join Movement / Volunteer</Link>
               </li>
               <li>
-                <Link href="/careers" className="hover:text-white transition-colors">Join Movement / Volunteer</Link>
+                <Link href="/admin" className="hover:text-white text-gray-500 text-xs flex items-center gap-1 pt-1 transition-colors">
+                  <Lock className="w-3 h-3" />
+                  <span>Admin Portal</span>
+                </Link>
               </li>
             </ul>
           </div>
@@ -177,13 +253,10 @@ export const Footer: React.FC = () => {
             </h5>
             <ul className="space-y-2.5 text-gray-400">
               <li>
-                <Link href="/about#history" className="hover:text-white transition-colors">Historical Movements</Link>
-              </li>
-              <li>
-                <Link href="/about#vision" className="hover:text-white transition-colors">Prophetic Model & Vision</Link>
-              </li>
-              <li>
                 <Link href="/activities" className="hover:text-white transition-colors">Campus Activities</Link>
+              </li>
+              <li>
+                <Link href="/about#history" className="hover:text-white transition-colors">Historical Movements</Link>
               </li>
               <li>
                 <Link href="/careers" className="hover:text-white transition-colors">Student Welfare & Aid</Link>
@@ -201,7 +274,7 @@ export const Footer: React.FC = () => {
             </h5>
             <ul className="space-y-2.5 text-gray-400">
               <li>
-                <Link href="/careers" className="hover:text-white transition-colors">Internship Opportunities</Link>
+                <Link href="/activities" className="hover:text-white transition-colors">Events & Photo Gallery</Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors">Campus Chapter Directory</Link>
@@ -241,8 +314,8 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-brand-red-400 flex-shrink-0" />
-                <a href="mailto:atiuaf1968@gmail.com" className="hover:text-white">
-                  atiuaf1968@gmail.com
+                <a href="mailto:atiuafpak@gmail.com" className="hover:text-white">
+                  atiuafpak@gmail.com
                 </a>
               </li>
               <li className="pt-1 text-[11px] text-gray-400 border-t border-gray-800">
@@ -262,7 +335,7 @@ export const Footer: React.FC = () => {
             <span className="text-gray-400 text-[11px] hidden sm:inline">Follow UAF:</span>
             <div className="flex items-center gap-1.5">
               <a
-                href={SITE_METADATA.socials.facebook}
+                href={socials.facebook}
                 target="_blank"
                 rel="noreferrer"
                 title="Facebook Page"
@@ -272,7 +345,7 @@ export const Footer: React.FC = () => {
                 <Facebook className="w-3.5 h-3.5" />
               </a>
               <a
-                href={SITE_METADATA.socials.twitter}
+                href={socials.twitter}
                 target="_blank"
                 rel="noreferrer"
                 title="Twitter / X"
@@ -284,7 +357,7 @@ export const Footer: React.FC = () => {
                 </svg>
               </a>
               <a
-                href={SITE_METADATA.socials.instagram}
+                href={socials.instagram}
                 target="_blank"
                 rel="noreferrer"
                 title="Instagram"
@@ -294,7 +367,7 @@ export const Footer: React.FC = () => {
                 <Instagram className="w-3.5 h-3.5" />
               </a>
               <a
-                href={SITE_METADATA.socials.youtube}
+                href={socials.youtube}
                 target="_blank"
                 rel="noreferrer"
                 title="YouTube"
@@ -310,3 +383,4 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
+

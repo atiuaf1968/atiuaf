@@ -135,7 +135,7 @@ export default function ContactPage() {
               </div>
               <h4 className="text-base font-bold text-brand-black mb-1">Official Email</h4>
               <p className="text-xs text-gray-600 leading-relaxed mb-1">
-                Direct: <a href="mailto:atiuaf1968@gmail.com" className="font-bold text-brand-black hover:underline">atiuaf1968@gmail.com</a>
+                Direct: <a href="mailto:atiuafpak@gmail.com" className="font-bold text-brand-black hover:underline">atiuafpak@gmail.com</a>
               </p>
               <p className="text-xs text-gray-500 leading-relaxed mb-3">
                 For official notices, applications & inquiries
@@ -366,8 +366,8 @@ export default function ContactPage() {
 
                   <div>
                     <strong className="text-brand-black block mb-0.5">Official Inquiries Email:</strong>
-                    <a href="mailto:atiuaf1968@gmail.com" className="font-bold text-brand-green-700 hover:underline">
-                      atiuaf1968@gmail.com
+                    <a href="mailto:atiuafpak@gmail.com" className="font-bold text-brand-green-700 hover:underline">
+                      atiuafpak@gmail.com
                     </a>
                   </div>
                 </div>

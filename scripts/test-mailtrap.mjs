@@ -29,7 +29,7 @@ const port = parseInt(process.env.MAILTRAP_SMTP_PORT || '587', 10);
 const user = process.env.MAILTRAP_SMTP_USER || 'api';
 const pass = process.env.MAILTRAP_SMTP_PASS || '';
 const from = process.env.MAIL_FROM || 'Anjuman Talaba-e-Islam <hello@atiuaf.com>';
-const to = process.env.MAIL_TO || 'atiuaf1968@gmail.com';
+const to = process.env.MAIL_TO || 'atiuafpak@gmail.com';
 
 console.log('--- Mailtrap SMTP Test ---');
 console.log(`Host: ${host}:${port}`);

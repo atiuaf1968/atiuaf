@@ -238,7 +238,7 @@ export function renderBrandedEmailTemplate(props: BrandedEmailTemplateProps): st
               </div>
               <div style="font-size: 11px; color: #6b7280; line-height: 1.6;">
                 Jinnah Hall, University of Agriculture, Jail Road, Faisalabad, Pakistan<br />
-                Helpline: +92 317 2011968 / 0314 8015678 • Email: atiuaf1968@gmail.com<br />
+                Helpline: +92 317 2011968 / 0314 8015678 • Email: atiuafpak@gmail.com<br />
                 Official Portal: <a href="https://atiuaf.com" style="color: #087A43; text-decoration: underline;">https://atiuaf.com</a>
               </div>
               <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid #e5e7eb; font-size: 10px; color: #9ca3af;">
@@ -403,7 +403,7 @@ export async function sendContactInquiryEmails(data: {
     to: `${data.name} <${data.email}>`,
     replyTo: adminEmail,
     subject: `Your message is received [${data.referenceId}] — Anjuman Talaba-e-Islam (ATI UAF)`,
-    text: `Assalam-o-Alaikum ${data.name},\n\nThank you for reaching out to Anjuman Talaba-e-Islam (ATI) - University of Agriculture Faisalabad Chapter.\n\nYour message regarding "${data.subject}" has been successfully received (Reference: ${data.referenceId}).\n\nOur team will review your inquiry and we will contact you soon.\n\nSummary of your message:\n${data.message}\n\nJazakAllah Khair,\nAnjuman Talaba-e-Islam (ATI) UAF Chapter\nJinnah Hall, UAF, Faisalabad\nPhone: +92 317 2011968 / 0314 8015678\nEmail: atiuaf1968@gmail.com\nWebsite: https://atiuaf.com`,
+    text: `Assalam-o-Alaikum ${data.name},\n\nThank you for reaching out to Anjuman Talaba-e-Islam (ATI) - University of Agriculture Faisalabad Chapter.\n\nYour message regarding "${data.subject}" has been successfully received (Reference: ${data.referenceId}).\n\nOur team will review your inquiry and we will contact you soon.\n\nSummary of your message:\n${data.message}\n\nJazakAllah Khair,\nAnjuman Talaba-e-Islam (ATI) UAF Chapter\nJinnah Hall, UAF, Faisalabad\nPhone: +92 317 2011968 / 0314 8015678\nEmail: atiuafpak@gmail.com\nWebsite: https://atiuaf.com`,
     html: userHtml,
   });
 
@@ -499,14 +499,14 @@ export async function sendCareerApplicationEmails(data: {
       content:
         'Our Chapter Executive Cabinet and your respective hostel hall representatives will contact you soon regarding your membership card, upcoming halaqas, and student rights activities.',
     },
-    note: 'If you have any questions, visit our campus desk at Jinnah Hall or reach out to atiuaf1968@gmail.com.',
+    note: 'If you have any questions, visit our campus desk at Jinnah Hall or reach out to atiuafpak@gmail.com.',
   });
 
   const autoReplyPromise = sendMail({
     to: `${data.fullName} <${data.email}>`,
     replyTo: adminEmail,
     subject: `Welcome to Anjuman Talaba-e-Islam [${data.applicationId}] — ATI UAF`,
-    text: `Assalam-o-Alaikum ${data.fullName},\n\nThank you for voluntarily joining Anjuman Talaba-e-Islam (ATI) - University of Agriculture, Faisalabad Chapter.\n\nYour membership registration has been received (Registration ID: ${data.applicationId}).\n\nOur Executive Cabinet and hostel representatives will contact you soon regarding your member registration card, upcoming halaqas, and student rights activities.\n\nJazakAllah Khair,\nAnjuman Talaba-e-Islam (ATI) UAF Chapter\nJinnah Hall, UAF, Faisalabad\nPhone: +92 317 2011968 / 0314 8015678\nEmail: atiuaf1968@gmail.com\nWebsite: https://atiuaf.com`,
+    text: `Assalam-o-Alaikum ${data.fullName},\n\nThank you for voluntarily joining Anjuman Talaba-e-Islam (ATI) - University of Agriculture, Faisalabad Chapter.\n\nYour membership registration has been received (Registration ID: ${data.applicationId}).\n\nOur Executive Cabinet and hostel representatives will contact you soon regarding your member registration card, upcoming halaqas, and student rights activities.\n\nJazakAllah Khair,\nAnjuman Talaba-e-Islam (ATI) UAF Chapter\nJinnah Hall, UAF, Faisalabad\nPhone: +92 317 2011968 / 0314 8015678\nEmail: atiuafpak@gmail.com\nWebsite: https://atiuaf.com`,
     html: userHtml,
   });
 
@@ -552,4 +552,110 @@ export async function sendTestEmail(recipient?: string): Promise<SendMailResult>
     text: 'This is a test e-mail message confirming your Mailtrap SMTP live sending configuration with brand logo.',
     html: testHtml,
   });
+}
+
+/**
+ * Sends a welcome confirmation email to a newly subscribed user.
+ */
+export async function sendSubscriberWelcomeEmail(email: string): Promise<SendMailResult> {
+  const welcomeHtml = renderBrandedEmailTemplate({
+    badge: {
+      text: 'Subscription Confirmed',
+      bgColor: '#dcfce7',
+      textColor: '#15803d',
+    },
+    heading: 'Subscribed to ATI UAF Activity Updates',
+    subheading: 'Official Campus Notification Channel',
+    recipientGreeting: 'Assalam-o-Alaikum & Welcome,',
+    paragraphs: [
+      'Thank you for subscribing to <strong>Anjuman Talaba-e-Islam (ATI) UAF</strong> updates.',
+      'You are now registered to receive immediate email dispatches whenever a new campus activity, convention, study halaqah, or student welfare event is published on our official portal.',
+    ],
+    details: [
+      { label: 'Subscribed Email', value: `<strong>${email}</strong>` },
+      { label: 'Channel', value: 'UAF Campus Activities & Student Updates' },
+      { label: 'Status', value: '<strong style="color: #15803d;">Active Subscriber</strong>' },
+    ],
+    callout: {
+      title: 'What to Expect',
+      content:
+        'You will receive notifications for student conventions, Seerah study circles, free book bank distribution drives, emergency blood donation appeals, and hostel welfare announcements.',
+    },
+    note: 'You can view all current activities at any time on our official portal: <a href="https://atiuaf.com/activities">https://atiuaf.com/activities</a>',
+  });
+
+  return sendMail({
+    to: email,
+    subject: 'Subscribed to ATI UAF Campus Updates — Anjuman Talaba-e-Islam',
+    text: `Assalam-o-Alaikum,\n\nThank you for subscribing to Anjuman Talaba-e-Islam (ATI) UAF updates. You will be automatically notified whenever a new campus activity, convention, or student welfare event is published.\n\nPortal: https://atiuaf.com/activities`,
+    html: welcomeHtml,
+  });
+}
+
+/**
+ * Broadcasts an email announcement to all active subscribers when an admin publishes a new activity.
+ */
+export async function sendNewActivityNotificationToSubscribers(activity: {
+  title: string;
+  category: string;
+  date: string;
+  time?: string;
+  location: string;
+  description: string;
+  images?: string[];
+}): Promise<{ totalSubscribers: number; sentCount: number }> {
+  const { getSubscribersAsync } = await import('@/lib/activities');
+  const subscribers = (await getSubscribersAsync()).filter((s) => s.active);
+
+  if (subscribers.length === 0) {
+    console.log('[Broadcast] No active subscribers to notify.');
+    return { totalSubscribers: 0, sentCount: 0 };
+  }
+
+  const broadcastHtml = renderBrandedEmailTemplate({
+    badge: {
+      text: `📢 ${activity.category}`,
+      bgColor: '#fee2e2',
+      textColor: '#b91c1c',
+    },
+    heading: activity.title,
+    subheading: `${activity.date} • ${activity.location}`,
+    recipientGreeting: 'Assalam-o-Alaikum,',
+    paragraphs: [
+      'A new campus event has just been published on the official <strong>Anjuman Talaba-e-Islam (ATI) UAF</strong> portal.',
+      'We invite all students to participate and benefit from this upcoming initiative:',
+    ],
+    details: [
+      { label: 'Activity Name', value: `<strong>${activity.title}</strong>` },
+      { label: 'Category', value: activity.category },
+      { label: 'Date', value: activity.date },
+      { label: 'Time', value: activity.time || 'Check portal for timing' },
+      { label: 'Location / Venue', value: `<strong>${activity.location}</strong>` },
+    ],
+    callout: {
+      title: 'Activity Description & Overview',
+      content: activity.description,
+    },
+    note: `Explore full event photos and details on our portal: <a href="https://atiuaf.com/activities" style="color: #087A43; font-weight: 700; text-decoration: underline;">https://atiuaf.com/activities</a>`,
+  });
+
+  let sentCount = 0;
+  for (const subscriber of subscribers) {
+    try {
+      const res = await sendMail({
+        to: subscriber.email,
+        subject: `📢 New Activity: ${activity.title} — ATI UAF`,
+        text: `Assalam-o-Alaikum,\n\nA new campus activity has been published: ${activity.title}\nDate: ${activity.date}\nVenue: ${activity.location}\n\nDescription:\n${activity.description}\n\nView details: https://atiuaf.com/activities`,
+        html: broadcastHtml,
+      });
+      if (res.success) {
+        sentCount++;
+      }
+    } catch (err) {
+      console.warn(`Failed to broadcast to subscriber ${subscriber.email}:`, err);
+    }
+  }
+
+  console.log(`[Broadcast Completed] Sent ${sentCount} notifications out of ${subscribers.length} subscribers.`);
+  return { totalSubscribers: subscribers.length, sentCount };
 }

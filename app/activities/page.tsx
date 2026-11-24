@@ -1,272 +1,216 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Calendar,
   MapPin,
   Clock,
-  Users,
-  Search,
-  Filter,
   ArrowRight,
   Sparkles,
-  BookOpen,
-  Heart,
-  ShieldCheck,
-  Award,
   X,
-  Share2,
-  ExternalLink,
   ChevronRight,
-  ImageIcon
+  ChevronLeft,
+  ImageIcon,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  RefreshCw,
+  Search,
 } from 'lucide-react';
 import { IslamicPattern } from '@/components/IslamicPattern';
-import { SectionHeading } from '@/components/SectionHeading';
-import { CAMPUS_ACTIVITIES, CampusActivity, SITE_METADATA, OFFICIAL_MOTTO } from '@/lib/data';
+import { ActivityItem } from '@/lib/types';
 
 export default function CampusActivitiesPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedActivity, setSelectedActivity] = useState<CampusActivity | null>(null);
+  const [activities, setActivities] = useState<ActivityItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedActivity, setSelectedActivity] = useState<ActivityItem | null>(null);
+  const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const categories = [
-    'All',
-    'Conventions & Gatherings',
-    'Study Halaqas & Seerah',
-    'Student Rights & Rallies',
-    'Blood Drives & Healthcare',
-    'Book Banks & Academic Relief',
-    'Workshops & Training',
-  ];
+  // Subscribe Box State
+  const [subscribeEmail, setSubscribeEmail] = useState('');
+  const [subscribing, setSubscribing] = useState(false);
+  const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [subscribeMsg, setSubscribeMsg] = useState('');
 
-  // Filter activities based on Category and Search Query
-  const filteredActivities = CAMPUS_ACTIVITIES.filter((act) => {
-    const matchesCategory =
-      selectedCategory === 'All' || act.category === selectedCategory;
-    const matchesSearch =
-      searchQuery.trim() === '' ||
-      act.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      act.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      act.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+  // Fetch activities from API
+  useEffect(() => {
+    async function loadActivities() {
+      setIsLoading(true);
+      try {
+        const res = await fetch('/api/activities', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          setActivities(data.activities || []);
+        }
+      } catch (err) {
+        console.error('Failed to load activities:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadActivities();
+  }, []);
+
+  const filteredActivities = activities.filter((act) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      act.title.toLowerCase().includes(q) ||
+      act.location.toLowerCase().includes(q) ||
+      act.category.toLowerCase().includes(q) ||
+      act.description.toLowerCase().includes(q)
+    );
   });
 
-  const featuredActivity = CAMPUS_ACTIVITIES.find((act) => act.featured);
+  function openActivityModal(act: ActivityItem, initialIdx = 0) {
+    setSelectedActivity(act);
+    setActiveImageIdx(initialIdx);
+  }
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    if (!subscribeEmail) return;
+
+    setSubscribing(true);
+    setSubscribeStatus('idle');
+    setSubscribeMsg('');
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: subscribeEmail }),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setSubscribeStatus('success');
+        setSubscribeMsg(data.message || 'Subscribed! You will receive an email whenever a new activity is published.');
+        setSubscribeEmail('');
+      } else {
+        setSubscribeStatus('error');
+        setSubscribeMsg(data.error || 'Subscription failed. Please try again.');
+      }
+    } catch {
+      setSubscribeStatus('error');
+      setSubscribeMsg('Network error. Please try again.');
+    } finally {
+      setSubscribing(false);
+    }
+  }
 
   return (
     <div className="flex flex-col w-full bg-brand-surface min-h-screen">
       {/* =========================================================================
-          HERO BANNER
+          CLEAN HERO HEADER
          ========================================================================= */}
-      <section className="relative bg-white pt-14 pb-16 border-b border-gray-100 overflow-hidden">
+      <section className="relative bg-white pt-12 pb-14 border-b border-gray-100 overflow-hidden">
         <IslamicPattern opacity={0.05} variant="dual" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green-50 border border-brand-green-200 text-xs font-bold uppercase tracking-wider text-brand-green-800 mb-5">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green-50 border border-brand-green-200 text-xs font-bold uppercase tracking-wider text-brand-green-800 mb-4">
             <span className="w-2 h-2 rounded-full bg-brand-green-600 animate-pulse" />
-            <span>Campus Activities & Event Gallery • ATI UAF</span>
+            <span>ATI UAF • Campus Activities & Events</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-brand-black tracking-tight leading-tight max-w-4xl mx-auto">
-            Campus Life, Gatherings &{' '}
-            <span className="text-brand-green-700">Student Events</span>
+          <h1 className="text-3xl sm:text-5xl font-black text-brand-black tracking-tight leading-tight max-w-4xl mx-auto">
+            Campus Activities & <span className="text-brand-green-700">Event Gallery</span>
           </h1>
 
-          <p className="mt-4 text-base sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Witness our on-ground activities across the University of Agriculture, Faisalabad. From conventions and study halaqas to blood donation camps and student welfare rallies.
+          <p className="mt-3 text-sm sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Official photographic coverage, reports, and proceedings of gatherings, conferences, study halaqas, and student welfare initiatives at the University of Agriculture, Faisalabad.
           </p>
 
-          <div className="mt-6 flex items-center justify-center gap-2">
-            <span className="w-12 h-1 bg-brand-green-600 rounded-full" />
-            <span className="w-4 h-1 bg-brand-red-600 rounded-full" />
-            <span className="w-12 h-1 bg-brand-green-600 rounded-full" />
+          <div className="mt-5 flex items-center justify-center gap-2">
+            <span className="w-10 h-1 bg-brand-green-600 rounded-full" />
+            <span className="w-3 h-1 bg-brand-red-600 rounded-full" />
+            <span className="w-10 h-1 bg-brand-green-600 rounded-full" />
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          FEATURED SPOTLIGHT ACTIVITY (If Available)
+          ACTIVITIES SECTION
          ========================================================================= */}
-      {featuredActivity && (
-        <section className="py-12 bg-brand-surface border-b border-gray-200/60">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative bg-white rounded-3xl border border-gray-200 shadow-md overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0">
-              {/* Event Visual Placeholder / Cover */}
-              <div className="lg:col-span-5 bg-gradient-to-br from-brand-green-900 via-brand-green-800 to-brand-green-950 p-8 sm:p-12 flex flex-col justify-between text-white relative overflow-hidden min-h-[280px]">
-                <IslamicPattern opacity={0.12} variant="green" />
-                <div className="relative z-10">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-[11px] font-bold uppercase tracking-wider mb-4">
-                    <Sparkles className="w-3.5 h-3.5 text-brand-green-300" />
-                    <span>Featured Landmark Event</span>
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold leading-snug">
-                    {featuredActivity.title}
-                  </h3>
-                </div>
-
-                <div className="relative z-10 pt-6 mt-6 border-t border-white/15 text-xs text-brand-green-100 space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-brand-green-300" />
-                    <span>{featuredActivity.date}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-brand-green-300" />
-                    <span>{featuredActivity.location}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Event Story & Highlights */}
-              <div className="lg:col-span-7 p-8 sm:p-10 flex flex-col justify-between bg-white">
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-green-50 text-brand-green-700 border border-brand-green-200">
-                      {featuredActivity.category}
-                    </span>
-                    {featuredActivity.attendees && (
-                      <span className="text-xs font-semibold text-gray-500 flex items-center gap-1">
-                        <Users className="w-3.5 h-3.5 text-gray-400" />
-                        {featuredActivity.attendees}
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-6">
-                    {featuredActivity.description}
-                  </p>
-
-                  {/* Highlights Bullet Points */}
-                  {featuredActivity.highlights && (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-                      {featuredActivity.highlights.map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="bg-brand-surface p-3 rounded-xl border border-gray-100 text-xs font-semibold text-brand-black"
-                        >
-                          <span className="text-brand-green-600 font-bold mr-1.5">✓</span>
-                          {item}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-xs text-gray-500">
-                    Organized by: <strong className="text-brand-black">{featuredActivity.organizer}</strong>
-                  </span>
-                  <button
-                    onClick={() => setSelectedActivity(featuredActivity)}
-                    className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 shadow-sm transition-colors flex items-center gap-2"
-                  >
-                    <span>View Event Story</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* =========================================================================
-          FILTER BAR & SEARCH
-         ========================================================================= */}
-      <section className="py-8 bg-white border-b border-gray-100 sticky top-16 z-20 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Search Box */}
-            <div className="w-full md:w-80 relative">
-              <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                placeholder="Search events, venues, topics..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-brand-surface border border-gray-200 rounded-xl text-xs text-brand-black focus:outline-none focus:border-brand-green-600 focus:bg-white transition-colors"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
-
-            {/* Category Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 w-full md:w-auto">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    selectedCategory === cat
-                      ? 'bg-brand-green-600 text-white shadow-sm'
-                      : 'bg-brand-surface text-gray-600 hover:bg-gray-100 border border-gray-200/80'
-                  }`}
-                >
-                  {cat === 'All' ? 'All Activities' : cat}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          CAMPUS ACTIVITIES DIRECTORY GRID
-         ========================================================================= */}
-      <section className="py-16 bg-brand-surface relative overflow-hidden">
+      <section className="py-12 bg-brand-surface flex-1 relative overflow-hidden">
         <IslamicPattern opacity={0.03} variant="dual" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-green-700">
-                Official Chapter Timeline
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-brand-black mt-0.5">
-                {selectedCategory === 'All' ? 'All Campus Activities' : selectedCategory}
-              </h2>
-            </div>
-            <span className="text-xs font-semibold text-gray-500">
-              Showing {filteredActivities.length} {filteredActivities.length === 1 ? 'event' : 'events'}
-            </span>
-          </div>
+          {/* Top Bar with Search & Counter (when activities exist) */}
+          {activities.length > 0 && (
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+              <div>
+                <h2 className="text-xl sm:text-2xl font-black text-brand-black">Published Activities</h2>
+                <p className="text-xs text-gray-500">
+                  Showing {filteredActivities.length} {filteredActivities.length === 1 ? 'event' : 'events'}
+                </p>
+              </div>
 
-          {filteredActivities.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="relative w-full sm:w-72">
+                <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search events or venues..."
+                  className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-xl text-xs sm:text-sm text-brand-black placeholder-gray-400 focus:outline-none focus:border-brand-green-600 transition-colors shadow-xs"
+                />
+              </div>
+            </div>
+          )}
+
+          {isLoading ? (
+            /* Loading State */
+            <div className="py-24 flex flex-col items-center justify-center gap-3">
+              <RefreshCw className="w-8 h-8 text-brand-green-600 animate-spin" />
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                Loading Campus Activities...
+              </p>
+            </div>
+          ) : filteredActivities.length > 0 ? (
+            /* Activities Grid */
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {filteredActivities.map((act) => (
                 <div
                   key={act.id}
                   className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group"
                 >
                   <div>
-                    {/* Visual Card Banner */}
-                    <div className="h-44 bg-gradient-to-tr from-brand-green-800 to-brand-green-950 p-6 flex flex-col justify-between relative overflow-hidden text-white">
-                      <IslamicPattern opacity={0.15} variant="green" />
-                      <div className="relative z-10 flex items-center justify-between gap-2">
-                        <span
-                          className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
-                            act.badgeColor === 'red'
-                              ? 'bg-brand-red-600/90 text-white'
-                              : 'bg-white/20 text-white backdrop-blur-sm'
-                          }`}
-                        >
+                    {/* Event Image Banner / Cover */}
+                    <div
+                      onClick={() => openActivityModal(act, 0)}
+                      className="h-52 relative overflow-hidden text-white cursor-pointer group/img bg-brand-black"
+                    >
+                      {act.images && act.images.length > 0 ? (
+                        <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={act.images[0]}
+                            alt={act.title}
+                            className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                          <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold flex items-center gap-1.5 shadow-sm">
+                            <ImageIcon className="w-3.5 h-3.5 text-brand-green-400" />
+                            <span>{act.images.length} {act.images.length === 1 ? 'Photo' : 'Photos'}</span>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="h-full bg-gradient-to-tr from-brand-green-900 to-brand-green-950 p-6 flex flex-col justify-between relative">
+                          <IslamicPattern opacity={0.15} variant="green" />
+                        </div>
+                      )}
+
+                      <div className="absolute top-3 left-3 z-10">
+                        <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-brand-green-700/90 text-white backdrop-blur-sm">
                           {act.category}
                         </span>
-                        {act.attendees && (
-                          <span className="text-[11px] font-semibold bg-black/30 px-2.5 py-0.5 rounded-full text-brand-green-100">
-                            {act.attendees}
-                          </span>
-                        )}
                       </div>
 
-                      <div className="relative z-10">
-                        <h4 className="text-lg font-bold leading-snug group-hover:text-brand-green-200 transition-colors line-clamp-2">
+                      <div className="absolute bottom-3 left-3 right-3 z-10">
+                        <h4 className="text-base font-bold leading-snug text-white drop-shadow group-hover:text-brand-green-200 transition-colors line-clamp-2">
                           {act.title}
                         </h4>
                       </div>
@@ -287,21 +231,38 @@ export default function CampusActivitiesPage() {
                         </div>
                       </div>
 
-                      <p className="text-xs text-gray-600 leading-relaxed line-clamp-3 mb-5">
+                      <p className="text-xs text-gray-600 leading-relaxed line-clamp-3 mb-4">
                         {act.description}
                       </p>
 
-                      {/* Highlights Pill */}
-                      {act.highlights && act.highlights.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mb-2">
-                          {act.highlights.slice(0, 2).map((h, i) => (
-                            <span
-                              key={i}
-                              className="text-[10px] font-semibold bg-gray-50 text-gray-600 px-2 py-0.5 rounded border border-gray-100"
+                      {/* Photo Thumbnails Strip (up to 4 thumbnails preview) */}
+                      {act.images && act.images.length > 1 && (
+                        <div className="flex items-center gap-2 mb-2">
+                          {act.images.slice(0, 4).map((imgUrl, idx) => (
+                            <button
+                              key={idx}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openActivityModal(act, idx);
+                              }}
+                              className="relative w-12 h-12 rounded-lg overflow-hidden border border-gray-200 hover:border-brand-green-600 hover:scale-105 transition-transform"
                             >
-                              • {h}
-                            </span>
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={imgUrl}
+                                alt={`Thumbnail ${idx + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            </button>
                           ))}
+                          {act.images.length > 4 && (
+                            <button
+                              onClick={() => openActivityModal(act, 4)}
+                              className="w-12 h-12 rounded-lg bg-gray-100 border border-gray-200 text-gray-700 text-[11px] font-bold flex items-center justify-center hover:bg-gray-200"
+                            >
+                              +{act.images.length - 4}
+                            </button>
+                          )}
                         </div>
                       )}
                     </div>
@@ -310,10 +271,10 @@ export default function CampusActivitiesPage() {
                   {/* Card Action Footer */}
                   <div className="p-6 pt-0">
                     <button
-                      onClick={() => setSelectedActivity(act)}
+                      onClick={() => openActivityModal(act, 0)}
                       className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider text-brand-green-700 bg-brand-green-50 hover:bg-brand-green-100 border border-brand-green-200 transition-colors flex items-center justify-center gap-1.5"
                     >
-                      <span>Read Event Report & Photos</span>
+                      <span>View Photos & Details</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -321,169 +282,225 @@ export default function CampusActivitiesPage() {
               ))}
             </div>
           ) : (
-            /* Empty State */
-            <div className="text-center py-16 px-4 bg-white rounded-2xl border border-gray-100 max-w-lg mx-auto shadow-sm">
-              <div className="w-12 h-12 mx-auto rounded-full bg-brand-green-50 flex items-center justify-center text-brand-green-600 mb-3">
-                <Search className="w-6 h-6" />
+            /* ===================================================================
+                CLEAN, INVITING EMPTY STATE
+               =================================================================== */
+            <div className="max-w-xl mx-auto bg-white rounded-3xl border border-gray-200 shadow-xl p-8 sm:p-12 text-center relative overflow-hidden">
+              <IslamicPattern opacity={0.06} variant="dual" />
+
+              <div className="relative z-10">
+                <div className="w-16 h-16 mx-auto rounded-2xl bg-brand-green-50 border border-brand-green-200 flex items-center justify-center text-brand-green-600 mb-4">
+                  <Calendar className="w-8 h-8" />
+                </div>
+
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-green-50 text-brand-green-800 text-xs font-bold uppercase tracking-wider mb-3">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Session 2025–2026 Activities</span>
+                </div>
+
+                <h3 className="text-2xl font-black text-brand-black">
+                  No Campus Activities Published Yet
+                </h3>
+
+                <p className="mt-2 text-xs sm:text-sm text-gray-600 leading-relaxed max-w-md mx-auto">
+                  Our UAF chapter is preparing upcoming conventions, Seerah study circles, and blood donation drives. Subscribe below to be notified by email the moment our first event is published!
+                </p>
+
+                {/* Newsletter Subscription Box */}
+                <div className="mt-6 p-5 bg-brand-surface rounded-2xl border border-gray-200 text-left">
+                  <div className="flex items-center gap-2 mb-2 text-brand-green-800 font-bold text-xs uppercase tracking-wider">
+                    <Send className="w-3.5 h-3.5" />
+                    <span>Get Email Alerts</span>
+                  </div>
+
+                  {subscribeStatus === 'success' ? (
+                    <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                      <span>{subscribeMsg}</span>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubscribe} className="space-y-2">
+                      <input
+                        type="email"
+                        required
+                        value={subscribeEmail}
+                        onChange={(e) => setSubscribeEmail(e.target.value)}
+                        placeholder="Enter your student or university email"
+                        className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-xl text-xs text-brand-black placeholder-gray-400 focus:outline-none focus:border-brand-green-600"
+                      />
+                      {subscribeStatus === 'error' && (
+                        <p className="text-[11px] text-red-600 font-medium">{subscribeMsg}</p>
+                      )}
+                      <button
+                        type="submit"
+                        disabled={subscribing}
+                        className="w-full py-2.5 bg-brand-green-600 hover:bg-brand-green-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 disabled:opacity-70"
+                      >
+                        {subscribing ? (
+                          <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                        ) : (
+                          <Send className="w-3.5 h-3.5" />
+                        )}
+                        <span>Subscribe for Event Notifications</span>
+                      </button>
+                    </form>
+                  )}
+                </div>
               </div>
-              <h3 className="text-base font-bold text-brand-black">No Activities Found</h3>
-              <p className="text-xs text-gray-500 mt-1">
-                No campus activities matched your search filter &apos;{searchQuery || selectedCategory}&apos;.
-              </p>
-              <button
-                onClick={() => {
-                  setSelectedCategory('All');
-                  setSearchQuery('');
-                }}
-                className="mt-4 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 transition-colors"
-              >
-                Reset Filters
-              </button>
             </div>
           )}
         </div>
       </section>
 
       {/* =========================================================================
-          SUBMIT EVENT PHOTOS & COVERAGE CALLOUT
-         ========================================================================= */}
-      <section className="py-16 bg-white border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-brand-green-900 to-brand-green-950 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
-            <IslamicPattern opacity={0.12} variant="green" />
-
-            <div className="relative z-10 max-w-xl">
-              <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-[10px] font-bold uppercase tracking-wider mb-3">
-                Media & Chapter Publicity Wing
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight">
-                Have Photos or an Event to Add?
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-200 mt-2 leading-relaxed">
-                If you have event photographs, videos, or want to coordinate a student study halaqah or blood donation camp in your hostel or department, contact the UAF Press Secretary.
-              </p>
-            </div>
-
-            <div className="relative z-10 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-              <Link
-                href="/contact"
-                className="px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-brand-green-900 bg-white hover:bg-gray-100 shadow transition-colors text-center"
-              >
-                Send Event Photos
-              </Link>
-              <Link
-                href="/careers"
-                className="px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-brand-green-700 hover:bg-brand-green-600 border border-white/20 transition-colors text-center"
-              >
-                Voluntarily Join ATI
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          FULL ACTIVITY DETAIL MODAL
+          INTERACTIVE PHOTO GALLERY LIGHTBOX MODAL (UP TO 5 PHOTOS)
          ========================================================================= */}
       {selectedActivity && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-3xl border border-gray-100 shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
-            {/* Header Cover */}
-            <div className="bg-gradient-to-r from-brand-green-900 to-brand-green-950 p-6 sm:p-8 text-white relative">
-              <button
-                onClick={() => setSelectedActivity(null)}
-                className="absolute right-4 top-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+          <div className="bg-white rounded-3xl border border-gray-100 shadow-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedActivity(null)}
+              className="absolute right-4 top-4 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-colors shadow-lg"
+              title="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
-              <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 mb-3">
-                {selectedActivity.category}
-              </span>
+            {/* Photo Gallery Viewer */}
+            {selectedActivity.images && selectedActivity.images.length > 0 ? (
+              <div className="relative bg-black">
+                {/* Main Large Image Display */}
+                <div className="relative h-72 sm:h-96 w-full flex items-center justify-center bg-black overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={selectedActivity.images[activeImageIdx]}
+                    alt={`${selectedActivity.title} - photo ${activeImageIdx + 1}`}
+                    className="max-h-full max-w-full object-contain"
+                  />
 
-              <h3 className="text-xl sm:text-2xl font-black leading-snug">
-                {selectedActivity.title}
-              </h3>
+                  {/* Previous Button */}
+                  {selectedActivity.images.length > 1 && (
+                    <button
+                      onClick={() =>
+                        setActiveImageIdx((prev) =>
+                          prev === 0 ? selectedActivity.images.length - 1 : prev - 1
+                        )
+                      }
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-colors shadow"
+                      title="Previous photo"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                  )}
 
-              <div className="mt-4 pt-4 border-t border-white/15 flex flex-wrap gap-4 text-xs text-brand-green-100">
-                <div className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-brand-green-300" />
-                  <span>{selectedActivity.date}</span>
+                  {/* Next Button */}
+                  {selectedActivity.images.length > 1 && (
+                    <button
+                      onClick={() =>
+                        setActiveImageIdx((prev) =>
+                          prev === selectedActivity.images.length - 1 ? 0 : prev + 1
+                        )
+                      }
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-colors shadow"
+                      title="Next photo"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  )}
+
+                  {/* Image Counter Indicator */}
+                  <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-black/70 text-white text-xs font-bold backdrop-blur-sm">
+                    Photo {activeImageIdx + 1} of {selectedActivity.images.length}
+                  </div>
                 </div>
-                {selectedActivity.time && (
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-brand-green-300" />
-                    <span>{selectedActivity.time}</span>
+
+                {/* Thumbnail Strip (Click to switch directly between images) */}
+                {selectedActivity.images.length > 1 && (
+                  <div className="bg-gray-900 p-3 flex items-center justify-center gap-2 overflow-x-auto">
+                    {selectedActivity.images.map((imgUrl, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveImageIdx(idx)}
+                        className={`relative w-16 h-12 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${
+                          activeImageIdx === idx
+                            ? 'border-brand-green-500 scale-105'
+                            : 'border-transparent opacity-60 hover:opacity-100'
+                        }`}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={imgUrl}
+                          alt={`Thumbnail ${idx + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    ))}
                   </div>
                 )}
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-brand-green-300" />
-                  <span>{selectedActivity.location}</span>
-                </div>
               </div>
-            </div>
+            ) : (
+              <div className="bg-gradient-to-r from-brand-green-900 to-brand-green-950 p-6 sm:p-8 text-white relative">
+                <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 mb-3">
+                  {selectedActivity.category}
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black leading-snug">
+                  {selectedActivity.title}
+                </h3>
+              </div>
+            )}
 
             {/* Modal Body */}
-            <div className="p-6 sm:p-8 space-y-6">
-              {/* Event Overview */}
+            <div className="p-6 sm:p-8 space-y-5">
               <div>
+                <span className="inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-brand-green-50 text-brand-green-800 border border-brand-green-200 mb-2">
+                  {selectedActivity.category}
+                </span>
+
+                <h3 className="text-xl sm:text-2xl font-black text-brand-black leading-snug">
+                  {selectedActivity.title}
+                </h3>
+
+                {/* Metadata Pills */}
+                <div className="mt-3 pt-3 border-t border-gray-100 flex flex-wrap gap-4 text-xs text-gray-600">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar className="w-4 h-4 text-brand-green-600" />
+                    <span className="font-semibold text-brand-black">{selectedActivity.date}</span>
+                  </div>
+                  {selectedActivity.time && (
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="w-4 h-4 text-brand-green-600" />
+                      <span>{selectedActivity.time}</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4 text-brand-red-600" />
+                    <span>{selectedActivity.location}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Event Description */}
+              <div className="bg-brand-surface p-5 rounded-2xl border border-gray-100">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-brand-green-700 mb-2">
-                  Event Overview
+                  Event Description & Summary
                 </h4>
-                <p className="text-sm text-gray-700 leading-relaxed">
+                <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
                   {selectedActivity.description}
                 </p>
               </div>
 
-              {/* Detailed Story Paragraphs */}
-              {selectedActivity.detailedStory && (
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-brand-green-700 mb-2">
-                    Event Proceedings & Detailed Report
-                  </h4>
-                  <div className="space-y-3">
-                    {selectedActivity.detailedStory.map((para, i) => (
-                      <p key={i} className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                        {para}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Key Highlights */}
-              {selectedActivity.highlights && (
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-brand-green-700 mb-2">
-                    Key Accomplishments & Highlights
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {selectedActivity.highlights.map((h, i) => (
-                      <div
-                        key={i}
-                        className="bg-brand-surface p-3 rounded-xl border border-gray-100 text-xs font-semibold text-brand-black flex items-center gap-2"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-green-600" />
-                        <span>{h}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Organization Metadata */}
+              {/* Organizing Wing */}
               <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-between text-xs text-gray-600">
                 <span>
                   Organizing Wing: <strong className="text-brand-black">{selectedActivity.organizer}</strong>
                 </span>
-                {selectedActivity.attendees && (
-                  <span>
-                    Participation: <strong className="text-brand-green-700">{selectedActivity.attendees}</strong>
-                  </span>
-                )}
+                <span className="text-[11px] text-gray-400">
+                  UAF Chapter
+                </span>
               </div>
 
-              {/* Modal Action Buttons */}
+              {/* Modal Actions */}
               <div className="pt-2 flex items-center justify-end gap-3">
                 <button
                   onClick={() => setSelectedActivity(null)}
@@ -493,9 +510,10 @@ export default function CampusActivitiesPage() {
                 </button>
                 <Link
                   href="/careers"
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 transition-colors"
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 transition-colors flex items-center gap-1.5"
                 >
-                  Join Next Activity
+                  <span>Join Next Event</span>
+                  <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

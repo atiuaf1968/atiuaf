@@ -23,7 +23,7 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
-    { name: 'Campus Activities', href: '/#activities' },
+    { name: 'Campus Activities', href: '/activities' },
     { name: 'Join ATI (Volunteer)', href: '/careers' },
     { name: 'Contact', href: '/contact' },
   ];

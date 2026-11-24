@@ -573,6 +573,16 @@ export default function HomePage() {
               <span className="mt-4 inline-block text-[11px] font-bold text-brand-red-600">100% Student Powered</span>
             </div>
           </div>
+
+          <div className="mt-12 text-center">
+            <Link
+              href="/activities"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-brand-green-600 hover:bg-brand-green-700 shadow-md transition-all group"
+            >
+              <span>Explore All Campus Activities & Event Gallery</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
       </section>
 

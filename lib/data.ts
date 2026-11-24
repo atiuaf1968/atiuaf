@@ -382,3 +382,156 @@ export const FAQS = [
     a: "You can reach us directly on phone / WhatsApp at +92 317 2011968 or 0314 8015678, or email at atiuaf1968@gmail.com. Our volunteers respond promptly to emergency requests."
   }
 ];
+
+export interface CampusActivity {
+  id: string;
+  title: string;
+  slug: string;
+  category:
+    | "Conventions & Gatherings"
+    | "Study Halaqas & Seerah"
+    | "Student Rights & Rallies"
+    | "Blood Drives & Healthcare"
+    | "Book Banks & Academic Relief"
+    | "Workshops & Training";
+  date: string;
+  location: string;
+  time?: string;
+  featured?: boolean;
+  image: string;
+  badgeColor: "green" | "red";
+  description: string;
+  detailedStory?: string[];
+  highlights?: string[];
+  attendees?: string;
+  organizer?: string;
+}
+
+export const CAMPUS_ACTIVITIES: CampusActivity[] = [
+  {
+    id: "act-1",
+    title: "Annual UAF Student Power & Character Convention",
+    slug: "annual-uaf-student-convention",
+    category: "Conventions & Gatherings",
+    date: "November 28, 2026",
+    time: "10:00 AM – 2:00 PM",
+    location: "Main Auditorium, University of Agriculture, Faisalabad",
+    featured: true,
+    image: "/images/activities/convention.jpg",
+    badgeColor: "green",
+    description: "A historic gathering bringing together student delegates, faculty scholars, and hostel representatives from all faculties to deliberate on Islamic character, student welfare, and campus unity.",
+    detailedStory: [
+      "The Annual UAF Student Power Convention serves as the premier annual assembly for Anjuman Talaba-e-Islam at the University of Agriculture, Faisalabad.",
+      "Delegates from Jinnah Hall, Iqbal Hall, Qasim Hall, Sir Syed Hall, and day scholar departments converge to review annual welfare accomplishments, honor exceptional academic achievers, and reaffirm their commitment to the prophetic model of Ishq-e-Mustafa ﷺ.",
+      "Guest scholars and alumni delivered inspirational addresses emphasizing ethical agricultural leadership, research integrity, and student rights defense."
+    ],
+    highlights: ["Over 800+ Students Attended", "Merit Awards Distributed", "Resolution on Hostel Amenities Passed"],
+    attendees: "800+ Students",
+    organizer: "UAF Chapter Executive Body"
+  },
+  {
+    id: "act-2",
+    title: "Noor-e-Ilm Weekly Seerah & Quran Study Halaqa",
+    slug: "noor-e-ilm-study-halaqa",
+    category: "Study Halaqas & Seerah",
+    date: "Every Thursday",
+    time: "After Maghrib Prayer",
+    location: "Jinnah Hall Mosque / Campus Lawns, UAF",
+    featured: true,
+    image: "/images/activities/study-halaqa.jpg",
+    badgeColor: "red",
+    description: "Interactive spiritual and character-building study circles focusing on the Seerah of the Prophet Muhammad ﷺ, Quranic contemplation, and moral responsibilities in scientific education.",
+    detailedStory: [
+      "Noor-e-Ilm study circles provide an authentic, intellectual, and serene environment for students to reflect upon Islamic teachings amid their rigorous academic schedules.",
+      "Each session addresses practical campus challenges—integrity in exams, academic honesty, brotherhood across ethnic lines, and agricultural ethics in service to humanity.",
+      "Students actively engage in Q&A sessions led by senior mentors and faculty advisors."
+    ],
+    highlights: ["Interactive Q&A Sessions", "Character Building Modules", "Weekly Attendance across Hostels"],
+    attendees: "120+ Weekly Scholars",
+    organizer: "Religious Affairs & Dawah Wing"
+  },
+  {
+    id: "act-3",
+    title: "Khoon-e-Hayat Emergency Blood Camp for Thalassemia Patients",
+    slug: "blood-donation-camp-uaf",
+    category: "Blood Drives & Healthcare",
+    date: "November 18, 2026",
+    time: "9:00 AM – 5:00 PM",
+    location: "Jinnah Hall Lawn & Health Center, UAF",
+    featured: false,
+    image: "/images/activities/blood-drive.jpg",
+    badgeColor: "red",
+    description: "Two-day voluntary blood donation drive organized by Khoon-e-Hayat UAF in partnership with Allied Hospital and Faisalabad Thalassemia Care Center.",
+    detailedStory: [
+      "Over 300 pints of verified blood were collected from compassionate UAF students during this two-day intensive humanitarian campaign.",
+      "The collected blood was dedicated to children undergoing regular blood transfusions for Thalassemia major at Allied and DHQ hospitals in Faisalabad.",
+      "A dedicated voluntary donor database was updated to ensure instant 24/7 emergency dispatch for emergency patients."
+    ],
+    highlights: ["310+ Blood Pints Collected", "Allied & DHQ Hospital Collaboration", "24/7 Emergency Registry Expanded"],
+    attendees: "350+ Donors & Volunteers",
+    organizer: "Khoon-e-Hayat UAF Blood Society"
+  },
+  {
+    id: "act-4",
+    title: "Free Semester Textbook Bank & Reference Material Desk",
+    slug: "free-book-bank-distribution",
+    category: "Book Banks & Academic Relief",
+    date: "October 15 – 25, 2026",
+    time: "8:00 AM – 6:00 PM",
+    location: "Bait-ul-Ilm Desk, Jinnah Hall Chapter Office",
+    featured: false,
+    image: "/images/activities/book-bank.jpg",
+    badgeColor: "green",
+    description: "Semester-opening book lending drive providing reference books, laboratory manuals, and solved exam papers free of cost to undergraduate and postgraduate scholars.",
+    detailedStory: [
+      "Bait-ul-Ilm UAF Book Bank ensures no deserving agriculture or sciences student is held back due to expensive textbooks or laboratory manuals.",
+      "Senior students and graduates donate their prior semester reference materials, which are meticulously cataloged and lent out to incoming freshers for the entire semester duration.",
+      "Over 1,200 textbook sets and practical manuals were disbursed during the Fall 2026 orientation."
+    ],
+    highlights: ["1,200+ Books Disbursed", "Zero Fee / Non-Profit Lending", "Covers All Agricultural Faculties"],
+    attendees: "650+ Beneficiary Students",
+    organizer: "Bait-ul-Ilm Academic Guidance Cell"
+  },
+  {
+    id: "act-5",
+    title: "Youth Public Speaking & Parliamentary Debating Workshop",
+    slug: "youth-leadership-debating-workshop",
+    category: "Workshops & Training",
+    date: "October 08, 2026",
+    time: "2:00 PM – 5:30 PM",
+    location: "Faculty of Agriculture Seminar Room, UAF",
+    featured: false,
+    image: "/images/activities/workshop.jpg",
+    badgeColor: "green",
+    description: "Intensive training camp cultivating eloquent declamation skills, logical debate argumentation, and effective presentation techniques for future agricultural leaders.",
+    detailedStory: [
+      "Articulating student issues and Islamic thought with clarity requires disciplined rhetorical training.",
+      "The Qiyadat Youth Leadership Forum organized this hands-on masterclass featuring national debate champions and seasoned declaimers who provided personalized feedback on student speeches.",
+      "Participants competed in simulated parliamentary debate sessions on agricultural innovation and youth policy."
+    ],
+    highlights: ["Interactive Speech Simulations", "Individual Speaking Coaching", "Certificate of Participation"],
+    attendees: "95 Student Delegates",
+    organizer: "Qiyadat Youth Leadership Forum"
+  },
+  {
+    id: "act-6",
+    title: "Campus Dialogue on Hostel Mess Subsidies & Student Welfare",
+    slug: "hostel-welfare-student-dialogue",
+    category: "Student Rights & Rallies",
+    date: "September 24, 2026",
+    time: "4:00 PM – 6:30 PM",
+    location: "Student Union Hall, University of Agriculture, Faisalabad",
+    featured: false,
+    image: "/images/activities/student-rights.jpg",
+    badgeColor: "red",
+    description: "Constructive student representation assembly addressing hostel mess charges, transport bus routes, and library late-hour facilities with administration delegates.",
+    detailedStory: [
+      "True to ATI's 1968 mission for student rights, chapter leaders convened hostel residents from all halls to synthesize student concerns into a formal constructive memorandum.",
+      "Through peaceful and principled dialogue with university authorities, practical solutions were achieved for hostel dining subsidies and evening library extensions.",
+      "The session highlighted ATI's philosophy: permanent solutions through positive, lawful struggle rather than disruption."
+    ],
+    highlights: ["Constructive Memorandum Submitted", "Hostel Mess Relief Achieved", "Peaceful & Positive Representation"],
+    attendees: "400+ Resident Students",
+    organizer: "Student Rights & Welfare Wing"
+  }
+];

@@ -9,6 +9,8 @@ import {
   Award,
   BookOpen,
   HeartHandshake,
+  Heart,
+  Sparkles,
   Scale,
   Calendar,
   CheckCircle2,
@@ -201,6 +203,121 @@ export default function AboutPage() {
                   <span className="text-gray-300">|</span>
                   <span className="text-brand-red-600">Red: Courage & Zeal</span>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          MOTTO, VISION & MISSION
+         ========================================================================= */}
+      <section className="py-20 bg-white relative overflow-hidden border-t border-gray-100">
+        <IslamicPattern opacity={0.04} variant="dual" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <SectionHeading
+            badge="Strategic Foundation"
+            badgeColor="red"
+            title="Our Vision &"
+            highlightText="Mission"
+            highlightColor="green"
+            subtitle="Anchored in Ishq-e-Mustafa ﷺ and resolute advocacy for student rights since 1968."
+          />
+
+          {/* Prominent Motto Showcase Card */}
+          <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-green-50 via-white to-brand-red-50 border-2 border-brand-green-300 shadow-md relative overflow-hidden">
+            <IslamicPattern opacity={0.03} variant="dual" />
+            <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-start sm:items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-brand-green-600 text-white flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <Heart className="w-7 h-7" />
+                </div>
+                <div>
+                  <span className="inline-block text-xs font-black uppercase tracking-widest text-brand-green-800 bg-brand-green-100/80 px-3 py-1 rounded-full border border-brand-green-200 mb-1.5">
+                    Our Official Motto
+                  </span>
+                  <h3 className="text-lg sm:text-2xl font-black text-brand-black italic leading-relaxed">
+                    &ldquo;Awakening the true Islamic spirit among students is impossible without lighting the candle of Ishq-e-Mustafa ﷺ in their hearts.&rdquo;
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
+            {/* Vision Card */}
+            <div className="lg:col-span-5 relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-brand-green-50/80 via-white to-brand-green-50/40 border-2 border-brand-green-200/90 shadow-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-brand-green-600 text-white flex items-center justify-center shadow-md flex-shrink-0">
+                    <Compass className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-brand-green-700">Foundation of Ishq-e-Mustafa ﷺ</span>
+                    <h3 className="text-2xl font-black text-brand-black">Our Vision</h3>
+                  </div>
+                </div>
+
+                <div className="p-4 sm:p-5 rounded-2xl bg-white/90 border border-brand-green-200 mb-6 shadow-sm">
+                  <p className="text-base sm:text-lg font-bold text-brand-black leading-relaxed">
+                    &ldquo;To prepare an awakened, conscious and well-mannered student on the foundation of the Love of Prophet Muhammad ﷺ, who plays a practical role for the glory of Islam, the development of Pakistan and the service of humanity.&rdquo;
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-brand-green-100 flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200 shadow-sm">
+                  Glory of Islam
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200 shadow-sm">
+                  Development of Pakistan
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200 shadow-sm">
+                  Service of Humanity
+                </span>
+              </div>
+            </div>
+
+            {/* Mission Card */}
+            <div className="lg:col-span-7 relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-brand-red-50/80 via-white to-brand-red-50/40 border-2 border-brand-red-200/90 shadow-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-brand-red-600 text-white flex items-center justify-center shadow-md flex-shrink-0">
+                    <Target className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-brand-red-700">Since 1968 Advocacy</span>
+                    <h3 className="text-2xl font-black text-brand-black">Our Mission — Work for Student Rights</h3>
+                  </div>
+                </div>
+
+                <div className="space-y-3.5 text-sm sm:text-base text-gray-700 leading-relaxed">
+                  <p>
+                    <strong className="text-brand-black">Anjuman Talaba-e-Islam has been struggling for the protection of student rights since 1968.</strong> We believe that every student has the full right to quality education, a safe educational environment, and education with dignity and respect.
+                  </p>
+                  <p>
+                    ATI raises its voice against unjust fee increases, admission issues, lack of hostel facilities, irregularities in the examination system, and every injustice faced by students.
+                  </p>
+                  <p>
+                    Through peaceful negotiations with university administration, legal methods, and positive struggle, we get students&apos; problems solved.
+                  </p>
+                  <div className="p-3.5 rounded-xl bg-white/90 border border-brand-red-200 font-semibold text-brand-red-950 text-xs sm:text-sm shadow-sm">
+                    Our aim is not just protest, but a permanent solution to problems, so that no student is deprived of education and every student gets an equal opportunity to move forward.
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-brand-red-100 flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-red-800 border border-brand-red-200 shadow-sm">
+                  Quality Education with Dignity
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-red-800 border border-brand-red-200 shadow-sm">
+                  Peaceful Negotiations & Legal Methods
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-red-800 border border-brand-red-200 shadow-sm">
+                  Permanent Problem Solving
+                </span>
               </div>
             </div>
           </div>

@@ -45,7 +45,7 @@ export interface CareerOpportunity {
 export const SITE_METADATA = {
   name: "ATI UAF — Anjuman Talaba-e-Islam",
   legalName: "Anjuman Talaba-e-Islam (UAF Chapter)",
-  slogan: "Love of Prophet Muhammad (Durood) • Non-Political Student Association • Faith • Learning",
+  slogan: "Awakening the true Islamic spirit among students is impossible without lighting the candle of Ishq-e-Mustafa ﷺ in their hearts.",
   description: "Official website of Anjuman Talaba-e-Islam UAF, the esteemed Non-Political Student Association of Islam in Pakistan. Established since 1968 at the University of Agriculture, Faisalabad.",
   primaryGreen: "#087A43",
   primaryRed: "#C62828",
@@ -61,6 +61,21 @@ export const SITE_METADATA = {
     youtube: "https://youtube.com/@atiuaf1968",
     whatsapp: "https://wa.me/923172011968"
   }
+};
+
+export const OFFICIAL_MOTTO = "Awakening the true Islamic spirit among students is impossible without lighting the candle of Ishq-e-Mustafa ﷺ in their hearts.";
+
+export const OFFICIAL_VISION = "To prepare an awakened, conscious and well-mannered student on the foundation of the Love of Prophet Muhammad ﷺ, who plays a practical role for the glory of Islam, the development of Pakistan and the service of humanity.";
+
+export const OFFICIAL_MISSION = {
+  title: "Work for Student Rights",
+  tagline: "Struggling for the protection of student rights since 1968",
+  paragraphs: [
+    "Anjuman Talaba-e-Islam has been struggling for the protection of student rights since 1968. We believe that every student has the full right to quality education, a safe educational environment, and education with dignity and respect.",
+    "ATI raises its voice against unjust fee increases, admission issues, lack of hostel facilities, irregularities in the examination system, and every injustice faced by students.",
+    "Through peaceful negotiations with university administration, legal methods, and positive struggle, we get students' problems solved.",
+    "Our aim is not just protest, but a permanent solution to problems, so that no student is deprived of education and every student gets an equal opportunity to move forward."
+  ]
 };
 
 export const CORE_OBJECTIVES = [

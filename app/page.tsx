@@ -62,6 +62,21 @@ export default function HomePage() {
                 Welcome to the official website of <strong className="text-brand-black font-extrabold">Anjuman Talaba-e-Islam UAF</strong>, the esteemed Non-Political Student Association of Islam in Pakistan! We are delighted to have you here and share the rich tapestry of opportunities and resources our organization offers students.
               </p>
 
+              {/* Official Motto Callout */}
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-brand-green-50/90 via-white to-brand-red-50/90 border-2 border-brand-green-200 shadow-sm text-left">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-brand-green-600 text-white flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-brand-green-800">Our Official Motto</span>
+                    <p className="text-xs sm:text-sm font-bold text-brand-black italic leading-snug mt-0.5">
+                      &ldquo;Awakening the true Islamic spirit among students is impossible without lighting the candle of Ishq-e-Mustafa ﷺ in their hearts.&rdquo;
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Call to Action Buttons: Green Primary & Red Secondary */}
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <Link
@@ -327,60 +342,104 @@ export default function HomePage() {
             title="Our Vision &"
             highlightText="Mission"
             highlightColor="green"
-            subtitle="Anchored in prophetic wisdom and forward-looking action to build a just, learned, and united society."
+            subtitle="Anchored in Ishq-e-Mustafa ﷺ and resolute advocacy for student rights since 1968."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-            {/* Vision Card - Green Accent */}
-            <div className="relative p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-brand-green-50/70 via-white to-brand-green-50/30 border-2 border-brand-green-200/80 shadow-md">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-brand-green-600 text-white flex items-center justify-center shadow-md">
-                  <Compass className="w-6 h-6" />
+          {/* Prominent Motto Showcase Card */}
+          <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-green-50 via-white to-brand-red-50 border-2 border-brand-green-300 shadow-md relative overflow-hidden">
+            <IslamicPattern opacity={0.03} variant="dual" />
+            <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-start sm:items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-brand-green-600 text-white flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <Heart className="w-7 h-7" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-green-700">Strategic Horizon</span>
-                  <h3 className="text-2xl font-black text-brand-black">Our Vision</h3>
+                  <span className="inline-block text-xs font-black uppercase tracking-widest text-brand-green-800 bg-brand-green-100/80 px-3 py-1 rounded-full border border-brand-green-200 mb-1.5">
+                    Our Official Motto
+                  </span>
+                  <h3 className="text-lg sm:text-2xl font-black text-brand-black italic leading-relaxed">
+                    &ldquo;Awakening the true Islamic spirit among students is impossible without lighting the candle of Ishq-e-Mustafa ﷺ in their hearts.&rdquo;
+                  </h3>
                 </div>
               </div>
-              <p className="text-base text-gray-700 leading-relaxed">
-                To realize a vibrant generation of educated, morally upright, and intellectually formidable Muslim youth who lead academic progress, champion social equity, and serve as beacons of unity and prophetic character in Pakistan and the global Islamic community.
-              </p>
-              <div className="mt-6 pt-6 border-t border-brand-green-100 flex flex-wrap gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200">
-                  Moral Excellence
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
+            {/* Vision Card - Green Accent (5 Cols) */}
+            <div className="lg:col-span-5 relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-brand-green-50/80 via-white to-brand-green-50/40 border-2 border-brand-green-200/90 shadow-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-brand-green-600 text-white flex items-center justify-center shadow-md flex-shrink-0">
+                    <Compass className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-brand-green-700">Foundation of Ishq-e-Mustafa ﷺ</span>
+                    <h3 className="text-2xl font-black text-brand-black">Our Vision</h3>
+                  </div>
+                </div>
+
+                <div className="p-4 sm:p-5 rounded-2xl bg-white/90 border border-brand-green-200 mb-6 shadow-sm">
+                  <p className="text-base sm:text-lg font-bold text-brand-black leading-relaxed">
+                    &ldquo;To prepare an awakened, conscious and well-mannered student on the foundation of the Love of Prophet Muhammad ﷺ, who plays a practical role for the glory of Islam, the development of Pakistan and the service of humanity.&rdquo;
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-brand-green-100 flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200 shadow-sm">
+                  Glory of Islam
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200">
-                  Academic Preeminence
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200 shadow-sm">
+                  Development of Pakistan
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200">
-                  Social Justice
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200 shadow-sm">
+                  Service of Humanity
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-green-800 border border-brand-green-200 shadow-sm">
+                  Awakened & Conscious Youth
                 </span>
               </div>
             </div>
 
-            {/* Mission Card - Red Accent */}
-            <div className="relative p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-brand-red-50/70 via-white to-brand-red-50/30 border-2 border-brand-red-200/80 shadow-md">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-brand-red-600 text-white flex items-center justify-center shadow-md">
-                  <Target className="w-6 h-6" />
+            {/* Mission Card - Red Accent (7 Cols) */}
+            <div className="lg:col-span-7 relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-brand-red-50/80 via-white to-brand-red-50/40 border-2 border-brand-red-200/90 shadow-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-brand-red-600 text-white flex items-center justify-center shadow-md flex-shrink-0">
+                    <Target className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-brand-red-700">Since 1968 Advocacy</span>
+                    <h3 className="text-2xl font-black text-brand-black">Our Mission — Work for Student Rights</h3>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-red-700">Daily Commitment</span>
-                  <h3 className="text-2xl font-black text-brand-black">Our Mission</h3>
+
+                <div className="space-y-3.5 text-sm sm:text-base text-gray-700 leading-relaxed">
+                  <p>
+                    <strong className="text-brand-black">Anjuman Talaba-e-Islam has been struggling for the protection of student rights since 1968.</strong> We believe that every student has the full right to quality education, a safe educational environment, and education with dignity and respect.
+                  </p>
+                  <p>
+                    ATI raises its voice against unjust fee increases, admission issues, lack of hostel facilities, irregularities in the examination system, and every injustice faced by students.
+                  </p>
+                  <p>
+                    Through peaceful negotiations with university administration, legal methods, and positive struggle, we get students&apos; problems solved.
+                  </p>
+                  <div className="p-3.5 rounded-xl bg-white/90 border border-brand-red-200 font-semibold text-brand-red-950 text-xs sm:text-sm shadow-sm">
+                    Our aim is not just protest, but a permanent solution to problems, so that no student is deprived of education and every student gets an equal opportunity to move forward.
+                  </div>
                 </div>
               </div>
-              <p className="text-base text-gray-700 leading-relaxed">
-                To mobilize, mentor, and defend students through structured academic guidance, interest-free welfare funds, ethical leadership incubators, and fearless advocacy for student rights, while instilling timeless Islamic spiritual teachings in educational halls.
-              </p>
+
               <div className="mt-6 pt-6 border-t border-brand-red-100 flex flex-wrap gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-red-800 border border-brand-red-200">
-                  Student Rights Defense
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-red-800 border border-brand-red-200 shadow-sm">
+                  Quality Education with Dignity
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-red-800 border border-brand-red-200">
-                  Bait-ul-Ilm Grants
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-red-800 border border-brand-red-200 shadow-sm">
+                  Peaceful Negotiations & Legal Methods
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-red-800 border border-brand-red-200">
-                  Ethical Leadership
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-brand-red-800 border border-brand-red-200 shadow-sm">
+                  Permanent Problem Solving
                 </span>
               </div>
             </div>

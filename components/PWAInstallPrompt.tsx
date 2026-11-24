@@ -18,10 +18,11 @@ export const PWAInstallPrompt: React.FC = () => {
   const [showIOSGuide, setShowIOSGuide] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isAdmin, setIsAdmin] = useState(true); // Default to true so it NEVER flashes or appears on admin panel
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    // Check if current context is the admin portal
+    // 1. Check if current context is the admin portal
     if (typeof window !== 'undefined') {
       const isCurrentAdmin =
         window.location.hostname.startsWith('admin.') ||
@@ -35,19 +36,26 @@ export const PWAInstallPrompt: React.FC = () => {
         return; // Strict early return: never register or show PWA on admin
       }
       setIsAdmin(false);
-    }
 
-    // 1. Register Service Worker on main public site only
-    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-          .register('/sw.js')
-          .catch((err) => console.log('Service Worker registration skipped:', err));
-      });
-    }
+      // 2. Strict Mobile Only Check: NEVER show install prompt on desktop computers
+      const userAgent = navigator.userAgent || '';
+      const isMobile =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) ||
+        (window.innerWidth <= 768 && 'ontouchstart' in window);
 
-    // 2. Check if already installed / standalone
-    if (typeof window !== 'undefined') {
+      if (!isMobile) {
+        setIsMobileDevice(false);
+        return; // Desktop: do not show install prompt
+      }
+      setIsMobileDevice(true);
+
+      // 3. Only show once per site open / session (DO NOT show on refresh or page switches)
+      const shownInSession = sessionStorage.getItem('atiuaf_pwa_session_shown');
+      if (shownInSession === 'true') {
+        return; // Already presented during this site open session
+      }
+
+      // 4. Check if already installed / standalone
       const isStandalone =
         window.matchMedia('(display-mode: standalone)').matches ||
         (window.navigator as unknown as { standalone?: boolean }).standalone === true;
@@ -57,27 +65,43 @@ export const PWAInstallPrompt: React.FC = () => {
         return;
       }
 
-      // Check if user dismissed recently
+      // 5. Check if user permanently dismissed recently
       const dismissedTime = localStorage.getItem('atiuaf_pwa_dismissed');
-      if (dismissedTime && Date.now() - parseInt(dismissedTime, 10) < 24 * 60 * 60 * 1000) {
+      if (dismissedTime && Date.now() - parseInt(dismissedTime, 10) < 7 * 24 * 60 * 60 * 1000) {
         setIsDismissed(true);
+        return;
       }
 
-      // Detect iOS Safari
-      const userAgent = window.navigator.userAgent.toLowerCase();
-      const isIPhoneOrIPad = /iphone|ipad|ipod/.test(userAgent);
-      const isSafari = /safari/.test(userAgent) && !/chrome|crios|firefox|fxios/.test(userAgent);
+      // 6. Detect iOS Safari
+      const isIPhoneOrIPad = /iphone|ipad|ipod/.test(userAgent.toLowerCase());
+      const isSafari = /safari/.test(userAgent.toLowerCase()) && !/chrome|crios|firefox|fxios/.test(userAgent.toLowerCase());
       if (isIPhoneOrIPad && isSafari && !isStandalone) {
         setIsIOS(true);
+        sessionStorage.setItem('atiuaf_pwa_session_shown', 'true');
         setIsInstallable(true);
       }
     }
 
-    // 3. Capture beforeinstallprompt (Chrome, Android, Edge, Chromium)
+    // Register Service Worker on main public site
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/sw.js')
+          .catch((err) => console.log('Service Worker registration skipped:', err));
+      });
+    }
+
+    // 7. Capture beforeinstallprompt (Android Chrome, Edge, etc.)
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setIsInstallable(true);
+
+      // Only show if not shown yet this session
+      const shownInSession = sessionStorage.getItem('atiuaf_pwa_session_shown');
+      if (shownInSession !== 'true') {
+        sessionStorage.setItem('atiuaf_pwa_session_shown', 'true');
+        setIsInstallable(true);
+      }
     };
 
     const handleAppInstalled = () => {
@@ -127,8 +151,9 @@ export const PWAInstallPrompt: React.FC = () => {
     }
   };
 
-  // Do not render on admin panel, or if already installed or dismissed
+  // Do not render on desktop, admin panel, or if already installed or dismissed
   if (
+    !isMobileDevice ||
     isAdmin ||
     pathname?.startsWith('/admin') ||
     pathname?.includes('/admin') ||

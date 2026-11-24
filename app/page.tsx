@@ -17,11 +17,14 @@ import {
   Sparkles,
   Target,
   ChevronRight,
-  Share2
+  Share2,
+  Calendar,
+  MapPin,
 } from 'lucide-react';
 import { SectionHeading } from '@/components/SectionHeading';
 import { IslamicPattern } from '@/components/IslamicPattern';
 import { SITE_METADATA } from '@/lib/data';
+import { getActivitiesAsync } from '@/lib/activities';
 
 export const metadata: Metadata = {
   title: 'ATI UAF — Anjuman Talaba-e-Islam | University of Agriculture Faisalabad',
@@ -47,7 +50,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const activities = await getActivitiesAsync();
+  const latestActivities = activities.slice(0, 3);
   return (
     <div className="flex flex-col w-full">
       {/* =========================================================================
@@ -280,54 +285,6 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-
-          {/* 3 Concrete Pillars Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-              <div className="w-12 h-12 rounded-xl bg-brand-green-50 flex items-center justify-center text-brand-green-700 mb-6 group-hover:bg-brand-green-600 group-hover:text-white transition-colors duration-200">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-brand-black mb-3">
-                Uncompromising Islamic Ethics
-              </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Grounding student youth in deep reverence for the Messenger of Allah (PBUH), steadfast moral character, and spiritual contemplation amidst modern societal challenges.
-              </p>
-              <div className="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-xs font-bold text-brand-green-700">
-                <span>Core Islamic Values</span>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-              <div className="w-12 h-12 rounded-xl bg-brand-red-50 flex items-center justify-center text-brand-red-700 mb-6 group-hover:bg-brand-red-600 group-hover:text-white transition-colors duration-200">
-                <GraduationCap className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-brand-black mb-3">
-                Academic & Intellectual Rigor
-              </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Empowering students to lead in STEM, agriculture, sciences, and research through scholarships, study resources, and peer guidance circles.
-              </p>
-              <div className="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-xs font-bold text-brand-red-600">
-                <span>Knowledge & Research</span>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-              <div className="w-12 h-12 rounded-xl bg-brand-green-50 flex items-center justify-center text-brand-green-700 mb-6 group-hover:bg-brand-green-600 group-hover:text-white transition-colors duration-200">
-                <HeartHandshake className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-brand-black mb-3">
-                Student Welfare & Campus Rights
-              </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Standing resolutely alongside students facing unjust fee hikes, hostile administration barriers, hostel shortages, and lack of merit transparency.
-              </p>
-              <div className="mt-4 pt-4 border-t border-gray-50 flex items-center gap-1.5 text-xs font-bold text-brand-green-700">
-                <span>Advocacy & Protection</span>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -461,55 +418,82 @@ export default function HomePage() {
             subtitle="From vibrant university welcome camps to national relief convoys, Student Power is on the ground."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-            {/* Activity 1 */}
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-brand-green-100 text-brand-green-700 flex items-center justify-center mb-4">
-                <BookOpen className="w-5 h-5" />
-              </div>
-              <h4 className="text-base font-bold text-brand-black mb-2">Campus Book Fairs</h4>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Subsidized academic textbook fairs offering up to 50% discount on medical, engineering, and law reference literature.
-              </p>
-              <span className="mt-4 inline-block text-[11px] font-bold text-brand-green-700">45+ Campus Drives</span>
-            </div>
+          {latestActivities.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+              {latestActivities.map((act) => (
+                <div
+                  key={act.id}
+                  className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+                >
+                  <div>
+                    {act.images && act.images.length > 0 ? (
+                      <div className="relative h-48 w-full bg-gray-100 overflow-hidden">
+                        <Image
+                          src={act.images[0]}
+                          alt={act.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-3 left-3 bg-brand-green-700/90 backdrop-blur-sm text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow">
+                          {act.category || 'Campus Event'}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="h-28 w-full bg-gradient-to-r from-brand-green-100/60 to-brand-red-100/40 p-4 flex items-center justify-between">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-brand-green-800 bg-white/80 px-2.5 py-1 rounded-full shadow-sm">
+                          {act.category || 'Campus Event'}
+                        </span>
+                        <Calendar className="w-5 h-5 text-brand-green-600" />
+                      </div>
+                    )}
 
-            {/* Activity 2 */}
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-brand-red-100 text-brand-red-700 flex items-center justify-center mb-4">
-                <Activity className="w-5 h-5" />
-              </div>
-              <h4 className="text-base font-bold text-brand-black mb-2">Emergency Blood Camps</h4>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Rapid emergency student donor mobilizations for hospitals and Thalassemia patients across all provinces.
-              </p>
-              <span className="mt-4 inline-block text-[11px] font-bold text-brand-red-600">24/7 Helpline Active</span>
-            </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 text-xs text-gray-500 mb-2 font-medium">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3.5 h-3.5 text-brand-green-600" />
+                          {act.date}
+                        </span>
+                        {act.location && (
+                          <span className="flex items-center gap-1 truncate">
+                            <MapPin className="w-3.5 h-3.5 text-brand-red-600 flex-shrink-0" />
+                            <span className="truncate">{act.location}</span>
+                          </span>
+                        )}
+                      </div>
 
-            {/* Activity 3 */}
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-brand-green-100 text-brand-green-700 flex items-center justify-center mb-4">
-                <Award className="w-5 h-5" />
-              </div>
-              <h4 className="text-base font-bold text-brand-black mb-2">All-Pakistan Debates</h4>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                National bilingual declamation contests fostering eloquent articulation, parliamentary decorum, and critical inquiry.
-              </p>
-              <span className="mt-4 inline-block text-[11px] font-bold text-brand-green-700">Annual Trophy Series</span>
-            </div>
+                      <h4 className="text-base font-bold text-brand-black mb-2 line-clamp-2 group-hover:text-brand-green-700 transition-colors">
+                        {act.title}
+                      </h4>
 
-            {/* Activity 4 */}
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-xl bg-brand-red-100 text-brand-red-700 flex items-center justify-center mb-4">
-                <HeartHandshake className="w-5 h-5" />
-              </div>
-              <h4 className="text-base font-bold text-brand-black mb-2">Flood & Winter Relief</h4>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Student volunteer teams assembling and distributing ration bags, winter warm packs, and reconstructed school tents.
-              </p>
-              <span className="mt-4 inline-block text-[11px] font-bold text-brand-red-600">100% Student Powered</span>
+                      <p className="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                        {act.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p-6 pt-0">
+                    <Link
+                      href="/activities"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-green-700 hover:text-brand-green-800"
+                    >
+                      <span>View Event Details</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
+          ) : (
+            <div className="mt-12 p-8 rounded-3xl bg-white border border-gray-100 shadow-sm text-center max-w-xl mx-auto">
+              <div className="w-12 h-12 rounded-2xl bg-brand-green-100 text-brand-green-700 flex items-center justify-center mx-auto mb-3">
+                <Calendar className="w-6 h-6" />
+              </div>
+              <h4 className="text-base font-bold text-brand-black">Campus Activities & Drives</h4>
+              <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">
+                Explore upcoming book fairs, voluntary blood camps, declamation contests, and campus relief convoys.
+              </p>
+            </div>
+          )}
 
           <div className="mt-12 text-center">
             <Link

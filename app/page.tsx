@@ -67,7 +67,7 @@ export default async function HomePage() {
       {/* =========================================================================
           1. HERO SECTION
          ========================================================================= */}
-      <section className="relative bg-white pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden border-b border-gray-100">
+      <section className="relative bg-white pt-4 pb-16 sm:pt-6 sm:pb-20 lg:pt-8 lg:pb-24 overflow-hidden border-b border-gray-100">
         {/* Subtle dual-color Islamic geometric lattice */}
         <IslamicPattern opacity={0.05} variant="dual" />
 
@@ -75,17 +75,9 @@ export default async function HomePage() {
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-tr from-brand-green-100/40 via-brand-red-100/30 to-transparent rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              {/* Official Organization Pill */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-brand-green-50 border border-brand-green-200/80 shadow-sm text-xs font-bold text-brand-green-800 tracking-wide uppercase">
-                <span className="w-2 h-2 rounded-full bg-brand-green-600 animate-ping" />
-                <span>ANJUMAN TALABA-E-ISLAM (ATI)</span>
-                <span className="text-gray-300">•</span>
-                <span className="text-brand-red-600 font-extrabold">UAF Chapter (Est. 1968)</span>
-              </div>
-
+            <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left">
               {/* Main Headline */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-brand-black tracking-tight leading-[1.12]">
                 ANJUMAN TALABA-E-ISLAM <br className="hidden sm:inline" />

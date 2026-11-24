@@ -68,11 +68,24 @@ export default async function HomePage() {
           1. HERO SECTION
          ========================================================================= */}
       <section className="relative bg-white pt-4 pb-10 sm:pt-6 sm:pb-12 lg:pt-8 lg:pb-14 overflow-hidden border-b border-gray-100">
+        {/* Blurred Hero Background Image */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <Image
+            src="/images/hero.jpeg"
+            alt="ATI UAF Hero Background"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center filter blur-[4px] sm:blur-[6px] scale-105 opacity-45 sm:opacity-55"
+          />
+          <div className="absolute inset-0 bg-white/60 sm:bg-white/55 backdrop-blur-[1px]" />
+        </div>
+
         {/* Subtle dual-color Islamic geometric lattice */}
-        <IslamicPattern opacity={0.05} variant="dual" />
+        <IslamicPattern opacity={0.03} variant="dual" />
 
         {/* Ambient atmospheric lighting */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-tr from-brand-green-100/40 via-brand-red-100/30 to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-tr from-brand-green-100/30 via-brand-red-100/20 to-transparent rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">

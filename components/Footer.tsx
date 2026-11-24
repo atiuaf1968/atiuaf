@@ -16,6 +16,20 @@ export const Footer: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState('');
   const [socials, setSocials] = useState(SITE_METADATA.socials);
 
+  const [isAdminRoute, setIsAdminRoute] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isSub =
+        window.location.hostname.startsWith('admin.') ||
+        window.location.hostname.includes('admin.atiuaf.com') ||
+        window.location.pathname.startsWith('/admin');
+      if (isSub) {
+        setIsAdminRoute(true);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     fetch('/api/settings')
       .then((res) => res.json())
@@ -27,7 +41,7 @@ export const Footer: React.FC = () => {
       .catch(() => {});
   }, []);
 
-  if (pathname?.startsWith('/admin')) {
+  if (pathname?.startsWith('/admin') || isAdminRoute) {
     return null;
   }
 

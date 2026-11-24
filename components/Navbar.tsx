@@ -20,6 +20,20 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const [isAdminRoute, setIsAdminRoute] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isSub =
+        window.location.hostname.startsWith('admin.') ||
+        window.location.hostname.includes('admin.atiuaf.com') ||
+        window.location.pathname.startsWith('/admin');
+      if (isSub) {
+        setIsAdminRoute(true);
+      }
+    }
+  }, []);
+
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
@@ -28,7 +42,7 @@ export const Navbar: React.FC = () => {
     { name: 'Contact', href: '/contact' },
   ];
 
-  if (pathname?.startsWith('/admin')) {
+  if (pathname?.startsWith('/admin') || isAdminRoute) {
     return null;
   }
 

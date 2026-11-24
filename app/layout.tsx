@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -55,6 +56,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = headers();
+  const isAdmin = headersList.get('x-is-admin') === 'true';
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -84,9 +88,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col bg-brand-surface text-brand-black antialiased font-sans">
-        <Navbar />
+        {!isAdmin && <Navbar />}
         <main className="flex-1">{children}</main>
-        <Footer />
+        {!isAdmin && <Footer />}
       </body>
     </html>
   );

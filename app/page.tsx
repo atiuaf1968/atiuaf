@@ -8,7 +8,6 @@ import {
   Heart,
   Award,
   Activity,
-  Code2,
   ArrowRight,
   ShieldCheck,
   Users,
@@ -26,19 +25,8 @@ import { IslamicPattern } from '@/components/IslamicPattern';
 import {
   SITE_METADATA,
   CORE_OBJECTIVES,
-  PROGRAMS,
   NEWS_ANNOUNCEMENTS
 } from '@/lib/data';
-
-// Icon Map for dynamic lookup
-const iconComponents: Record<string, React.ElementType> = {
-  GraduationCap,
-  BookOpen,
-  HeartHandshake,
-  Award,
-  Activity,
-  Code2,
-};
 
 export default function HomePage() {
   return (
@@ -89,11 +77,11 @@ export default function HomePage() {
                 </Link>
 
                 <Link
-                  href="#programs"
+                  href="#activities"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-sm font-extrabold uppercase tracking-wider text-brand-red-700 bg-brand-red-50 hover:bg-brand-red-100 border-2 border-brand-red-300 shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5"
                 >
                   <Sparkles className="w-4 h-4 text-brand-red-600" />
-                  <span>Explore Initiatives</span>
+                  <span>Campus Activities</span>
                 </Link>
               </div>
 
@@ -465,110 +453,9 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          5. FLAGSHIP PROGRAMS AND INITIATIVES
+          5. STUDENT ACTIVITIES & COMMUNITY ENGAGEMENT
          ========================================================================= */}
-      <section id="programs" className="py-20 bg-white relative overflow-hidden border-t border-gray-100">
-        <IslamicPattern opacity={0.05} variant="dual" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <SectionHeading
-            badge="Nationwide Impact"
-            badgeColor="red"
-            title="Flagship Programs &"
-            highlightText="Initiatives"
-            highlightColor="green"
-            subtitle="Concrete, structured projects operating across Pakistani colleges and universities to transform student lives."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {PROGRAMS.map((prog) => {
-              const Icon = iconComponents[prog.iconName] || BookOpen;
-              const isGreen = prog.badgeColor === 'green';
-
-              return (
-                <div
-                  key={prog.id}
-                  className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between p-7 relative overflow-hidden group hover:-translate-y-1"
-                >
-                  {/* Accent Top Border */}
-                  <div
-                    className={`absolute top-0 left-0 right-0 h-1.5 ${
-                      isGreen ? 'bg-brand-green-600' : 'bg-brand-red-600'
-                    }`}
-                  />
-
-                  <div>
-                    {/* Category & Icon */}
-                    <div className="flex items-center justify-between mb-5">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                          isGreen
-                            ? 'bg-brand-green-50 text-brand-green-700 border border-brand-green-200'
-                            : 'bg-brand-red-50 text-brand-red-700 border border-brand-red-200'
-                        }`}
-                      >
-                        {prog.category}
-                      </span>
-                      <div
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                          isGreen
-                            ? 'bg-brand-green-50 text-brand-green-700'
-                            : 'bg-brand-red-50 text-brand-red-700'
-                        }`}
-                      >
-                        <Icon className="w-5 h-5" />
-                      </div>
-                    </div>
-
-                    <h3 className="text-xl font-bold text-brand-black mb-2 group-hover:text-brand-green-700 transition-colors">
-                      {prog.title}
-                    </h3>
-                    <p className="text-xs font-semibold text-gray-500 mb-3 italic">
-                      &quot;{prog.tagline}&quot;
-                    </p>
-                    <p className="text-sm text-gray-600 leading-relaxed mb-6">
-                      {prog.description}
-                    </p>
-
-                    {/* Features list */}
-                    <ul className="space-y-2 mb-6 text-xs text-gray-700">
-                      {prog.features.map((feat, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle2
-                            className={`w-3.5 h-3.5 flex-shrink-0 mt-0.5 ${
-                              isGreen ? 'text-brand-green-600' : 'text-brand-red-600'
-                            }`}
-                          />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Impact Metric & Action */}
-                  <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs">
-                    <span className="font-bold text-gray-800">{prog.impact}</span>
-                    <Link
-                      href="/contact"
-                      className={`font-extrabold flex items-center gap-1 ${
-                        isGreen ? 'text-brand-green-700 hover:text-brand-green-800' : 'text-brand-red-600 hover:text-brand-red-700'
-                      }`}
-                    >
-                      <span>Participate</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          6. STUDENT ACTIVITIES & COMMUNITY ENGAGEMENT
-         ========================================================================= */}
-      <section className="py-20 bg-brand-surface relative overflow-hidden border-t border-gray-100">
+      <section id="activities" className="py-20 bg-brand-surface relative overflow-hidden border-t border-gray-100">
         <IslamicPattern opacity={0.04} variant="green" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">

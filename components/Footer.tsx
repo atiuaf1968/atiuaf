@@ -173,23 +173,23 @@ export const Footer: React.FC = () => {
           {/* Col 2 */}
           <div>
             <h5 className="text-white font-bold text-xs uppercase tracking-wider border-l-2 border-brand-red-500 pl-2.5 mb-4">
-              Key Initiatives
+              Student Initiatives
             </h5>
             <ul className="space-y-2.5 text-gray-400">
               <li>
-                <Link href="/#programs" className="hover:text-white transition-colors">Talaba Rahnuma Mentorship</Link>
+                <Link href="/about#history" className="hover:text-white transition-colors">Historical Movements</Link>
               </li>
               <li>
-                <Link href="/#programs" className="hover:text-white transition-colors">Bait-ul-Ilm Welfare Fund</Link>
+                <Link href="/about#values" className="hover:text-white transition-colors">Prophetic Model & Ethics</Link>
               </li>
               <li>
-                <Link href="/#programs" className="hover:text-white transition-colors">Noor-e-Ilm Literacy</Link>
+                <Link href="/#activities" className="hover:text-white transition-colors">Campus Activities</Link>
               </li>
               <li>
-                <Link href="/#programs" className="hover:text-white transition-colors">Khoon-e-Hayat Blood Bank</Link>
+                <Link href="/careers" className="hover:text-white transition-colors">Student Welfare & Aid</Link>
               </li>
               <li>
-                <Link href="/#programs" className="hover:text-white transition-colors">Qiyadat Leadership Academy</Link>
+                <Link href="/careers" className="hover:text-white transition-colors">Volunteer Induction</Link>
               </li>
             </ul>
           </div>

@@ -425,19 +425,39 @@ export default function StandaloneAdminPortal() {
     setIsUploading(true);
 
     try {
-      const formData = new FormData();
-      filesToUpload.forEach((f) => formData.append('images', f));
+      const uploadedUrls: string[] = [];
 
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      // Upload each image individually so multiple photos don't exceed serverless body limits
+      for (const file of filesToUpload) {
+        const formData = new FormData();
+        formData.append('files', file);
 
-      const data = await res.json();
-      if (res.ok && data.success && Array.isArray(data.urls)) {
-        setImages((prev) => [...prev, ...data.urls].slice(0, 5));
-      } else {
-        setUploadError(data.error || 'Image upload failed.');
+        const res = await fetch('/api/admin/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const text = await res.text();
+        let data: any = {};
+        try {
+          data = text ? JSON.parse(text) : {};
+        } catch {
+          throw new Error(
+            res.status === 413
+              ? `Image "${file.name}" is too large for server upload (max ~4MB).`
+              : `Upload failed with status ${res.status}.`
+          );
+        }
+
+        if (res.ok && data.success && Array.isArray(data.urls)) {
+          uploadedUrls.push(...data.urls);
+        } else {
+          throw new Error(data.error || `Failed to upload "${file.name}".`);
+        }
+      }
+
+      if (uploadedUrls.length > 0) {
+        setImages((prev) => [...prev, ...uploadedUrls].slice(0, 5));
       }
     } catch (err: any) {
       setUploadError(err?.message || 'Failed to upload images.');

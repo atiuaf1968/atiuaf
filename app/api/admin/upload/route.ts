@@ -12,9 +12,12 @@ export async function POST(req: NextRequest) {
     }
 
     const formData = await req.formData();
-    const files = formData.getAll('files') as File[];
+    const rawFiles = [...formData.getAll('files'), ...formData.getAll('images')];
+    const files = rawFiles.filter(
+      (entry): entry is File => entry instanceof File && entry.size > 0
+    );
 
-    if (!files || files.length === 0) {
+    if (files.length === 0) {
       return NextResponse.json(
         { success: false, error: 'No files provided for upload.' },
         { status: 400 }
@@ -49,23 +52,28 @@ export async function POST(req: NextRequest) {
       // Safe filename
       const ext = path.extname(file.name) || '.jpg';
       const safeName = `activities/${Date.now()}-${Math.random().toString(36).substring(2, 8)}${ext}`;
+      const buffer = Buffer.from(await file.arrayBuffer());
 
       try {
         // Upload to Vercel Blob
-        const blob = await put(safeName, file, {
+        const blob = await put(safeName, buffer, {
           access: 'public',
           token: blobToken,
+          contentType: file.type || undefined,
         });
         uploadedUrls.push(blob.url);
       } catch (blobErr: any) {
-        console.warn('Vercel Blob upload failed, fallback to local file system:', blobErr?.message);
-        // Fallback: write locally to public/images/activities/
+        console.warn('Vercel Blob upload failed:', blobErr?.message);
+        if (process.env.VERCEL) {
+          throw new Error(blobErr?.message || 'Vercel Blob upload failed.');
+        }
+
+        // Local dev fallback: write to public/images/activities/
         const uploadDir = path.join(process.cwd(), 'public/images/activities');
         if (!fs.existsSync(uploadDir)) {
           fs.mkdirSync(uploadDir, { recursive: true });
         }
         const localFileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-        const buffer = Buffer.from(await file.arrayBuffer());
         fs.writeFileSync(path.join(uploadDir, localFileName), buffer);
         uploadedUrls.push(`/images/activities/${localFileName}`);
       }
